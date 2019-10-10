@@ -29,11 +29,12 @@ Page({
       this.setData({
         userInfo
       })
-    })
+    });
+    this.__getCity(); // 获取城市信息
   },
 
   onShow() {
-    this.__getCity(); // 获取城市信息
+    
   },
 
   onHide() {

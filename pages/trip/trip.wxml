@@ -95,7 +95,7 @@
   <view class="page__ft">
     <view class="page__ft-bd">
       <!--navigator class="publish-button" open-type="switchTab" url="/pages/publish/publish">我也发一条</navigator-->
-      <navigator class="share-button" open-type="switchTab" url="/pages/home/home">
+      <navigator class="share-button" open-type="switchTab" url="/pages/trips/trips">
         <image class="share-button-icon" src="/images/icon/back_home.png"></image>
         所有行程
       </navigator>
