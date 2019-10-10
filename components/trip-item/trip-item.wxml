@@ -1,0 +1,41 @@
+<wxs src="../../filter/computedDate.wxs" module="tools" />
+<view class="trip-item" bindtap="toDetail">
+  <view class="trip-item__hd" hidden="{{ isMy }}">
+    <view class="userinfo">
+      <image class="avatar" src="{{ trip.user.avatarUrl ? trip.user.avatarUrl : '/images/icon/da.png' }}" />
+      <view class="credit">
+        <view class="nickname">{{ trip.user.nickName }}</view>
+        <view class="value">信用：{{ trip.credit ? trip.credit : 0 }}</view>
+      </view>
+    </view>
+    <view class="price-info">￥70.5</view>
+  </view>
+  <view class="trip-item__bd">
+    <view class="trip-info">
+      <view class="info-item">
+        <image class="info-item__icon" src="/images/icon/time.png"></image>
+        <view>
+          <block wx:if="{{ tools.compareDate(trip.startTime).isToday }}">今天</block>
+          <block wx:elif="{{ tools.compareDate(trip.startTime).isTomorrow }}">明天</block>
+          <block wx:elif="{{ tools.compareDate(trip.startTime).isAfterTomorrow }}">后天</block>
+          <block wx:else>{{ tools.compareDate(trip.startTime).triplocaldate }}</block>
+          <block>
+            {{ tools.compareDate(trip.startTime).time }} - {{ tools.compareDate(trip.endTime).time }}
+          </block>
+        </view>
+      </view>
+      <view class="info-item" bindtap="bindFromMap">
+        <image class="info-item__icon" src="/images/icon/from.png"></image>
+        <view>{{ trip.fromName }}</view>
+      </view>
+      <view class="info-item" bindtap="bindDestMap">
+        <image class="info-item__icon" src="/images/icon/dest.png"></image>
+        <view>{{ trip.destName }}</view>
+      </view>
+    </view>
+    <view class="seat-info">
+      <image class="info-item__seat-icon" src="/images/icon/person.png"></image>
+      <view>{{ trip.passageCount }}</view>
+    </view>
+  </view>
+</view>

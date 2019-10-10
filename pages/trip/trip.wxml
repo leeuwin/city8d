@@ -1,0 +1,127 @@
+<wxs src="../../filter/computedDate.wxs" module="tools" />
+<view class="page">
+  <map id="myMap" class="my-map" markers="{{markers}}" bindmarkertap="markertap" include-points="{{includePoints}}" polyline="{{polyline}}" show-location="{{ true }}" scale="{{ 11 }}" hidden="{{ showShareDialog }}"></map>
+  <view class="trip-panel">
+    <view class="trip-panel__hd">
+      <text>行程详情（<text class="info-item__red">地图可拖动/缩放，双击可放大</text>）</text>
+    </view>
+    <view class="trip-panel__bd">
+      <view class="trip-item__hd ">
+        <view class="userinfo">
+          <image class="avatar" src="{{ trip.user.avatarUrl ? trip.user.avatarUrl : '/images/icon/da.png' }}" />
+          <view class="credit">
+            <view class="nickname">{{ trip.user.nickName }}</view>
+            <view class="value">信用：{{ trip.credit ? trip.credit : 0 }}</view>
+          </view>
+        </view>
+        <view class="info-item__red">￥70/人</view>
+      </view>
+
+      <view class="trip-detail-box">
+
+        <view class="trip-item__bd trip-item__without-bottom-border">
+          <view class="trip-info">
+            <view class="info-item info-detail-special">
+              <view class="info-item">
+                <image class="info-item__icon" src="/images/icon/person.png"></image>
+                <view>剩余位置：[
+                  <text class="info-item__red">4</text> ]</view>
+              </view>
+              <view class="info-item">
+                <image class="info-item__icon" src="/images/icon/status-wait.png"></image>
+                <view>等待中</view>
+              </view>
+            </view>
+            <view class="info-item info-detail-item info-detail-location">
+              <image class="info-item__icon" src="/images/icon/time.png"></image>
+              <view>
+                <block wx:if="{{ tools.compareDate(trip.startTime).isToday }}">今天</block>
+                <block wx:elif="{{ tools.compareDate(trip.startTime).isTomorrow }}">明天</block>
+                <block wx:elif="{{ tools.compareDate(trip.startTime).isAfterTomorrow }}">后天</block>
+                <block wx:else>{{ tools.compareDate(trip.startTime).triplocaldate }}</block>
+                <block>
+                  {{ tools.compareDate(trip.startTime).time }} - {{ tools.compareDate(trip.endTime).time }}
+                </block>
+              </view>
+            </view>
+            <view class="info-item info-detail-item" bindtap="bindFromMap">
+              <image class="info-item__icon" src="/images/icon/from.png"></image>
+              <view>{{ trip.fromName }}</view>
+            </view>
+            <view class="info-item info-detail-item" bindtap="bindDestMap">
+              <image class="info-item__icon" src="/images/icon/dest.png"></image>
+              <view>途径xxx</view>
+            </view>
+            <view class="info-item info-detail-item info-detail-location" bindtap="bindDestMap">
+              <image class="info-item__icon" src="/images/icon/dest.png"></image>
+              <view>{{ trip.destName }}</view>
+            </view>
+            <view class="info-item info-detail-item" bindtap="bindDestMap">
+              <image class="info-item__icon" src="/images/icon/lugage.png"></image>
+              <view>可带行李量：[
+                <text class="info-item__red">2</text> ]登机箱，[
+                <text class="info-item__red">3</text> ]书包</view>
+            </view>
+            <view class="info-item info-detail-item">
+              <image class="info-item__icon" src="/images/icon/type.png"></image>
+              <view>其他一系列条件。。。</view>
+            </view>
+            <view class="info-item info-detail-item">
+              <image class="info-item__icon" src="/images/icon/type.png"></image>
+              <view>备注{{ trip.remarks }}</view>
+            </view>
+          </view>
+
+        </view>
+
+
+      </view>
+    </view>
+    <view class="trip-panel__ft">
+      <view class="page__ft-bd">
+        <button class="share-button" open-type="">
+          <image class="share-button-icon" src="/images/icon/follow.png"></image>
+          关注公众号
+        </button>
+      </view>
+      <view class="page__ft-bd">
+        <button class="share-button" open-type="share">
+          <image class="share-button-icon" src="/images/icon/forward.png"></image>
+          转发到微信
+        </button>
+      </view>
+    </view>
+  </view>
+  <view class="page__ft">
+    <view class="page__ft-bd">
+      <!--navigator class="publish-button" open-type="switchTab" url="/pages/publish/publish">我也发一条</navigator-->
+      <navigator class="share-button" open-type="switchTab" url="/pages/home/home">
+        <image class="share-button-icon" src="/images/icon/back_home.png"></image>
+        所有行程
+      </navigator>
+    </view>
+    <view class="page__ft-bd">
+      <!--button class="share-button" bindtap="onGetSharePicture">
+        <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
+      <button class="share-button">
+        <image class="share-button-icon" src="/images/icon/call.png"></image>
+        电话联系
+      </button>
+    </view>
+    <view class="page__ft-bd">
+      <!--button class="share-button" bindtap="onGetSharePicture">
+        <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
+      <button class="share-button">
+        <image class="share-button-icon" src="/images/icon/add_trip.png"></image>
+        关注行程
+      </button>
+    </view>
+  </view>
+</view>
+
+<view class="share-dialog-mask" hidden="{{ !showShareDialog }}">
+  <view class="share-dialog">
+    <canvas canvas-id="shareCanvas" class="share-canvas" bindlongpress="saveSharePictrue"></canvas>
+    <image class="close-icon" src="/images/icon/close.png" bindtap="closeShareDialog"></image>
+  </view>
+</view>

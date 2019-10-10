@@ -1,0 +1,56 @@
+<import src="../../template/publish-tips/publish-tips" />
+<view class="page">
+<view class="weui-tab">
+  <view class="page__bd">
+
+      <view class="weui-cells weui-cells_after-title trips-navbar">       
+        <view class="weui-cell" id="from" bindtap="bindChooseLocation">
+          <view class="weui-cell__hd">
+            <image class="publish__icon" src="/images/icon/from.png"></image>
+          </view>
+          <view class="weui-cell__bd placeholder">
+            <picker mode="region">从哪里来</picker>
+          </view>
+          <view class="weui-cell__hd">
+            <image class="publish__icon" src="/images/icon/dest.png"></image>
+          </view>
+          <view class="weui-cell__bd placeholder">
+            <picker mode="region">要去哪里</picker>
+          </view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image class="publish__icon" src="/images/icon/date.png"></image>
+          </view>
+          <view class="weui-cell__bd">
+            <!--picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindPickerChange">
+              <view class="picker {{ trip.date === '出发日期' ? 'placeholder' : '' }}">
+                {{ trip.date }}
+              </view>
+            </picker-->
+            <picker mode="date">出行日期</picker>
+          </view>
+        </view>
+      </view>
+
+
+      <view class="weui-tab__panel trips-tab__panel">
+        <!--view class="weui-tab__content" hidden="{{params.type !== 1}}">
+          <view class="trip-list">
+            <block wx:for="{{ passengerTrips }}" wx:for-item="trip" wx:key="tripCode">
+              <trip-item bind:call="onCall" trip="{{ trip }}"></trip-item>
+            </block>
+          </view>
+        </view-->
+        <view class="weui-tab__content">
+          <view class="trip-list">
+            <block wx:for="{{ driverTrips }}" wx:for-item="trip" wx:key="tripCode">
+              <trip-item bind:call="onCall" trip="{{ trip }}"></trip-item>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--template is="publishTips" wx:if="{{ params.type == 1 && !passengerTrips.length || params.type === 2 && !driverTrips.length }}" /-->
+</view>

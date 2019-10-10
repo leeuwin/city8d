@@ -1,0 +1,10 @@
+{
+  "usingComponents":
+  {
+    "trip-item": "/components/trip-item/trip-item"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#f5f5f5",
+  "backgroundTextStyle": "dark",
+  "navigationBarTitleText": "城八方·顺风车"
+}

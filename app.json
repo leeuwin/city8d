@@ -1,0 +1,70 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/trips/trips",
+    "pages/driver/driver",
+    "pages/integral/integral",
+    "pages/coupon/coupon",
+    "pages/share/share",
+    "pages/mytrip/mytrip",
+    "pages/trip/trip",
+    "pages/realname/realname",
+    "pages/list/list",
+    "pages/phone/phone",
+    "pages/publish/publish",
+    "pages/setting/setting",
+    "pages/my/my",
+    "pages/disclaimer/disclaimer",
+    "pages/car/car"
+  ],
+  "window": {
+    "backgroundColor": "#f5f5f5",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f5f5f5",
+    "navigationBarTitleText": "城八方·顺风车",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "color": "#00b589",
+    "selectedColor": "#fe8faf",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "/images/icon/tab/home.png",
+        "selectedIconPath": "/images/icon/tab/shome.png"
+      },
+      {
+        "pagePath": "pages/trips/trips",
+        "text": "行程",
+        "iconPath": "/images/icon/tab/trip.png",
+        "selectedIconPath": "/images/icon/tab/strip.png"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "text": "发布",
+        "iconPath": "/images/icon/tab/publish.png",
+        "selectedIconPath": "/images/icon/tab/spublish.png"
+      },
+      {
+        "pagePath": "pages/mytrip/mytrip",
+        "text": "任务",
+        "iconPath": "/images/icon/tab/mytrip.png",
+        "selectedIconPath": "/images/icon/tab/smytrip.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "/images/icon/tab/my.png",
+        "selectedIconPath": "/images/icon/tab/smy.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}
