@@ -14,7 +14,7 @@
             <view class="value">信用：{{ trip.credit ? trip.credit : 0 }}</view>
           </view>
         </view>
-        <view class="info-item__red">￥70/人</view>
+        <view class="info-item__red">￥{{trip.price}}/人</view>
       </view>
 
       <view class="trip-detail-box">
@@ -25,7 +25,7 @@
               <view class="info-item">
                 <image class="info-item__icon" src="/images/icon/person.png"></image>
                 <view>剩余位置：[
-                  <text class="info-item__red">4</text> ]</view>
+                  <text class="info-item__red">{{trip.passageCount}}</text> ]</view>
               </view>
               <view class="info-item">
                 <image class="info-item__icon" src="/images/icon/status-wait.png"></image>

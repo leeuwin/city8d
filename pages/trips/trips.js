@@ -16,7 +16,6 @@ Page({
       pageSize: PAGESIZE, // 每页数量
       currentPage: 1, // 当前页
       orderReg: 'start_time ASC', //排序规则,非必填
-      city: '厦门',
     },
     passengerTrips: [], // 车主行程列表
     driverTrips: [], // 乘客行程列表
@@ -139,7 +138,7 @@ Page({
     //wx.setNavigationBarTitle({ title })
     // 按目的地查询
     this.setData({
-      ['params.destCityCode']: code
+      ['params.destCityCode']: code,
     })
     this.getTripsFromServer();
   },

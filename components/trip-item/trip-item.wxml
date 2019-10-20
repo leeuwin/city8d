@@ -8,7 +8,7 @@
         <view class="value">信用：{{ trip.credit ? trip.credit : 0 }}</view>
       </view>
     </view>
-    <view class="price-info">￥70.5</view>
+    <view class="price-info">￥{{trip.price}}</view>
   </view>
   <view class="trip-item__bd">
     <view class="trip-info">
@@ -26,11 +26,11 @@
       </view>
       <view class="info-item" bindtap="bindFromMap">
         <image class="info-item__icon" src="/images/icon/from.png"></image>
-        <view>{{ trip.fromName }}</view>
+        <view>{{ trip.fromAddress }}</view>
       </view>
       <view class="info-item" bindtap="bindDestMap">
         <image class="info-item__icon" src="/images/icon/dest.png"></image>
-        <view>{{ trip.destName }}</view>
+        <view>{{ trip.destAddress }}</view>
       </view>
     </view>
     <view class="seat-info">

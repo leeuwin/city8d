@@ -31,6 +31,7 @@ Page({
       earliestTime: formatTime().time1,
       latestTime: '最晚出发时间'
     },
+    params: { type: 1},
     userInfo: null,
     SEATS,
     tripTypes: Object.values(TRIP_TYPES), // 对象属性值的数组
@@ -41,7 +42,19 @@ Page({
     showTopTips: false,
     errorMsg: ''
   },
-
+  // Tab 切换
+  tabClick: function (e) {
+    const type = e.currentTarget.dataset.type;
+    this.setData({
+      ['params.type']: type
+    });
+    if (type === 1 && this.data.passengerTrips.length === 0) {
+      this.fetchMyTrips();
+    }
+    if (type === 2 && this.data.driverTrips.length === 0) {
+      this.fetchMyTrips();
+    }
+  },
   onLoad() {
   },
 
