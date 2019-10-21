@@ -1,6 +1,6 @@
 // 座位数量
 const SEATS = [1, 2, 3, 4, 5];
-
+const PRICE = [20,30,40,50,55,60,65,70,75,80,85,90,95,100];
 // 人找车
 const TRIP_TYPES = {
   1: {
@@ -127,7 +127,7 @@ const HOT_CITY = [{
     code: '340200',
     name: '龙岩',
     ename: 'wuhu',
-    img_url: 'http://39.100.243.238/image/city/fuzhou2.jpg'
+    img_url: 'http://39.100.243.238/image/city/longyan.jpg'
   }
 ]
 
@@ -167,6 +167,7 @@ const PAGESIZE = 20;
 
 export {
   SEATS,
+  PRICE,
   WEEK,
   TRIP_TYPES,
   SORT_TYPES,

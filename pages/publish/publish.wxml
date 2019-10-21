@@ -3,176 +3,142 @@
     <view class="weui-toptips weui-toptips_warn" wx:if="{{ showTopTips }}">{{ errorMsg }}</view>
     <form bindsubmit="bindFormSubmit">
       <view class="weui-tab">
-      <view class="weui-navbar trips-navbar">
-        <block wx:for="{{ tripTypes }}" wx:key="value">
-          <view data-type="{{ item.value }}" class="weui-navbar__item {{item.value === params.type ? 'weui-navbar__item_on' : ''}}" bindtap="tabClick">
-            {{ item.value === params.type }}
-            <view class="weui-navbar__title">{{ item.label }}</view>
-          </view>
-        </block>
-      </view>
-      <view class="weui-tab__panel trips-tab__panel">
+        <view class="weui-navbar trips-navbar">
+          <block wx:for="{{ tripTypes }}" wx:key="value">
+            <view data-type="{{ item.value }}" class="weui-navbar__item {{item.value === params.type ? 'weui-navbar__item_on' : ''}}" bindtap="tabClick">
+              {{ item.value === params.type }}
+              <view class="weui-navbar__title">{{ item.label }}</view>
+            </view>
+          </block>
+        </view>
+        <view class="weui-tab__panel trips-tab__panel">
 
-        <view class="weui-tab__content" hidden="{{params.type !== 1}}">
-          <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell" id="from" bindtap="bindChooseLocation">
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/from.png"></image>
-          </view>
-          <view class="weui-cell__bd {{ trip.fromName === '从哪里出发' ? 'placeholder' : '' }}">
-            {{ trip.fromName }}
-          </view>
-        </view>
-        <view class="weui-cell" id="dest" bindtap="bindChooseLocation">
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/dest.png"></image>
-          </view>
-          <view class="weui-cell__bd {{ trip.throughName === '经过哪里' ? 'placeholder' : '' }}">
-            {{ trip.throughName }}
-          </view>
-        </view>
-        <view class="weui-cell" id="dest" bindtap="bindChooseLocation">
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/dest.png"></image>
-          </view>
-          <view class="weui-cell__bd {{ trip.destName === '要去哪里' ? 'placeholder' : '' }}">
-            {{ trip.destName }}
-          </view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/person.png"></image>
-          </view>
-          <view class="weui-cell__bd">
-            <picker name="passageCount" value="{{ seatCount }}" range="{{ SEATS }}" bindchange="bindSeatChange">
-              <view class="picker">
-                {{ trip.seatCount }} 座
+          <view class="weui-tab__content" hidden="{{params.type !== 1}}">
+            <view class="weui-cells weui-cells_after-title">
+              <view class="weui-cell" id="from" bindtap="bindChooseLocation">
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/from.png"></image>
+                </view>
+                <view class="weui-cell__bd {{ trip.fromName === '从哪里出发' ? 'placeholder' : '' }}">
+                  {{ trip.fromName }}
+                </view>
               </view>
-            </picker>
-          </view>
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/price.png"></image>
-          </view>
-          <view class="weui-cell__bd">
-            <picker name="passageCount" value="70" range="{{ SEATS }}" bindchange="bindSeatChange">
-              <view class="picker">
-                {{ trip.passageCount }} 元/人
+              <view class="weui-cell" id="through" bindtap="bindChooseLocation">
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/through.png"></image>
+                </view>
+                <view class="weui-cell__bd {{ trip.throughName === '途经地点(选填)' ? 'placeholder' : '' }}">
+                  {{ trip.throughName }}
+                </view>
               </view>
-            </picker>
-          </view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/date.png"></image>
-          </view>
-          <view class="weui-cell__bd">
-            <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindPickerChange">
-              <view class="picker {{ trip.date === '出发日期' ? 'placeholder' : '' }}">
-                {{ trip.date }}
+              <view class="weui-cell" id="dest" bindtap="bindChooseLocation">
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/dest.png"></image>
+                </view>
+                <view class="weui-cell__bd {{ trip.destName === '要去哪里' ? 'placeholder' : '' }}">
+                  {{ trip.destName }}
+                </view>
               </view>
-            </picker>
-          </view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/time.png"></image>
-          </view>
-          <view class="weui-cell__bd">
-            <picker name="earliestTime" mode="time" value="{{ trip.earliestTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerChange">
-              <view class="picker {{ trip.earliestTime === '最早出发时间' ? 'placeholder' : '' }}">
-                {{ trip.earliestTime }}
+              <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/date.png"></image>
+                </view>
+                <view class="weui-cell__bd">
+                  <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindPickerChange">
+                    <view class="picker {{ trip.date === '出发日期' ? 'placeholder' : '' }}">
+                      {{ trip.date }}
+                    </view>
+                  </picker>
+                </view>
               </view>
-            </picker>
-          </view>
-          <image class='publish__icon' src="/images/icon/to-right.png" style="margin: 0 auto;"></image>
-          <view class="weui-cell__bd">
-            <picker name="latestTime" mode="time" value="{{ trip.latestTime }}" start="{{ trip.earliestTime }}" end="22:00" id="latestTime" bindchange="bindPickerChange">
-              <view class="picker {{ trip.latestTime === '最晚出发时间' ? 'placeholder' : '' }}" style="text-align: right;">
-                {{ trip.latestTime }}
+              <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/time.png"></image>
+                </view>
+                <view class="weui-cell__bd">
+                  <picker name="earliestTime" mode="time" value="{{ trip.earliestTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerChange">
+                    <view class="picker {{ trip.earliestTime === '最早出发时间' ? 'placeholder' : '' }}">
+                      {{ trip.earliestTime }}
+                    </view>
+                  </picker>
+                </view>
+                <image class='publish__icon' src="/images/icon/to-right.png" style="margin: 0 auto;"></image>
+                <view class="weui-cell__bd">
+                  <picker name="latestTime" mode="time" value="{{ trip.latestTime }}" start="{{ trip.earliestTime }}" end="22:00" id="latestTime" bindchange="bindPickerChange">
+                    <view class="picker {{ trip.latestTime === '最迟出发时间' ? 'placeholder' : '' }}" style="text-align: right;">
+                      {{ trip.latestTime }}
+                    </view>
+                  </picker>
+                </view>
               </view>
-            </picker>
-          </view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/lugage.png"></image>
-          </view>
-          <view>行李剩余空间(长*宽*高)</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/width.png"></image>
-          </view>
-          <view class="weui-cell__bd">
-            <picker name="passageCount" value="{{ passageCount }}" range="{{ SEATS }}" bindchange="bindSeatChange">
-              <view class="picker">
-                {{ trip.passageCount }} cm
+              <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/person.png"></image>
+                </view>
+                <view class="weui-cell__bd">
+                  <picker name="passageCount" value="{{ seatCount }}" range="{{ SEATS }}" bindchange="bindSeatChange">
+                    <view class="picker {{ trip.seatCount =='几'?'placeholder':''}}">
+                      {{ trip.seatCount }} 座
+                    </view>
+                  </picker>
+                </view>
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/price.png"></image>
+                </view>
+                <view class="weui-cell__bd">
+                  <input class="weui-input" type="digit" placeholder="单个座位价格" />
+                </view>
               </view>
-            </picker>
-          </view>
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/width.png"></image>
-          </view>
-          <view class="weui-cell__bd">
-            <picker name="passageCount" value="70" range="{{ SEATS }}" bindchange="bindSeatChange">
-              <view class="picker">
-                {{ trip.passageCount }} cm
+              <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/package.png"></image>
+                </view>
+                <view class="weui-cell__bd">
+                  <picker name="passageCount" value="{{ passageCount }}" range="{{ SEATS }}" bindchange="bindSeatChange">
+                    <view class="picker">
+                      {{ trip.seatCount }}个行李箱
+                    </view>
+                  </picker>
+                </view>
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/bag.png"></image>
+                </view>
+                <view class="weui-cell__bd">
+                  <picker name="passageCount" value="70" range="{{ SEATS }}" bindchange="bindSeatChange">
+                    <view class="picker">
+                      {{ trip.seatCount }}个背包
+                    </view>
+                  </picker>
+                </view>
               </view>
-            </picker>
-          </view>
-          <view class="weui-cell__hd">
-            <image class="publish__icon" src="/images/icon/height.png"></image>
-          </view>
-          <view class="weui-cell__bd">
-            <picker name="passageCount" value="70" range="{{ SEATS }}" bindchange="bindSeatChange">
-              <view class="picker">
-                {{ trip.passageCount }} cm
+
+              <view class="weui-cell">
+                <view class="weui-cell__bd">
+                  <checkbox>顺路帮忙携带快件？</checkbox>
+                </view>
               </view>
-            </picker>
+            </view>
+            <view class="weui-cells">
+              <view class="weui-cell">
+                <view class="weui-cell__bd">
+                  <textarea name="message" class="weui-textarea" placeholder="备注留言" style="height: 3.3em" id="remarks" bindblur="bindPickerChange" />
+                </view>
+              </view>
+            </view>
           </view>
-        </view>
-        
-        <view class="weui-cell" >
-          <view class="weui-cell__bd">
-            <checkbox>能否捎带【平台】快件？</checkbox>
+          <view class="weui-tab__content" hidden="{{params.type !== 2}}">
+            <view class="trip-list">
+              <text>若乘客暂时找不到合适行程，可以在此登记，系统会监测行程，若有匹配的行程将执行推送，第一时间通知乘客找到回家的行程</text>
+            </view>
+          </view>
+
+          <view class="weui-tab__content" hidden="{{params.type !== 3}}">
+            <view class="trip-list">
+              <text>提供寄件信息服务，司机力所能及尽量帮捎带，寄件者尽量送到司机顺路的地方取件收件，包装妥当，避免异味；平台建议：跨城顺路送10元，城里送达10元，其他加急件请自行商议！互帮互助，让城市更有温度！</text>
+            </view>
           </view>
         </view>
       </view>
-      <view>
-        <checkbox-group>
-                <view>其他常见约束条件</view>
-                <checkbox class="check" value="" checked="">
-                  <text>只顺路接送</text>
-                </checkbox>
-                <checkbox class="check" value="" checked="">
-                  <text>全程高速</text>
-                </checkbox>
-                <checkbox class="check" value="" checked="">
-                  <text>可以准时/提前到约定上车点</text>
-                </checkbox>
-        </checkbox-group>
-      </view>
-      <view class="weui-cells">
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <textarea name="message" class="weui-textarea" placeholder="备注留言" style="height: 3.3em" id="remarks" bindblur="bindPickerChange" />
-          </view>
-        </view>
-      </view>
-        </view>
-        <view class="weui-tab__content" hidden="{{params.type !== 2}}">
-          <view class="trip-list">
-            <text>若乘客暂时找不到合适行程，可以在此登记，系统会监测行程，若有匹配的行程将执行推送，第一时间通知乘客找到回家的行程</text>
-          </view>
-        </view>
-        
-        <view class="weui-tab__content" hidden="{{params.type !== 3}}">
-          <view class="trip-list">
-            <text>提供寄件信息服务，司机力所能及尽量帮捎带，寄件者尽量送到司机顺路的地方取件收件，包装妥当，避免异味；平台建议：跨城顺路送10元，城里送达10元，其他加急件请自行商议！互帮互助，让城市更有温度！</text>
-          </view>
-        </view>
-      </view>
-    </view>
 
       <checkbox-group bindchange="bindAgreeChange">
         <label class="weui-agree" for="weuiAgree">

@@ -7,6 +7,9 @@
       <swiper-item>
         <image class="swiper-img" src="http://39.100.243.238/image/city/xiamen.jpg"></image>
       </swiper-item>
+      <swiper-item>
+        <image class="swiper-img" src="http://39.100.243.238/image/city/longyan.jpg"></image>
+      </swiper-item>
     </swiper>
     <view class="page__section">
       <view class="section__title">热门目的地城市</view>

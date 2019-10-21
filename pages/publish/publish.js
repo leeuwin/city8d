@@ -1,4 +1,4 @@
-import { SEATS, LOCATION, ROLE_TYPES, TRIP_TYPES, DRIVER_AUDIT_STATUS } from '../../utils/constants';
+import { SEATS,PRICE, LOCATION, ROLE_TYPES, TRIP_TYPES, DRIVER_AUDIT_STATUS } from '../../utils/constants';
 import { isError, formatTime } from '../../utils/util';
 import { User } from '../../utils/user';
 import { Auth } from '../../utils/auth';
@@ -16,7 +16,7 @@ Page({
       fromAddress: '', // 出发地地址
       fromLongitude: '', // 出发地经度
       fromLatitude: '', // 出发地纬度
-      throughName: '经过哪里', // 出发地名称
+      throughName: '途经地点(选填)', // 出发地名称
       throughAddress: '', // 出发地地址
       throughLongitude: '', // 出发地经度
       throughLatitude: '', // 出发地纬度
@@ -27,15 +27,16 @@ Page({
       price: 0,
       startTime: '最早出发时间',
       endTime: '最晚出发时间',
-      seatCount: 4, // 座位/人数
+      seatCount: '几', // 座位/人数
       remarks: '', // 备注
-      date: '出发日期', // 日期
+      date: formatTime().date, // 日期
       earliestTime: formatTime().time1,
-      latestTime: '最晚出发时间'
+      latestTime: '最迟出发时间'
     },
     params: { type: 1},
     userInfo: null,
     SEATS,
+    PRICE,
     tripTypes: Object.values(TRIP_TYPES), // 对象属性值的数组
     today: formatTime().date,
     maxday: formatTime(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).date,
@@ -195,7 +196,7 @@ Page({
       return false;
     }
 
-    if (trip.latestTime === '最晚出发时间') {
+    if (trip.latestTime === '最迟出发时间') {
       isError('请选择最晚出发时间', this);
       return false;
     }

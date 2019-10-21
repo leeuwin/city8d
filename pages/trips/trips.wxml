@@ -30,6 +30,9 @@
             </picker-->
             <picker mode="date">出行日期</picker>
           </view>
+          <view class="weui-cell__bd">
+            <switch class="weui-cell__bd">只看可寄件</switch>
+          </view>
         </view>
       </view>
 
