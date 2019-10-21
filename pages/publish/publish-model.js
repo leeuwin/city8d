@@ -7,7 +7,7 @@ class Publish extends Base {
 
   createTrip(data) {
     const params = {
-      url: '/trip/create',
+      url: '/trip/publish.php',
       data
     }
     return this.ajax(params);

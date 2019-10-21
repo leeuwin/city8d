@@ -2,7 +2,6 @@
   <view class="page__bd">
     <view class="weui-toptips weui-toptips_warn" wx:if="{{ showTopTips }}">{{ errorMsg }}</view>
     <form bindsubmit="bindFormSubmit">
-      <view class="weui-cells__title">选择一个发布的类型</view>
       <view class="weui-tab">
       <view class="weui-navbar trips-navbar">
         <block wx:for="{{ tripTypes }}" wx:key="value">
@@ -13,13 +12,14 @@
         </block>
       </view>
       <view class="weui-tab__panel trips-tab__panel">
+
         <view class="weui-tab__content" hidden="{{params.type !== 1}}">
           <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell" id="from" bindtap="bindChooseLocation">
           <view class="weui-cell__hd">
             <image class="publish__icon" src="/images/icon/from.png"></image>
           </view>
-          <view class="weui-cell__bd {{ trip.fromName === '从哪里来' ? 'placeholder' : '' }}">
+          <view class="weui-cell__bd {{ trip.fromName === '从哪里出发' ? 'placeholder' : '' }}">
             {{ trip.fromName }}
           </view>
         </view>
@@ -44,9 +44,9 @@
             <image class="publish__icon" src="/images/icon/person.png"></image>
           </view>
           <view class="weui-cell__bd">
-            <picker name="passageCount" value="{{ passageCount }}" range="{{ SEATS }}" bindchange="bindSeatChange">
+            <picker name="passageCount" value="{{ seatCount }}" range="{{ SEATS }}" bindchange="bindSeatChange">
               <view class="picker">
-                {{ trip.passageCount }} 座
+                {{ trip.seatCount }} 座
               </view>
             </picker>
           </view>

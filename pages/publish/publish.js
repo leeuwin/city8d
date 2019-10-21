@@ -10,8 +10,9 @@ const auth = new Auth(); // 获取权限实例
 Page({
   data: {
     trip: {
-      type: 1, // 1 人找车 2 车找人
-      fromName: '从哪里来', // 出发地名称
+      publisher: 1,
+      type: 1, // 1 车辆行程 2 乘客行程 3 寄件行程
+      fromName: '从哪里出发', // 出发地名称
       fromAddress: '', // 出发地地址
       fromLongitude: '', // 出发地经度
       fromLatitude: '', // 出发地纬度
@@ -23,9 +24,10 @@ Page({
       destAddress: '', // 地址
       destLongitude: '', // 经度
       destLatitude: '', // 纬度
+      price: 0,
       startTime: '最早出发时间',
       endTime: '最晚出发时间',
-      passageCount: 4, // 座位/人数
+      seatCount: 4, // 座位/人数
       remarks: '', // 备注
       date: '出发日期', // 日期
       earliestTime: formatTime().time1,
@@ -141,7 +143,7 @@ Page({
   bindSeatChange(e) {
     const value = Number(e.detail.value) + 1;
     this.setData({
-      ['trip.passageCount']: value
+      ['trip.seatCount']: value
     })
   },
 
