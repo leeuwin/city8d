@@ -12,15 +12,15 @@ Page({
     trip: {
       publisher: 1,
       type: 1, // 1 车辆行程 2 乘客行程 3 寄件行程
-      fromName: '从哪里出发', // 出发地名称
+      fromAddrName: '从哪里出发', // 出发地名称
       fromAddress: '', // 出发地地址
       fromLongitude: '', // 出发地经度
       fromLatitude: '', // 出发地纬度
-      throughName: '途经地点(选填)', // 出发地名称
+      throughAddrName: '途经地点(选填)', // 出发地名称
       throughAddress: '', // 出发地地址
       throughLongitude: '', // 出发地经度
       throughLatitude: '', // 出发地纬度
-      destName: '要去哪里', // 名称
+      destAddrName: '要去哪里', // 名称
       destAddress: '', // 地址
       destLongitude: '', // 经度
       destLatitude: '', // 纬度
@@ -66,7 +66,7 @@ Page({
       this.checkAuth();
     })
     var city = wx.getStorageSync('city');
-    this.setData({ ['trip.destName']: city.name })
+    //this.setData({ ['trip.destName']: city.name })
   },
 
   // 获取用户信息
@@ -123,7 +123,7 @@ Page({
     wx.chooseLocation({
       success: function(res) {
         const key = `trip.${e.currentTarget.id}`,
-          name = `${key}Name`,
+          name = `${key}AddrName`,
           address = `${key}Address`,
           longitude = `${key}Longitude`,
           latitude = `${key}Latitude`;
@@ -193,11 +193,6 @@ Page({
 
     if (trip.earliestTime === '最早出发时间') {
       isError('请选择最早出发时间', this);
-      return false;
-    }
-
-    if (trip.latestTime === '最迟出发时间') {
-      isError('请选择最晚出发时间', this);
       return false;
     }
     trip.startTime = `${trip.date } ${trip.earliestTime}:00`;

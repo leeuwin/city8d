@@ -1,3 +1,10 @@
+version:1.1
+date: 2019-10-22
+author: lim
+content:
+1. 增加途径点
+2. 修改地点显示方式，突出市、区和地名；
+
 version:1.0
 date: 2019-10-21
 author: lim

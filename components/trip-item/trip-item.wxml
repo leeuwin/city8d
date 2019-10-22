@@ -26,11 +26,11 @@
       </view>
       <view class="info-item" bindtap="bindFromMap">
         <image class="info-item__icon" src="/images/icon/from.png"></image>
-        <view>{{ trip.fromAddress }}</view>
+        <view>{{ trip.fromAddrView }}</view>
       </view>
       <view class="info-item" bindtap="bindDestMap">
         <image class="info-item__icon" src="/images/icon/dest.png"></image>
-        <view>{{ trip.destAddress }}</view>
+        <view>{{ trip.destAddrView }}</view>
       </view>
     </view>
     <view class="seat-info">

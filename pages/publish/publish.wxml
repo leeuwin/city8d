@@ -19,24 +19,24 @@
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/from.png"></image>
                 </view>
-                <view class="weui-cell__bd {{ trip.fromName === '从哪里出发' ? 'placeholder' : '' }}">
-                  {{ trip.fromName }}
+                <view class="weui-cell__bd {{ trip.fromAddrName === '从哪里出发' ? 'placeholder' : '' }}">
+                  {{ trip.fromAddrName }}
                 </view>
               </view>
               <view class="weui-cell" id="through" bindtap="bindChooseLocation">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/through.png"></image>
                 </view>
-                <view class="weui-cell__bd {{ trip.throughName === '途经地点(选填)' ? 'placeholder' : '' }}">
-                  {{ trip.throughName }}
+                <view class="weui-cell__bd {{ trip.throughAddrName === '途经地点(选填)' ? 'placeholder' : '' }}">
+                  {{ trip.throughAddrName }}
                 </view>
               </view>
               <view class="weui-cell" id="dest" bindtap="bindChooseLocation">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/dest.png"></image>
                 </view>
-                <view class="weui-cell__bd {{ trip.destName === '要去哪里' ? 'placeholder' : '' }}">
-                  {{ trip.destName }}
+                <view class="weui-cell__bd {{ trip.destAddrName === '要去哪里' ? 'placeholder' : '' }}">
+                  {{ trip.destAddrName }}
                 </view>
               </view>
               <view class="weui-cell">
