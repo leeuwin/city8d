@@ -18,7 +18,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.4",
+	"libVersion": "2.9.0",
 	"appid": "wx72f8912d30adb441",
 	"projectname": "city8d",
 	"isGameTourist": false,
