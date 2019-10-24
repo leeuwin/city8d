@@ -72,3 +72,9 @@
 .trip-list {
   padding: 68rpx 20rpx 20rpx;
 }
+.picker-time {
+  text-align: center;
+}
+.item-red {
+  color: #f00;
+}

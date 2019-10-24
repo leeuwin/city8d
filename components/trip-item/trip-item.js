@@ -59,9 +59,9 @@ Component({
 
     // 跳转到行程详情
     toDetail() {
-      wx.setStorageSync('trip', this.data.trip);
+      //wx.setStorageSync('trip', this.data.trip);
       wx.navigateTo({
-        url: `/pages/trip/trip?tripCode=${this.data.trip.tripCode}`
+        url: `/pages/trip/trip?tripCode=${this.data.trip.tripID}`
       })
     }
   }

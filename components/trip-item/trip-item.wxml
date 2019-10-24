@@ -5,7 +5,7 @@
       <image class="avatar" src="{{ trip.user.avatarUrl ? trip.user.avatarUrl : '/images/icon/da.png' }}" />
       <view class="credit">
         <view class="nickname">{{ trip.user.nickName }}</view>
-        <view class="value">信用：{{ trip.credit ? trip.credit : 0 }}</view>
+        <view class="value">信用：{{ trip.user.credit ? trip.user.credit : 0 }}</view>
       </view>
     </view>
     <view class="price-info">￥{{trip.price}}</view>

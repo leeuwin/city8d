@@ -8,7 +8,7 @@ class Trip extends Base {
   // type required:true 因为行程放在两张表里了
   detail(tripCode, type) {
     const params = {
-      url: '/trip/get/by_code',
+      url: '/trip/get_by_id.php',
       data: { tripCode, type }
     }
 

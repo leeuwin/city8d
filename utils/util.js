@@ -15,7 +15,8 @@ const formatTime = date => {
     datetime: [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':'),
     date: [year, month, day].map(formatNumber).join('-'),
     time: [hour, minute, second].map(formatNumber).join(':'),
-    time1: [hour, minute].map(formatNumber).join(':'),
+    time1: [hour, minute].map(formatNumber).join(':'),//获取当前时间
+    time2: [hour, minute+30].map(formatNumber).join(':'),//获取输入时间半小时后的时间
   }
 }
 

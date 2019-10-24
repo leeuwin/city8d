@@ -61,7 +61,7 @@ Page({
     }
     this.getDetail(tripCode, type)
       .then(trip => {
-        trip.date = trip.startTime.split(' ')[0];
+        //trip.date = trip.startTime.split(' ')[0];
         this.setData({ trip });
         this.__setDrivingMarkers(trip); // 设置起点终点图标
         this.__setIncludePoints(trip); // 设置缩放视野以包含所有给定的坐标点
@@ -92,11 +92,12 @@ Page({
       } else {
         this.getDetailFromServer(tripType, type)
           .then(res => {
-            let trip = res.data.trip;
+            let trip = res.data;
             if (trip) { // 查询不到数据，服务器也会成功返回，trip === null
-              trip.type = type; // 服务器type没有返回，所以本地做处理
-              trip.typeDesc = TRIP_TYPES[type].label;
-              resolve(res.data.trip);
+              //trip.type = type; // 服务器type没有返回，所以本地做处理
+              //trip.typeDesc = TRIP_TYPES[type].label;
+              wx.setStorageSync('trip', trip); //将获取到的trip对象缓存到本地
+              resolve(res.data);
             } else {
               reject();
             }
@@ -210,20 +211,26 @@ Page({
 
   // 打电话
   onCall() {
-    const pass = this.checkAuth('trips', 'call', this.data.trip.type);
-    if (pass) {
-      wx.makePhoneCall({ phoneNumber: this.data.trip.user.phone })
-    }
+    //const pass = this.checkAuth('trips', 'call', this.data.trip.type);
+    //if (pass) {
+      wx.makePhoneCall({ 
+        phoneNumber: this.data.trip.user.phone ,
+        success:res=>{
+          console.log("call phone succeed!");
+        },
+        fail:res=>{
+          console.log("call phone fail!");
+        }
+        });
+    //}
   },
 
   // 用户点击右上角分享
   onShareAppMessage: function(options) {
-    const type = this.data.trip.type,
-      typeDesc = this.data.trip.typeDesc,
-      tripCode = this.data.trip.tripCode;
+    const tripCode = this.data.trip.tripID;
     return {
-      title: `您收到一条${typeDesc}消息`,
-      path: `/pages/trip/trip?scene=forward&tripCode=${tripCode}&tripType=${type}`
+      title: `您收到一条顺风车行程`,
+      path: `/pages/trip/trip?scene=forward&tripCode=${tripCode}`
     }
   },
 

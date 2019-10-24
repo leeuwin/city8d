@@ -56,16 +56,16 @@
                   <image class="publish__icon" src="/images/icon/time.png"></image>
                 </view>
                 <view class="weui-cell__bd">
-                  <picker name="earliestTime" mode="time" value="{{ trip.earliestTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerChange">
-                    <view class="picker {{ trip.earliestTime === '最早出发时间' ? 'placeholder' : '' }}">
+                  <picker name="earliestTime" mode="time" value="{{ trip.earliestTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerTimeChange">
+                    <view class="picker-time {{ trip.earliestTime === '最早出发时间' ? 'placeholder' : '' }}">
                       {{ trip.earliestTime }}
                     </view>
                   </picker>
                 </view>
                 <image class='publish__icon' src="/images/icon/to-right.png" style="margin: 0 auto;"></image>
                 <view class="weui-cell__bd">
-                  <picker name="latestTime" mode="time" value="{{ trip.latestTime }}" start="{{ trip.earliestTime }}" end="22:00" id="latestTime" bindchange="bindPickerChange">
-                    <view class="picker {{ trip.latestTime === '最迟出发时间' ? 'placeholder' : '' }}" style="text-align: right;">
+                  <picker name="latestTime" mode="time" value="{{ trip.latestTime }}" start="{{ trip.earliestTime }}" end="22:30" id="latestTime" bindchange="bindPickerChange">
+                    <view class="picker-time {{ trip.latestTime === '最迟出发时间' ? 'placeholder' : '' }}" >
                       {{ trip.latestTime }}
                     </view>
                   </picker>
@@ -77,8 +77,8 @@
                 </view>
                 <view class="weui-cell__bd">
                   <picker name="passageCount" value="{{ seatCount }}" range="{{ SEATS }}" bindchange="bindSeatChange">
-                    <view class="picker {{ trip.seatCount =='几'?'placeholder':''}}">
-                      {{ trip.seatCount }} 座
+                    <view class="picker-time {{ trip.seatCount =='几'?'placeholder':''}}">
+                       <text class="{{ trip.seatCount =='几'?'':'item-red'}} ">{{ trip.seatCount }}</text> 座
                     </view>
                   </picker>
                 </view>
@@ -86,7 +86,7 @@
                   <image class="publish__icon" src="/images/icon/price.png"></image>
                 </view>
                 <view class="weui-cell__bd">
-                  <input class="weui-input" type="digit" placeholder="单个座位价格" />
+                  <input class="picker-time weui-input item-red" type="number" bindinput="bindKeyInput" placeholder="单个座位价格" />
                 </view>
               </view>
               <view class="weui-cell">
@@ -94,19 +94,9 @@
                   <image class="publish__icon" src="/images/icon/package.png"></image>
                 </view>
                 <view class="weui-cell__bd">
-                  <picker name="passageCount" value="{{ passageCount }}" range="{{ SEATS }}" bindchange="bindSeatChange">
-                    <view class="picker">
-                      {{ trip.seatCount }}个行李箱
-                    </view>
-                  </picker>
-                </view>
-                <view class="weui-cell__hd">
-                  <image class="publish__icon" src="/images/icon/bag.png"></image>
-                </view>
-                <view class="weui-cell__bd">
-                  <picker name="passageCount" value="70" range="{{ SEATS }}" bindchange="bindSeatChange">
-                    <view class="picker">
-                      {{ trip.seatCount }}个背包
+                  <picker name="passageCount" value="{{ passageCount }}" range="{{ SEATS }}" id="cargoCount" bindchange="bindPickerCargoChange">
+                    <view class="picker {{ trip.cargoCount =='几'?'placeholder':''}}">
+                      可容纳 [ <text class="{{ trip.cargoCount =='几'?'':'item-red'}} ">{{ trip.cargoCount }}</text> ] 个行李箱
                     </view>
                   </picker>
                 </view>
@@ -114,7 +104,7 @@
 
               <view class="weui-cell">
                 <view class="weui-cell__bd">
-                  <checkbox>顺路帮忙携带快件？</checkbox>
+                  <checkbox>愿意为老乡携带快件？</checkbox>
                 </view>
               </view>
             </view>
@@ -148,7 +138,7 @@
               <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
             </view>
             阅读并同意
-            <navigator url="/pages/disclaimer/disclaimer" class="weui-agree__link">免责声明</navigator>
+            <navigator url="/pages/disclaimer/disclaimer" class="weui-agree__link">《条款声明》</navigator>
           </view>
         </label>
       </checkbox-group>

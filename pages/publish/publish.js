@@ -28,9 +28,11 @@ Page({
       startTime: '最早出发时间',
       endTime: '最晚出发时间',
       seatCount: '几', // 座位/人数
+      cargoCount: '几',
       remarks: '', // 备注
       date: formatTime().date, // 日期
-      earliestTime: formatTime().time1,
+      //earliestTime: formatTime().time1,
+      earliestTime: '最早出发时间',
       latestTime: '最迟出发时间'
     },
     params: { type: 1},
@@ -90,7 +92,11 @@ Page({
   checkAuth() {
     const result = auth.checkAuth('publish', 'publish', this.data.trip.type);
   },
-
+  bindKeyInput: function (e) {
+    this.setData({
+      ['trip.price']: e.detail.value
+    })
+  },
   // 行程类型
   bindTripTypeChange(e) {
     let tripTypes = this.data.tripTypes;
@@ -148,6 +154,7 @@ Page({
     })
   },
 
+  
   // 公共方法
   bindPickerChange(e) {
     const id = e.target.id;
@@ -157,7 +164,25 @@ Page({
       [key]: value // ID 对应 key值
     })
   },
-
+  // 行李选择方法
+  bindPickerCargoChange(e) {
+    const id = e.target.id;
+    let value = e.detail.value;
+    const key = `trip.${e.target.id}`;
+    this.setData({
+      [key]: SEATS[value] // ID 对应 key值
+    })
+  },
+  // 选择出行时间区间
+  bindPickerTimeChange(e) {
+    const id = e.target.id;
+    let value = e.detail.value;
+    let date = `2001-01-01 ${value}`;
+    this.setData({
+      ['trip.earliestTime']: value, // ID 对应 key值
+      ['trip.latestTime']: formatTime(date).time2
+    })
+  },
   // 同意协议
   bindAgreeChange: function(e) {
     this.setData({

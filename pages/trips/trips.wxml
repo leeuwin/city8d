@@ -9,7 +9,7 @@
             <image class="publish__icon" src="/images/icon/from.png"></image>
           </view>
           <view class="weui-cell__bd placeholder">
-            <picker mode="region">从哪里来</picker>
+            <picker mode="region">从哪里出发</picker>
           </view>
           <view class="weui-cell__hd">
             <image class="publish__icon" src="/images/icon/dest.png"></image>
@@ -23,15 +23,11 @@
             <image class="publish__icon" src="/images/icon/date.png"></image>
           </view>
           <view class="weui-cell__bd">
-            <!--picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindPickerChange">
+            <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindPickerChange">
               <view class="picker {{ trip.date === '出发日期' ? 'placeholder' : '' }}">
                 {{ trip.date }}
               </view>
-            </picker-->
-            <picker mode="date">出行日期</picker>
-          </view>
-          <view class="weui-cell__bd">
-            <switch class="weui-cell__bd">只看可寄件</switch>
+            </picker>
           </view>
         </view>
       </view>

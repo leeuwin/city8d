@@ -11,7 +11,7 @@
           <image class="avatar" src="{{ trip.user.avatarUrl ? trip.user.avatarUrl : '/images/icon/da.png' }}" />
           <view class="credit">
             <view class="nickname">{{ trip.user.nickName }}</view>
-            <view class="value">信用：{{ trip.credit ? trip.credit : 0 }}</view>
+            <view class="value">信用：{{ trip.user.credit ? trip.user.credit : 0 }}</view>
           </view>
         </view>
         <view class="info-item__red">￥{{trip.price}}/人</view>
@@ -46,21 +46,21 @@
             </view>
             <view class="info-item info-detail-item" bindtap="bindFromMap">
               <image class="info-item__icon" src="/images/icon/from.png"></image>
-              <view>{{ trip.fromName }}</view>
+              <view>{{ trip.fromAddrName }}</view>
             </view>
             <view class="info-item info-detail-item" bindtap="bindDestMap">
               <image class="info-item__icon" src="/images/icon/dest.png"></image>
-              <view>途径xxx</view>
+              <view>{{ trip.throughAddrName }}</view>
             </view>
             <view class="info-item info-detail-item info-detail-location" bindtap="bindDestMap">
               <image class="info-item__icon" src="/images/icon/dest.png"></image>
-              <view>{{ trip.destName }}</view>
+              <view>{{ trip.destAddrName }}</view>
             </view>
             <view class="info-item info-detail-item" bindtap="bindDestMap">
               <image class="info-item__icon" src="/images/icon/lugage.png"></image>
               <view>可带行李量：[
-                <text class="info-item__red">2</text> ]登机箱，[
-                <text class="info-item__red">3</text> ]书包</view>
+                <text class="info-item__red">0</text> ]登机箱，[
+                <text class="info-item__red">0</text> ]书包</view>
             </view>
             <view class="info-item info-detail-item">
               <image class="info-item__icon" src="/images/icon/type.png"></image>
@@ -79,7 +79,7 @@
     </view>
     <view class="trip-panel__ft">
       <view class="page__ft-bd">
-        <button class="share-button" open-type="">
+        <button class="share-button"  bindtap="onCall" open-type="">
           <image class="share-button-icon" src="/images/icon/follow.png"></image>
           关注公众号
         </button>
@@ -103,7 +103,7 @@
     <view class="page__ft-bd">
       <!--button class="share-button" bindtap="onGetSharePicture">
         <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
-      <button class="share-button">
+      <button class="share-button" bindtap="onCall">
         <image class="share-button-icon" src="/images/icon/call.png"></image>
         电话联系
       </button>
@@ -113,7 +113,7 @@
         <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
       <button class="share-button">
         <image class="share-button-icon" src="/images/icon/add_trip.png"></image>
-        关注行程
+        加入行程
       </button>
     </view>
   </view>
