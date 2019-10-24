@@ -61,6 +61,8 @@ Page({
     }
   },
   onLoad() {
+    //wx.getUserInfo();
+    //this.bindGetUserInfo();
   },
 
   onShow() {
@@ -122,12 +124,109 @@ Page({
       tripTypes: tripTypes
     });
   },
-
+  bindGetUserInfo: function () {
+    let _this = this;
+    wx.getSetting({
+      success(res) {
+        // 判断定位的授权
+        if (!res.authSetting['scope.userInfo']) {
+          wx.authorize({
+            scope: 'scope.userInfo',
+            success() {
+              _this.getUserInfo();
+            },
+            fail(errMsg) {
+              wx.showModal({
+                title: '获取用户信息失败！', //提示的标题,
+                content: '请开启微信获取信息权限！', //提示的内容,
+                showCancel: true, //是否显示取消按钮,
+                cancelText: '取消', //取消按钮的文字，默认为取消，最多 4 个字符,
+                cancelColor: '#000000', //取消按钮的文字颜色,
+                confirmText: '获取信息', //确定按钮的文字，默认为取消，最多 4 个字符,
+                confirmColor: '#3CC51F', //确定按钮的文字颜色,
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: res => {
+                        console.log(res.authSetting);
+                      }
+                    });
+                  } else if (res.cancel) {
+                    console.log('用户拒绝获取信息');
+                  }
+                }
+              });
+            }
+          })
+        } else {
+          _this.getUserInfo();
+        }
+      }
+    })
+  },
+  getUserInfo(e) {
+      wx.getUserInfo({
+      success: function (res) {
+        var userInfo = res.userInfo
+        var nickName = userInfo.nickName
+        var avatarUrl = userInfo.avatarUrl
+        var gender = userInfo.gender //性别 0：未知、1：男、2：女
+        var province = userInfo.province
+        var city = userInfo.city
+        var country = userInfo.country
+        console.log(res.userInfo);
+        },
+        fail: function (error) {
+          console.log(error);
+          console.log("获取失败");
+        }
+    });
+  },
+  bindChooseLocation: function () {
+    let _this = this;
+    wx.getSetting({
+      success(res) {
+        // 判断定位的授权
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              _this.chooseLocation();
+            },
+            fail(errMsg) {
+              wx.showModal({
+                title: '哎呀！地址定位失败！', //提示的标题,
+                content: '请开启手机和微信定位！', //提示的内容,
+                showCancel: true, //是否显示取消按钮,
+                cancelText: '取消', //取消按钮的文字，默认为取消，最多 4 个字符,
+                cancelColor: '#000000', //取消按钮的文字颜色,
+                confirmText: '开启定位', //确定按钮的文字，默认为取消，最多 4 个字符,
+                confirmColor: '#3CC51F', //确定按钮的文字颜色,
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: res => {
+                        console.log(res.authSetting);
+                      }
+                    });
+                  } else if (res.cancel) {
+                    console.log('用户拒绝使用地理位置');
+                  }
+                }
+              });
+            }
+          })
+        } else {
+          _this.chooseLocation();
+        }
+      }
+    })
+  },
   // 获取地址
-  bindChooseLocation(e) {
+  chooseLocation(e) {
     const that = this;
     wx.chooseLocation({
-      success: function(res) {
+      success: function (res) {
         const key = `trip.${e.currentTarget.id}`,
           name = `${key}AddrName`,
           address = `${key}Address`,
@@ -140,10 +239,12 @@ Page({
           [latitude]: res.latitude
         });
       },
-      fail: function(error) {
+      fail: function (error) {
         console.log(error);
+        console.log("获取失败");
       }
-    })
+    });
+    
   },
 
   // 选择座位

@@ -34,10 +34,10 @@ App({
     const oToken = new Token();
     oToken.getTokenFromServer()
       .then(res => {
-        wx.setStorageSync('token', res.token); // 缓存token
-        this.globalData.userInfo = res.userInfo; // 缓存用户信息
+        wx.setStorageSync('token', res.session_key); // 缓存token
+        this.globalData.userInfo = res.openid; // 缓存用户信息
         if (this.userInfoCallback) { // 页面获取用户信息的回调
-          this.userInfoCallback(res.userInfo);
+          this.userInfoCallback(res.openid);
         }
       })
       .catch(error => {

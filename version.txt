@@ -1,3 +1,10 @@
+version:1.0.2
+date: 2019-10-25
+author: lim
+content:
+1. 增加地理信息获取的判断；
+2. 用户信息获取的预研
+
 version:1.0.1
 date: 2019-10-24
 author: lim

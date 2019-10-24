@@ -39,6 +39,7 @@
                   {{ trip.destAddrName }}
                 </view>
               </view>
+              <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
               <view class="weui-cell">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/date.png"></image>
