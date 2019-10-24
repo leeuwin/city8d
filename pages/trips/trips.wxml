@@ -23,9 +23,9 @@
             <image class="publish__icon" src="/images/icon/date.png"></image>
           </view>
           <view class="weui-cell__bd">
-            <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindPickerChange">
-              <view class="picker {{ trip.date === '出发日期' ? 'placeholder' : '' }}">
-                {{ trip.date }}
+            <picker mode="date" value="{{ date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindDateChange">
+              <view class="picker {{ date === '出发日期' ? 'placeholder' : '' }}">
+                {{ date }}
               </view>
             </picker>
           </view>

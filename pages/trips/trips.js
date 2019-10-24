@@ -3,6 +3,7 @@ import { TRIP_TYPES } from '../../utils/constants';
 import { Auth } from '../../utils/auth';
 import { readyUser } from '../../utils/readyUser';
 import { PAGESIZE } from '../../utils/constants';
+import { isError, formatTime } from '../../utils/util';
 
 const app = getApp();
 
@@ -17,6 +18,8 @@ Page({
       currentPage: 1, // 当前页
       orderReg: 'start_time ASC', //排序规则,非必填
     },
+    date:'出发日期',
+    today: formatTime().date,
     passengerTrips: [], // 车主行程列表
     driverTrips: [], // 乘客行程列表
     tripTypes: Object.values(TRIP_TYPES), // 类型
@@ -40,7 +43,12 @@ Page({
   onHide() {
     wx.removeStorageSync('city');
   },
-
+  bindDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      date: e.detail.value
+    })
+  },
   // 获取用户信息 - 异步
   __getUserInfo() {
     return readyUser();
