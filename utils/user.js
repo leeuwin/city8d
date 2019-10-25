@@ -7,7 +7,7 @@ class User extends Base {
 
   update(data) {
     let params = {
-      url: '/user/update',
+      url: '/user/set_info.php',
       data
     };
     return this.ajax(params);
@@ -15,7 +15,7 @@ class User extends Base {
 
   get() {
     let params = {
-      url: '/user/info/get'
+      url: '/user/get_info.php'
     };
     return this.ajax(params);
   }
