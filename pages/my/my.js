@@ -16,12 +16,12 @@ Page({
   },
   onShow: function() {
     console.log('onShow');
-    this.__getUserInfo().then(userInfo => {
+    /*this.__getUserInfo().then(userInfo => {
       this.setData({
         userInfo
       });
       this.setUserStatus(userInfo);
-    })
+    })*/
   },
   // 异步获取用户信息
   __getUserInfo() {
@@ -41,8 +41,11 @@ Page({
       driverAuditStatus
     })
   },
-
+  bindGetUserInfo(e) {
+    app.userInfoCallback();
+  },
   // 获取用户头像信息
+  /*
   bindGetUserInfo(e) {
     const userInfo = e.detail.userInfo;
     if (userInfo) {
@@ -57,7 +60,7 @@ Page({
           this.setUserStatus(userInfo);
         })
     }
-  },
+  },*/
 
   // 跳转到实名认证页面
   navigateToRealname: function() {

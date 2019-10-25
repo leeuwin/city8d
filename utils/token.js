@@ -4,7 +4,7 @@ import {
 
 class Token {
   constructor() {
-    this.tokenUrl = Config.restUrl + '/token/get.php';
+    this.tokenUrl = Config.restUrl + '/user/get_token.php';
   }
 
   // 从服务器获取Token

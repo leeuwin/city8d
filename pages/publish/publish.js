@@ -1,5 +1,5 @@
 import { SEATS,PRICE, LOCATION, ROLE_TYPES, TRIP_TYPES, DRIVER_AUDIT_STATUS } from '../../utils/constants';
-import { isError, formatTime } from '../../utils/util';
+import { isError, addTime, formatTime } from '../../utils/util';
 import { User } from '../../utils/user';
 import { Auth } from '../../utils/auth';
 import { Publish } from './publish-model';
@@ -25,8 +25,8 @@ Page({
       destLongitude: '', // 经度
       destLatitude: '', // 纬度
       price: 0,
-      startTime: '最早出发时间',
-      endTime: '最晚出发时间',
+      startTime: '12:00',
+      endTime: '12:30',
       seatCount: '几', // 座位/人数
       cargoCount: '几',
       remarks: '', // 备注
@@ -124,65 +124,7 @@ Page({
       tripTypes: tripTypes
     });
   },
-  bindGetUserInfo: function () {
-    let _this = this;
-    wx.getSetting({
-      success(res) {
-        // 判断定位的授权
-        if (!res.authSetting['scope.userInfo']) {
-          wx.authorize({
-            scope: 'scope.userInfo',
-            success() {
-              _this.getUserInfo();
-            },
-            fail(errMsg) {
-              wx.showModal({
-                title: '获取用户信息失败！', //提示的标题,
-                content: '请开启微信获取信息权限！', //提示的内容,
-                showCancel: true, //是否显示取消按钮,
-                cancelText: '取消', //取消按钮的文字，默认为取消，最多 4 个字符,
-                cancelColor: '#000000', //取消按钮的文字颜色,
-                confirmText: '获取信息', //确定按钮的文字，默认为取消，最多 4 个字符,
-                confirmColor: '#3CC51F', //确定按钮的文字颜色,
-                success: res => {
-                  if (res.confirm) {
-                    wx.openSetting({
-                      success: res => {
-                        console.log(res.authSetting);
-                      }
-                    });
-                  } else if (res.cancel) {
-                    console.log('用户拒绝获取信息');
-                  }
-                }
-              });
-            }
-          })
-        } else {
-          _this.getUserInfo();
-        }
-      }
-    })
-  },
-  getUserInfo(e) {
-      wx.getUserInfo({
-      success: function (res) {
-        var userInfo = res.userInfo
-        var nickName = userInfo.nickName
-        var avatarUrl = userInfo.avatarUrl
-        var gender = userInfo.gender //性别 0：未知、1：男、2：女
-        var province = userInfo.province
-        var city = userInfo.city
-        var country = userInfo.country
-        console.log(res.userInfo);
-        },
-        fail: function (error) {
-          console.log(error);
-          console.log("获取失败");
-        }
-    });
-  },
-  bindChooseLocation: function () {
+  bindChooseLocation: function (e) {
     let _this = this;
     wx.getSetting({
       success(res) {
@@ -191,7 +133,7 @@ Page({
           wx.authorize({
             scope: 'scope.userLocation',
             success() {
-              _this.chooseLocation();
+              _this.chooseLocation(e);
             },
             fail(errMsg) {
               wx.showModal({
@@ -217,14 +159,14 @@ Page({
             }
           })
         } else {
-          _this.chooseLocation();
+          _this.chooseLocation(e);
         }
       }
     })
   },
   // 获取地址
   chooseLocation(e) {
-    const that = this;
+    const _this = this;
     wx.chooseLocation({
       success: function (res) {
         const key = `trip.${e.currentTarget.id}`,
@@ -232,7 +174,7 @@ Page({
           address = `${key}Address`,
           longitude = `${key}Longitude`,
           latitude = `${key}Latitude`;
-        that.setData({
+        _this.setData({
           [name]: res.name,
           [address]: res.address,
           [longitude]: res.longitude,
@@ -278,10 +220,9 @@ Page({
   bindPickerTimeChange(e) {
     const id = e.target.id;
     let value = e.detail.value;
-    let date = `2001-01-01 ${value}`;
     this.setData({
       ['trip.earliestTime']: value, // ID 对应 key值
-      ['trip.latestTime']: formatTime(date).time2
+      ['trip.latestTime']: addTime(value,30).time
     })
   },
   // 同意协议

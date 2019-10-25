@@ -39,7 +39,6 @@
                   {{ trip.destAddrName }}
                 </view>
               </view>
-              <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
               <view class="weui-cell">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/date.png"></image>
@@ -57,7 +56,7 @@
                   <image class="publish__icon" src="/images/icon/time.png"></image>
                 </view>
                 <view class="weui-cell__bd">
-                  <picker name="earliestTime" mode="time" value="{{ trip.earliestTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerTimeChange">
+                  <picker name="earliestTime" mode="time" value="{{ trip.startTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerTimeChange">
                     <view class="picker-time {{ trip.earliestTime === '最早出发时间' ? 'placeholder' : '' }}">
                       {{ trip.earliestTime }}
                     </view>
@@ -97,7 +96,7 @@
                 <view class="weui-cell__bd">
                   <picker name="passageCount" value="{{ passageCount }}" range="{{ SEATS }}" id="cargoCount" bindchange="bindPickerCargoChange">
                     <view class="picker {{ trip.cargoCount =='几'?'placeholder':''}}">
-                      可容纳 [ <text class="{{ trip.cargoCount =='几'?'':'item-red'}} ">{{ trip.cargoCount }}</text> ] 个行李箱
+                      可装下 [ <text class="{{ trip.cargoCount =='几'?'':'item-red'}} ">{{ trip.cargoCount }}</text> ] 个行李箱
                     </view>
                   </picker>
                 </view>

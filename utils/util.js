@@ -15,11 +15,33 @@ const formatTime = date => {
     datetime: [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':'),
     date: [year, month, day].map(formatNumber).join('-'),
     time: [hour, minute, second].map(formatNumber).join(':'),
-    time1: [hour, minute].map(formatNumber).join(':'),//获取当前时间
-    time2: [hour, minute+30].map(formatNumber).join(':'),//获取输入时间半小时后的时间
+    time1: [hour, minute].map(formatNumber).join(':')//获取当前时间
   }
 }
 
+const addTime = (time,min) => {
+  const formatNumber = n => {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+  }
+  var times = time.split(':');
+  var hs = parseInt(times[0]);
+  var ms = parseInt(times[1]);
+
+  console.log(ms + min);
+  var carry_hour = Math.floor((ms + min)/60);
+  console.log("c_hour:"+carry_hour);
+  var carry_minu = (ms + min) % 60;
+  console.log("c_min:" + carry_minu);
+  hs = carry_hour+hs;
+  console.log("hs:" + hs);
+  ms = carry_minu;
+  console.log(hs);
+  console.log(ms);
+  return {
+    time: [hs, ms].map(formatNumber).join(':'),
+  }
+ }
 // 提示错误信息
 const isError = (msg, that) => {
   that.setData({
@@ -36,5 +58,6 @@ const isError = (msg, that) => {
 
 module.exports = {
   formatTime,
+  addTime,
   isError
 }
