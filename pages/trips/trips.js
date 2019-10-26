@@ -274,17 +274,22 @@ console.log(res);
 
   // 获取城市信息
   __getCity() {
-    var srcRegion = wx.getStorageSync('srcRegion');
-    if(srcRegion[1]=='不限')
-    {
-      srcRegion = this.data.srcRegion;
-    }
     const dstRegion = wx.getStorageSync('dstRegion');
-    this.setData({
-      ['srcRegion']: srcRegion,
-      ['dstRegion']: dstRegion,
-    })
-
+    const srcRegion = wx.getStorageSync('srcRegion');
+    
+    if (srcRegion )
+    {
+      if (srcRegion[1] != '不限') {
+        this.setData({
+          ['srcRegion']: srcRegion,
+        })
+      }
+    }
+    if (dstRegion) {
+      this.setData({
+        ['dstRegion']: dstRegion,
+      })
+    }
     const city = wx.getStorageSync('city');
     let title = '行程',
       code = '';
