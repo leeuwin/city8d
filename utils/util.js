@@ -10,12 +10,38 @@ const formatTime = date => {
   const hour = date.getHours()
   const minute = date.getMinutes()
   const second = date.getSeconds()
+  var weekday
+  switch (date.getDay())
+  {
+    case 0:
+      weekday = '周日';
+      break;
+    case 1:
+      weekday = '周一';
+      break;
+    case 2:
+      weekday = '周二';
+      break;
+    case 3:
+      weekday = '周三';
+      break;
+    case 4:
+      weekday = '周四';
+      break;
+    case 5:
+      weekday = '周五';
+      break;
+    case 6:
+      weekday = '周六';
+      break;
+  }
 
   return {
     datetime: [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':'),
     date: [year, month, day].map(formatNumber).join('-'),
     time: [hour, minute, second].map(formatNumber).join(':'),
-    time1: [hour, minute].map(formatNumber).join(':')//获取当前时间
+    time1: [hour, minute].map(formatNumber).join(':'),//获取当前时间不含秒
+    weekday: weekday
   }
 }
 

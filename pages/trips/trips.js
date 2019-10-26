@@ -4,6 +4,8 @@ import { Auth } from '../../utils/auth';
 import { readyUser } from '../../utils/readyUser';
 import { PAGESIZE } from '../../utils/constants';
 import { isError, formatTime } from '../../utils/util';
+var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
+var qqmapsdk;
 
 const app = getApp();
 
@@ -18,7 +20,10 @@ Page({
       currentPage: 1, // 当前页
       orderReg: 'start_time ASC', //排序规则,非必填
     },
+    srcRegion: ['福建省','哪里出发','不限'],
+    dstRegion: ['福建省','想去哪里', '不限'],
     date:'出发日期',
+    weekday:0,
     today: formatTime().date,
     passengerTrips: [], // 车主行程列表
     driverTrips: [], // 乘客行程列表
@@ -33,21 +38,155 @@ Page({
         userInfo
       })
     });
-    this.__getCity(); // 获取城市信息
+    // 获取城市信息
+    qqmapsdk = new QQMapWX({
+      key: 'D7RBZ-L37W6-A5ASJ-EDEXZ-3JFLJ-73FAE'
+    });
   },
 
   onShow() {
-    
+    this.__getCity(); 
   },
 
   onHide() {
     wx.removeStorageSync('city');
   },
+
+  swapRegion()
+  {
+    var srcRegion = this.data.srcRegion;
+    var dstRegion = this.data.dstRegion;
+    if(srcRegion[1]!="哪里出发" && dstRegion[1]!="想去哪里")
+    {
+      this.setData({
+        ['srcRegion']: dstRegion,
+        ['dstRegion']: srcRegion
+      });
+    }
+  },
+  bindGetLocation: function (e) {
+    let _this = this;
+    wx.getSetting({
+      success(res) {
+        // 判断定位的授权
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              _this.getLocation(e);
+            },
+            fail(errMsg) {
+              wx.showModal({
+                title: '哎呀！地址定位失败！', //提示的标题,
+                content: '请开启手机和微信定位！', //提示的内容,
+                showCancel: true, //是否显示取消按钮,
+                cancelText: '取消', //取消按钮的文字，默认为取消，最多 4 个字符,
+                cancelColor: '#000000', //取消按钮的文字颜色,
+                confirmText: '开启定位', //确定按钮的文字，默认为取消，最多 4 个字符,
+                confirmColor: '#3CC51F', //确定按钮的文字颜色,
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: res => {
+                        console.log(res.authSetting);
+                      }
+                    });
+                  } else if (res.cancel) {
+                    console.log('用户拒绝使用地理位置');
+                    _this.setData({
+                      'srcRegion[1]': '定位失败'
+                    })
+                  }
+                }
+              });
+            }
+          })
+        } else {
+          _this.getLocation(e);
+        }
+      }
+    })
+  },
+  // 获取地址
+  getLocation(e) {
+    const _this = this;
+    _this.setData({
+      'srcRegion[1]': '定位中....'
+    });
+    wx.getLocation({
+      success: function (res) {
+        const key = `trip.${e.currentTarget.id}`,
+          name = `${key}AddrName`,
+          address = `${key}Address`,
+          longitude = `${key}Longitude`,
+          latitude = `${key}Latitude`;
+console.log(res);
+        _this.getLocal(res.longitude, res.latitude);
+        _this.setData({
+          [name]: res.name,
+          [address]: res.address,
+          [longitude]: res.longitude,
+          [latitude]: res.latitude
+        });
+      },
+      fail: function (error) {
+        console.log(error);
+        console.log("获取失败");
+        _this.setData({
+          'srcRegion[1]': '定位失败'
+        })
+      }
+    });
+  },
+  // 获取当前地理位置
+  getLocal: function (longitude, latitude,id) {
+    let _this = this;
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function (res) {
+        console.log(JSON.stringify(res));
+        let province = res.result.ad_info.province
+        let city = res.result.ad_info.city
+        _this.setData({
+          'srcRegion[0]': province,
+          'srcRegion[1]': city,
+          'dstRegion[0]': province
+        })
+      },
+      fail: function (res) {
+        console.log(res);
+        _this.setData({
+          'srcRegion[1]': '获取城市失败'
+        })
+      },
+      complete: function (res) {
+        // console.log(res);
+      }
+    });
+  },
+
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
+    let day = formatTime(e.detail.value).weekday;
     this.setData({
-      date: e.detail.value
+      date: e.detail.value,
+      weekday:day
     })
+  },
+  bindPickerChange: function (e) {
+    let key =`${e.target.id}Region`;
+    this.setData({
+      [key]: e.detail.value
+    });
+    if (e.target.id=='src')
+    {
+      this.setData({
+        'dstRegion[0]': e.detail.value[0]
+      });
+    }
   },
   // 获取用户信息 - 异步
   __getUserInfo() {
@@ -135,6 +274,17 @@ Page({
 
   // 获取城市信息
   __getCity() {
+    var srcRegion = wx.getStorageSync('srcRegion');
+    if(srcRegion[1]=='不限')
+    {
+      srcRegion = this.data.srcRegion;
+    }
+    const dstRegion = wx.getStorageSync('dstRegion');
+    this.setData({
+      ['srcRegion']: srcRegion,
+      ['dstRegion']: dstRegion,
+    })
+
     const city = wx.getStorageSync('city');
     let title = '行程',
       code = '';

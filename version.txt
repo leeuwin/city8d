@@ -1,3 +1,11 @@
+version:1.0.3
+date: 2019-10-26
+author: lim
+content:
+1. 增加自动定位功能，自动选择区域；
+2. 增加星期显示；
+3. 细节优化
+
 version:1.0.2
 date: 2019-10-25
 author: lim

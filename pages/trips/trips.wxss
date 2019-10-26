@@ -40,3 +40,7 @@
 .trip-list {
   padding: 48rpx 20rpx 20rpx;
 }
+
+.picker{
+  text-align: right;
+}

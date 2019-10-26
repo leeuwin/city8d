@@ -94,72 +94,107 @@ const LOCATION = {
 }
 
 const HOT_CITY = [{
-    code: '341881',
+    code: '',
+    province: '福建省',
+    city:'厦门市',
+    dist:'',
     name: '厦门',
-    ename: 'ningguo',
-  img_url: 'http://39.100.243.238/image/city/xiamen.jpg'
+    ename: 'xiamen',
   },
   {
-    code: '330100',
+    code: '',
+    province: '福建省',
+    city: '龙岩市',
+    dist: '漳平市',
     name: '漳平',
-    ename: 'hangzhou',
-    img_url: 'http://39.100.243.238/image/city/zhangping.jpg'
+    ename: 'zhangping',
   },
   {
-    code: '320100',
+    code: '',
+    province: '福建省',
+    city: '泉州市',
+    dist: '',
     name: '泉州',
-    ename: 'nanjing',
-    img_url: 'http://39.100.243.238/image/city/quanzhou.jpg'
+    ename: 'quanzhou',
   },
   {
-    code: '310100',
+    code: '',
+    province: '福建省',
+    city: '福州市',
+    dist: '',
     name: '福州',
-    ename: 'shanghai',
-    img_url: 'http://39.100.243.238/image/city/fuzhou.jpg'
+    ename: 'fuzhou',
   },
   {
-    code: '340100',
+    code: '',
+    province: '福建省',
+    city: '漳州市',
+    dist: '',
     name: '漳州',
-    ename: 'hefei',
-    img_url: 'http://39.100.243.238/image/city/zhangzhou.jpg'
+    ename: 'zhangzhou',
   },
   {
-    code: '340200',
+    code: '',
+    province: '福建省',
+    city: '龙岩市',
+    dist: '',
     name: '龙岩',
-    ename: 'wuhu',
-    img_url: 'http://39.100.243.238/image/city/longyan.jpg'
+    ename: 'longyan',
+  },
+  {
+    code: '',
+    province: '福建省',
+    city: '莆田市',
+    dist: '',
+    name: '莆田',
+    ename: 'putian',
+  },
+  {
+    code: '',
+    province: '福建省',
+    city: '泉州市',
+    dist: '安溪县',
+    name: '安溪',
+    ename: 'anxi',
+  },
+  {
+    code: '',
+    province: '福建省',
+    city: '漳州市',
+    dist: '龙海市',
+    name: '龙海',
+    ename: 'longhai',
   }
 ]
 
 // 核心城市
-// http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/
 const CORE_CITY = [{
-    code: '341800',
-    name: '宣城市'
+    code: '361000',
+    name: '厦门'
   },
   {
-    code: '341821',
-    name: '郎溪县'
+    code: '360000',
+    name: '福州'
   },
   {
-    code: '341822',
-    name: '广德县'
+    code: '',
+    name: ''
   },
   {
-    code: '341823',
-    name: '泾县'
+    code: '',
+    name: ''
   },
   {
-    code: '341824',
-    name: '绩溪县'
+    code: '',
+    name: ''
   },
   {
-    code: '341825',
-    name: '旌德县'
+    code: '',
+    name: ''
   },
   {
-    code: '341881',
-    name: '宁国市'
+    code: '',
+    name: ''
   }
 ];
 
