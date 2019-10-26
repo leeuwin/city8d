@@ -76,13 +76,8 @@
                   <image class="publish__icon" src="/images/icon/person.png"></image>
                 </view>
                 <view class="weui-cell__bd">
-<<<<<<< HEAD
-                  <picker name="passageCount" value="2" range="{{ SEATS }}" bindchange="bindSeatChange">
-                    <view class="picker-time {{ trip.seatCount =='几'?'placeholder':''}}">
-=======
                   <picker name="passageCount" value="{{ trip.seatCount-1 }}" range="{{ SEATS }}" bindchange="bindSeatChange">
                     <view class=" {{ trip.seatCount =='几'?'placeholder':''}}">
->>>>>>> 8975e8a7020ccf623472c597d3ee32cb79effd3d
                        <text class="{{ trip.seatCount =='几'?'':'item-red'}} ">{{ trip.seatCount }}</text> 座
                     </view>
                   </picker>
