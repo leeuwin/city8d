@@ -3,6 +3,8 @@ import { isError, addTime, formatTime } from '../../utils/util';
 import { User } from '../../utils/user';
 import { Auth } from '../../utils/auth';
 import { Publish } from './publish-model';
+var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
+var qqmapsdk;
 
 const app = getApp(); //获取应用实例
 const auth = new Auth(); // 获取权限实例
@@ -12,11 +14,11 @@ Page({
     trip: {
       publisher: 1,
       type: 1, // 1 车辆行程 2 乘客行程 3 寄件行程
-      fromAddrName: '从哪里出发', // 出发地名称
+      fromAddrName: '哪里出发', // 出发地名称
       fromAddress: '', // 出发地地址
       fromLongitude: '', // 出发地经度
       fromLatitude: '', // 出发地纬度
-      throughAddrName: '途经地点(选填)', // 出发地名称
+      throughAddrName: '途经(选填)', // 出发地名称
       throughAddress: '', // 出发地地址
       throughLongitude: '', // 出发地经度
       throughLatitude: '', // 出发地纬度
@@ -27,10 +29,11 @@ Page({
       price: 0,
       startTime: '12:00',
       endTime: '12:30',
-      seatCount: '几', // 座位/人数
-      cargoCount: '几',
+      seatCount: 3, // 座位/人数
+      cargoCount: 1,
       remarks: '', // 备注
       date: formatTime().date, // 日期
+      weekday: formatTime().weekday,//星期
       //earliestTime: formatTime().time1,
       earliestTime: '最早出发时间',
       latestTime: '最迟出发时间'
@@ -63,6 +66,9 @@ Page({
   onLoad() {
     //wx.getUserInfo();
     //this.bindGetUserInfo();
+    qqmapsdk = new QQMapWX({
+      key: 'D7RBZ-L37W6-A5ASJ-EDEXZ-3JFLJ-73FAE'
+    });
   },
 
   onShow() {
@@ -186,9 +192,111 @@ Page({
         console.log("获取失败");
       }
     });
-    
   },
-
+  bindGetLocation: function (e) {
+    let _this = this;
+    _this.setData({
+      'trip.fromAddrName': '定位中....'
+    });
+    wx.getSetting({
+      success(res) {
+        // 判断定位的授权
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              _this.getLocation(e);
+            },
+            fail(errMsg) {
+              wx.showModal({
+                title: '哎呀！地址定位失败！', //提示的标题,
+                content: '请开启手机和微信定位！', //提示的内容,
+                showCancel: true, //是否显示取消按钮,
+                cancelText: '取消', //取消按钮的文字，默认为取消，最多 4 个字符,
+                cancelColor: '#000000', //取消按钮的文字颜色,
+                confirmText: '开启定位', //确定按钮的文字，默认为取消，最多 4 个字符,
+                confirmColor: '#3CC51F', //确定按钮的文字颜色,
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: res => {
+                        console.log(res.authSetting);
+                      }
+                    });
+                  } else if (res.cancel) {
+                    console.log('用户拒绝使用地理位置');
+                    _this.setData({
+                      'fromAddrName': '定位失败'
+                    })
+                  }
+                }
+              });
+            }
+          })
+        } else {
+          _this.getLocation(e);
+        }
+      }
+    })
+  },
+  // 获取地址
+  getLocation(e) {
+    const _this = this;
+    wx.getLocation({
+      success: function (res) {
+        const key = `trip.${e.currentTarget.id}`;
+        console.log(res);
+        _this.getLocal(res.longitude, res.latitude, key);
+        _this.setData({
+          [name]: res.name,
+          [address]: res.address,
+          [longitude]: res.longitude,
+          [latitude]: res.latitude
+        });
+      },
+      fail: function (error) {
+        console.log(error);
+        console.log("获取失败");
+        _this.setData({
+          'fromAddrName': '定位失败'
+        })
+      }
+    });
+  },
+  // 获取当前地理位置
+  getLocal: function (longitude, latitude, key) {
+    let _this = this;
+    const name = `${key}AddrName`,
+      address = `${key}Address`,
+      lng = `${key}Longitude`,
+      lat = `${key}Latitude`;
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function (res) {
+        console.log(JSON.stringify(res));
+        let province = res.result.ad_info.province
+        let city = res.result.ad_info.city
+        _this.setData({
+          [name]: res.result.formatted_addresses.recommend,
+          [address]: res.result.address,
+          [lng]: res.result.location.lng,
+          [lat]: res.result.location.lat
+        })
+      },
+      fail: function (res) {
+        console.log(res);
+        _this.setData({
+          'fromAddrName': '获取地址失败'
+        })
+      },
+      complete: function (res) {
+        // console.log(res);
+      }
+    });
+  },
   // 选择座位
   bindSeatChange(e) {
     const value = Number(e.detail.value) + 1;
@@ -205,6 +313,13 @@ Page({
     const key = `trip.${e.target.id}`;
     this.setData({
       [key]: value // ID 对应 key值
+    })
+  }, 
+  bindDateChange: function (e) {
+    let day = formatTime(e.detail.value).weekday;
+    this.setData({
+      'trip.date': e.detail.value,
+      'trip.weekday': day
     })
   },
   // 行李选择方法
@@ -237,8 +352,22 @@ Page({
     if (this.valid()) {
       this.publish();
     }
+  }, 
+  bindFormReset: function () {
+    this.setData({
+      ['trip.fromAddrName']: '哪里出发',
+      ['trip.throughAddrName']: '途经(选填)',
+      ['trip.destAddrName']: '要去哪里',
+      ['trip.date']: formatTime().date,
+      ['trip.weekday']: formatTime().weekday,
+      ['trip.earliestTime']: '最早出发时间',
+      ['trip.latestTime']: '最迟出发时间',
+      ['trip.seatCount']: 3,
+      ['trip.cargoCount']: 1,
+      ['trip.price']: 0,
+      ['trip.remarks']: ''
+    })
   },
-
   // 校验字段合法性
   valid() {
     const trip = this.data.trip;

@@ -16,7 +16,7 @@
       <view class="section__bd">
         <block wx:for="{{ hotcitys }}" wx:key="code" wx:for-item="city">
           <view class="city-box" bindtap="toTrips" data-city="{{ city }}">
-            <image class="city-image" src="{{ city.img_url }}"></image>
+            <image class="city-image" src="http://39.100.243.238/image/city/{{ city.ename }}.jpg"></image>
             <text class="city-name">{{ city.name }}</text>
           </view>
         </block>

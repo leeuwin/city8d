@@ -23,7 +23,7 @@
   min-height: 24px;
 }
 .placeholder {
-  color: #999;
+  color: #777;
 }
 
 .radio-group {
@@ -73,7 +73,7 @@
   padding: 68rpx 20rpx 20rpx;
 }
 .picker-time {
-  text-align: center;
+  text-align: right;
 }
 .item-red {
   color: #f00;

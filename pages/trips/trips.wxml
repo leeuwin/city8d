@@ -4,18 +4,23 @@
   <view class="page__bd">
 
       <view class="weui-cells weui-cells_after-title trips-navbar">       
-        <view class="weui-cell" id="from" bindtap="bindChooseLocation">
+        <view class="weui-cell" id="from">
           <view class="weui-cell__hd">
             <image class="publish__icon" src="/images/icon/from.png"></image>
           </view>
-          <view class="weui-cell__bd placeholder">
-            <picker mode="region">从哪里出发</picker>
+          <view class="weui-cell__bd " >
+            <view wx:if="{{srcRegion[1]==='哪里出发'}}" bindtap="bindGetLocation" class="placeholder">{{srcRegion[1]}}</view>
+            <picker wx:if="{{srcRegion[1]!=='哪里出发'}}" mode="region" custom-item="不限" value="{{srcRegion}}" id="src" bindchange="bindPickerChange" class="{{ srcRegion[1] === '哪里出发' ? 'placeholder' : '' }}">{{srcRegion[0] !=='不限'&&srcRegion[1]==='不限'?srcRegion[0]:''}}{{srcRegion[0] !=='不限'&&srcRegion[1]==='不限'?'':srcRegion[1]}}{{srcRegion[2] ==='不限'?'':srcRegion[2]}}</picker>
+          </view>
+            
+          <view class="weui-cell__hd" bindtap="swapRegion">
+            <image class="publish__icon" src="/images/icon/swap.png">对换地址</image>
+          </view>
+          <view class="weui-cell__bd ">
+            <picker mode="region" custom-item="不限" value="{{dstRegion}}" id="dst" bindchange="bindPickerChange" class="picker {{ dstRegion[1] === '想去哪里' ? 'placeholder' : '' }}">{{dstRegion[0] !=='不限'&&dstRegion[1]==='不限'?dstRegion[0]:''}}{{dstRegion[0] !=='不限'&&dstRegion[1]==='不限'?'':dstRegion[1]}}{{dstRegion[2] ==='不限'?'':dstRegion[2]}}</picker>
           </view>
           <view class="weui-cell__hd">
             <image class="publish__icon" src="/images/icon/dest.png"></image>
-          </view>
-          <view class="weui-cell__bd placeholder">
-            <picker mode="region">要去哪里</picker>
           </view>
         </view>
         <view class="weui-cell">
@@ -24,8 +29,8 @@
           </view>
           <view class="weui-cell__bd">
             <picker mode="date" value="{{ date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindDateChange">
-              <view class="picker {{ date === '出发日期' ? 'placeholder' : '' }}">
-                {{ date }}
+              <view class="{{ date === '出发日期' ? 'placeholder' : '' }}">
+                {{ date }} {{date === '出发日期' ? '': weekday}}
               </view>
             </picker>
           </view>

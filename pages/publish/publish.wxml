@@ -1,7 +1,7 @@
 <view class="page {{ showUserDialog ? 'noscroll' : '' }}">
   <view class="page__bd">
     <view class="weui-toptips weui-toptips_warn" wx:if="{{ showTopTips }}">{{ errorMsg }}</view>
-    <form bindsubmit="bindFormSubmit">
+    <form bindsubmit="bindFormSubmit" bindreset="bindFormReset">
       <view class="weui-tab">
         <view class="weui-navbar trips-navbar">
           <block wx:for="{{ tripTypes }}" wx:key="value">
@@ -15,11 +15,11 @@
 
           <view class="weui-tab__content" hidden="{{params.type !== 1}}">
             <view class="weui-cells weui-cells_after-title">
-              <view class="weui-cell" id="from" bindtap="bindChooseLocation">
+              <view class="weui-cell" id="from" bindtap="{{ trip.fromAddrName === '哪里出发' ? 'bindGetLocation' : 'bindChooseLocation' }}">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/from.png"></image>
                 </view>
-                <view class="weui-cell__bd {{ trip.fromAddrName === '从哪里出发' ? 'placeholder' : '' }}">
+                <view class="weui-cell__bd {{ trip.fromAddrName === '哪里出发' ? 'placeholder' : '' }}">
                   {{ trip.fromAddrName }}
                 </view>
               </view>
@@ -27,7 +27,7 @@
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/through.png"></image>
                 </view>
-                <view class="weui-cell__bd {{ trip.throughAddrName === '途经地点(选填)' ? 'placeholder' : '' }}">
+                <view class="weui-cell__bd {{ trip.throughAddrName === '途经(选填)' ? 'placeholder' : '' }}">
                   {{ trip.throughAddrName }}
                 </view>
               </view>
@@ -44,9 +44,9 @@
                   <image class="publish__icon" src="/images/icon/date.png"></image>
                 </view>
                 <view class="weui-cell__bd">
-                  <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindPickerChange">
+                  <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindDateChange">
                     <view class="picker {{ trip.date === '出发日期' ? 'placeholder' : '' }}">
-                      {{ trip.date }}
+                      {{ trip.date }} {{trip.weekday}}
                     </view>
                   </picker>
                 </view>
@@ -57,7 +57,7 @@
                 </view>
                 <view class="weui-cell__bd">
                   <picker name="earliestTime" mode="time" value="{{ trip.startTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerTimeChange">
-                    <view class="picker-time {{ trip.earliestTime === '最早出发时间' ? 'placeholder' : '' }}">
+                    <view class="{{ trip.earliestTime === '最早出发时间' ? 'placeholder' : '' }}">
                       {{ trip.earliestTime }}
                     </view>
                   </picker>
@@ -76,8 +76,8 @@
                   <image class="publish__icon" src="/images/icon/person.png"></image>
                 </view>
                 <view class="weui-cell__bd">
-                  <picker name="passageCount" value="{{ seatCount }}" range="{{ SEATS }}" bindchange="bindSeatChange">
-                    <view class="picker-time {{ trip.seatCount =='几'?'placeholder':''}}">
+                  <picker name="passageCount" value="{{ trip.seatCount-1 }}" range="{{ SEATS }}" bindchange="bindSeatChange">
+                    <view class=" {{ trip.seatCount =='几'?'placeholder':''}}">
                        <text class="{{ trip.seatCount =='几'?'':'item-red'}} ">{{ trip.seatCount }}</text> 座
                     </view>
                   </picker>
@@ -86,7 +86,7 @@
                   <image class="publish__icon" src="/images/icon/price.png"></image>
                 </view>
                 <view class="weui-cell__bd">
-                  <input class="picker-time weui-input item-red" type="number" bindinput="bindKeyInput" placeholder="单个座位价格" />
+                  <input class="weui-input item-red" type="number" bindinput="bindKeyInput" placeholder="单个座位价格" />
                 </view>
               </view>
               <view class="weui-cell">
@@ -94,7 +94,7 @@
                   <image class="publish__icon" src="/images/icon/package.png"></image>
                 </view>
                 <view class="weui-cell__bd">
-                  <picker name="passageCount" value="{{ passageCount }}" range="{{ SEATS }}" id="cargoCount" bindchange="bindPickerCargoChange">
+                  <picker name="passageCount" value="{{ trip.cargoCount-1 }}" range="{{ SEATS }}" id="cargoCount" bindchange="bindPickerCargoChange">
                     <view class="picker {{ trip.cargoCount =='几'?'placeholder':''}}">
                       可装下 [ <text class="{{ trip.cargoCount =='几'?'':'item-red'}} ">{{ trip.cargoCount }}</text> ] 个行李箱
                     </view>
@@ -118,13 +118,13 @@
           </view>
           <view class="weui-tab__content" hidden="{{params.type !== 2}}">
             <view class="trip-list">
-              <text>若乘客暂时找不到合适行程，可以在此登记，系统会监测行程，若有匹配的行程将执行推送，第一时间通知乘客找到回家的行程</text>
+              <text> 若乘客暂时找不到合适行程，可以在此登记，系统会监测行程，若有匹配的行程将执行推送，第一时间通知乘客找到回家的行程</text>
             </view>
           </view>
 
           <view class="weui-tab__content" hidden="{{params.type !== 3}}">
             <view class="trip-list">
-              <text>提供寄件信息服务，司机力所能及尽量帮捎带，寄件者尽量送到司机顺路的地方取件收件，包装妥当，避免异味；平台建议：跨城顺路送10元，城里送达10元，其他加急件请自行商议！互帮互助，让城市更有温度！</text>
+              <text> 提供寄件信息服务，司机力所能及尽量帮捎带，寄件者尽量送到司机顺路的地方取件收件，包装妥当，避免异味；平台建议：跨城顺路送10元，城里送达10元，其他加急件请自行商议！互帮互助，让城市更有温度！</text>
             </view>
           </view>
         </view>
@@ -133,10 +133,7 @@
       <checkbox-group bindchange="bindAgreeChange">
         <label class="weui-agree" for="weuiAgree">
           <view class="weui-agree__text">
-            <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
-            <view class="weui-agree__checkbox-icon">
-              <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
-            </view>
+            <checkbox class="" id="weuiAgree" value="agree" checked="{{isAgree}}" />
             阅读并同意
             <navigator url="/pages/disclaimer/disclaimer" class="weui-agree__link">《条款声明》</navigator>
           </view>
@@ -144,6 +141,7 @@
       </checkbox-group>
       <view class="weui-btn-area">
         <button class="weui-btn" type="primary" disabled="{{ !isAgree }}" form-type="submit">马上发布</button>
+        <button class="weui-btn" type="primary" formType="reset">重新填写</button>
       </view>
     </form>
   </view>
