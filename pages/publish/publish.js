@@ -243,6 +243,7 @@ Page({
   getLocation(e) {
     const _this = this;
     wx.getLocation({
+      type: 'gcj02',
       success: function (res) {
         const key = `trip.${e.currentTarget.id}`;
         console.log(res);
