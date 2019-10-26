@@ -2,20 +2,20 @@
   "pages": [
     "pages/home/home",
     "pages/trips/trips",
-    "pages/driver/driver",
     "pages/integral/integral",
-    "pages/coupon/coupon",
-    "pages/share/share",
     "pages/mytrip/mytrip",
     "pages/trip/trip",
-    "pages/realname/realname",
     "pages/list/list",
-    "pages/phone/phone",
     "pages/publish/publish",
-    "pages/setting/setting",
     "pages/my/my",
     "pages/disclaimer/disclaimer",
-    "pages/car/car"
+    "pages/car/car",
+    "pages/share/share",
+    "pages/setting/setting",
+    "pages/driver/driver",
+    "pages/coupon/coupon",
+    "pages/phone/phone",
+    "pages/realname/realname"
   ],
   "permission":{
     "scope.userLocation":{

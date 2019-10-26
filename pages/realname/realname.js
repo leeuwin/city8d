@@ -74,7 +74,7 @@ Page({
     const value = e.detail.value;
     const name = value.name;
     const idCard = value.idCard;
-    if (!fullnameValid(name)) {
+    if (!(name)) {
       isError('你的名字有问题', this);
       return false;
     }
@@ -98,10 +98,13 @@ Page({
       name,
       idCard
     }).then(res => {
-      app.globalData.userInfo = res.data.user;
+      app.globalData.userInfo.role = res.data.user.role;
       wx.navigateBack({
         delta: 1
       })
-    })
+    }).catch(e)
+    {
+        console.log(e);
+    }
   }
 })

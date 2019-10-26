@@ -174,6 +174,8 @@ Page({
   chooseLocation(e) {
     const _this = this;
     wx.chooseLocation({
+      latitude:38,
+      longitude:106,
       success: function (res) {
         const key = `trip.${e.currentTarget.id}`,
           name = `${key}AddrName`,
@@ -248,12 +250,6 @@ Page({
         const key = `trip.${e.currentTarget.id}`;
         console.log(res);
         _this.getLocal(res.longitude, res.latitude, key);
-        _this.setData({
-          [name]: res.name,
-          [address]: res.address,
-          [longitude]: res.longitude,
-          [latitude]: res.latitude
-        });
       },
       fail: function (error) {
         console.log(error);

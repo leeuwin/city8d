@@ -9,7 +9,7 @@ class Realname extends Base {
 
   binding(data = {name: '', idCard: ''}) {
     const params = {
-      url: '/authentication/by_idcard',
+      url: '/user/bind.php',
       data
     }
     return this.ajax(params);

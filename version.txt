@@ -5,6 +5,7 @@ content:
 1. 增加自动定位功能，定位坐标默认wgs84 返回 gps 坐标，改为gcj02 返回可用于 wx.openLocation 的坐标；
 2. 增加星期显示；
 3. 细节优化
+4.增加部分权限控制
 
 version:1.0.2
 date: 2019-10-25

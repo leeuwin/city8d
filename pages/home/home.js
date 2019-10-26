@@ -19,7 +19,6 @@ Page({
 
   toTrips: function (e) {
     
-
     const city = e.currentTarget.dataset.city;
     this.data.dstRegion[0] = city.province;
     this.data.dstRegion[1] = city.city;

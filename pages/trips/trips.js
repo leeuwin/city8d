@@ -33,11 +33,11 @@ Page({
   },
 
   onLoad: function(options) {
-    this.__getUserInfo().then(userInfo => {
+    /*this.__getUserInfo().then(userInfo => {
       this.setData({
         userInfo
       })
-    });
+    });*/
     // 获取城市信息
     qqmapsdk = new QQMapWX({
       key: 'D7RBZ-L37W6-A5ASJ-EDEXZ-3JFLJ-73FAE'

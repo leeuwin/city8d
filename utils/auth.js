@@ -12,8 +12,12 @@ class Auth {
    *  condition 某些操作所必须携带的条件
    */
   checkAuth(page, action, condition) {
-    const currentUser = app.globalData.userInfo,
+    const currentUser = app.globalData.userInfo;
+    var roleName = 'WX_USER';
+    if (currentUser && currentUser.role)
+    {
       roleName = ROLE_TYPES[currentUser.role].name;
+    }
     // 微信用户 - 不管执行任何询问的操作，都返回false
     // 已获取头像和昵称的用户 - 不管执行任何询问的操作，都返回false
     // 已绑定手机号的用户 - 不管执行任何询问的操作，都返回false
