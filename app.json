@@ -13,9 +13,9 @@
     "pages/share/share",
     "pages/setting/setting",
     "pages/driver/driver",
-    "pages/coupon/coupon",
     "pages/realname/realname",
-    "pages/phone/phone"
+    "pages/phone/phone",
+    "pages/coupon/coupon"
   ],
   "permission":{
     "scope.userLocation":{

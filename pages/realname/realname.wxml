@@ -2,7 +2,7 @@
   <view class='page__bd'>
     <view class="weui-toptips weui-toptips_warn" wx:if="{{ showTopTips }}">{{ errorMsg }}</view>
     <view class="banner">
-      <image class="banner-verify" src="http://image.ngsfc.cn/ttsfc_verify_banner.jpg"></image>
+      <image class="banner-verify" src="http://39.100.243.238/image/verify_banner.jpg"></image>
     </view>
     <form report-submit="true" bindsubmit="formSubmit">
       <view class="weui-cells weui-cells_after-title">
@@ -19,7 +19,7 @@
             <view class="weui-label">身份证号</view>
           </view>
           <view class="weui-cell__bd">
-            <input type="idcard" maxLength="18" class="weui-input" placeholder="请输入身份证号码" id="idCard" name="idCard" bindinput="bindInput" />
+            <input type="idcard" maxlength="18" class="weui-input" placeholder="请输入身份证号码" id="idCard" name="idCard" bindinput="bindInput" />
           </view>
         </view>
       </view>
