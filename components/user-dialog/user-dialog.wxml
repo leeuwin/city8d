@@ -2,7 +2,7 @@
   <view class="mbk-dialog-container">
     <view class="mbk-dialog-header">
       <view>
-        <image class="logo-img" mode="aspectFit" src="http://image.ngsfc.cn/ttsfc_logo.png"></image>
+        <image class="logo-img" mode="aspectFit" src="http://39.100.243.238/image/logo/cube.jpg"></image>
       </view>
     </view>
     <view class="mbk-dialog-content">

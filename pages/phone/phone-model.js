@@ -7,7 +7,7 @@ class Phone extends Base {
 
   binding(data) {
     const params = {
-      url: '/user/binding/phone',
+      url: '/user/bind_phone.php',
       data
     };
     return this.ajax(params);

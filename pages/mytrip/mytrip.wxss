@@ -18,13 +18,13 @@
 .trips-navbar .weui-navbar__item_on .weui-navbar__title {
   background-color: #028e6c;
   color: #fff;
-  width: 80rpx;
-  height: 60rpx;
-  border-radius: 40rpx;
+  width: 100rpx;
+  height: 70rpx;
+  border-radius: 50rpx;
 }
 
 .trips-navbar .weui-navbar__title {
-  font-size: 32rpx;
+  font-size: 34rpx;
   height: 60rpx;
   display: flex;
   align-items: center;

@@ -93,7 +93,7 @@
                 <view class="weui-cell__bd">
                   <picker name="passageCount" value="{{ trip.cargoCount-1 }}" range="{{ SEATS }}" id="cargoCount" bindchange="bindPickerCargoChange">
                     <view class="picker {{ trip.cargoCount =='几'?'placeholder':''}}">
-                      可放[ <text class="{{ trip.cargoCount =='几'?'':'item-red'}} ">{{ trip.cargoCount }}</text> ]个行李箱
+                      可放 <text class="{{ trip.cargoCount =='几'?'':'item-red'}} ">{{ trip.cargoCount }}</text>个行李箱
                     </view>
                   </picker>
                 </view>

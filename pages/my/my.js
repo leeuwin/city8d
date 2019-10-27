@@ -41,7 +41,7 @@ Page({
       driverAuditStatus
     })
   },
-
+/*
   bindGetUserInfo: function (e) {
     let _this = this;
     wx.getSetting({
@@ -105,8 +105,9 @@ Page({
       }
     });
   },
+  */
   // 获取用户头像信息
-  /*
+  
   bindGetUserInfo(e) {
     const userInfo = e.detail.userInfo;
     if (userInfo) {
@@ -121,7 +122,7 @@ Page({
           this.setUserStatus(userInfo);
         })
     }
-  },*/
+  },
 
   // 跳转到实名认证页面
   navigateToRealname: function() {

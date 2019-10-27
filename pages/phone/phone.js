@@ -6,18 +6,23 @@ const app = getApp();
 
 Page({
   data: {
-    from: ''
+    from: '',
+    phone:'' 
   },
   onLoad: function(options) {
     const from = options.from
     if (from) {
       this.setData({ from });
     }
+  }, 
+  bindKeyInput: function (e) {
+    this.setData({
+      ['phone']: e.detail.value
+    })
   },
   bindGetPhoneNumber(e) {
     let phone = new Phone();
-    if (e.detail.errMsg === 'getPhoneNumber:ok') {
-      phone.binding(e.detail)
+      phone.binding({phone:this.data.phone})
         .then(res => {
           app.globalData.userInfo = res.data.user;
           if (this.data.from === 'publish') {
@@ -43,7 +48,6 @@ Page({
             })
           }
         })
-        .catch(error => {})
-    }
+        .catch(error => {});
   }
 })

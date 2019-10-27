@@ -14,8 +14,8 @@
     "pages/setting/setting",
     "pages/driver/driver",
     "pages/coupon/coupon",
-    "pages/phone/phone",
-    "pages/realname/realname"
+    "pages/realname/realname",
+    "pages/phone/phone"
   ],
   "permission":{
     "scope.userLocation":{
