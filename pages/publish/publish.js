@@ -362,7 +362,8 @@ Page({
       ['trip.seatCount']: 3,
       ['trip.cargoCount']: 1,
       ['trip.price']: 0,
-      ['trip.remarks']: ''
+      ['trip.remarks']: '',
+      ['isAgree']:false
     })
   },
   // 校验字段合法性

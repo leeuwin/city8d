@@ -18,6 +18,7 @@
               <view class="weui-cell" id="from" bindtap="{{ trip.fromAddrName === '哪里出发' ? 'bindGetLocation' : 'bindChooseLocation' }}">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/from.png"></image>
+                  <text class="required">*</text>
                 </view>
                 <view class="weui-cell__bd {{ trip.fromAddrName === '哪里出发' ? 'placeholder' : '' }}">
                   {{ trip.fromAddrName }}
@@ -34,6 +35,7 @@
               <view class="weui-cell" id="dest" bindtap="bindChooseLocation">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/dest.png"></image>
+                  <text class="required">*</text>
                 </view>
                 <view class="weui-cell__bd {{ trip.destAddrName === '要去哪里' ? 'placeholder' : '' }}">
                   {{ trip.destAddrName }}
@@ -42,6 +44,7 @@
               <view class="weui-cell">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/date.png"></image>
+                  <text class="required">*</text>
                 </view>
                 <view class="weui-cell__bd">
                   <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindDateChange">
@@ -54,6 +57,7 @@
               <view class="weui-cell">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/time.png"></image>
+                  <text class="required">*</text>
                 </view>
                 <view class="weui-cell__bd">
                   <picker name="earliestTime" mode="time" value="{{ trip.startTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerTimeChange">
@@ -74,6 +78,7 @@
               <view class="weui-cell">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/person.png"></image>
+                  <text class="required">*</text>
                 </view>
                 <view class="weui-cell__bd">
                   <picker name="passageCount" value="{{ trip.seatCount-1 }}" range="{{ SEATS }}" bindchange="bindSeatChange">
@@ -83,22 +88,23 @@
                   </picker>
                 </view>
                 <view class="weui-cell__hd">
-                  <image class="publish__icon" src="/images/icon/price.png"></image>
-                </view>
-                <view class="weui-cell__bd">
-                  <input class="weui-input item-red" type="number" bindinput="bindKeyInput" placeholder="单个座位价格" />
-                </view>
-              </view>
-              <view class="weui-cell">
-                <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/package.png"></image>
                 </view>
                 <view class="weui-cell__bd">
                   <picker name="passageCount" value="{{ trip.cargoCount-1 }}" range="{{ SEATS }}" id="cargoCount" bindchange="bindPickerCargoChange">
                     <view class="picker {{ trip.cargoCount =='几'?'placeholder':''}}">
-                      可装下 [ <text class="{{ trip.cargoCount =='几'?'':'item-red'}} ">{{ trip.cargoCount }}</text> ] 个行李箱
+                      可放[ <text class="{{ trip.cargoCount =='几'?'':'item-red'}} ">{{ trip.cargoCount }}</text> ]个行李箱
                     </view>
                   </picker>
+                </view>
+              </view>
+              <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/price.png"></image>
+                  <text class="required">*</text>
+                </view>
+                <view class="weui-cell__bd">
+                  <input class="item-red" type="number" bindinput="bindKeyInput" placeholder="单个座位价格" />
                 </view>
               </view>
 

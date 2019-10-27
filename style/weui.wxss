@@ -1118,7 +1118,7 @@ icon {
 .weui-tab__panel {
   box-sizing: border-box;
   height: 100%;
-  padding-top: 170rpx;
+  padding-top: 140rpx;
   overflow: auto;
   -webkit-overflow-scrolling: touch
 }
