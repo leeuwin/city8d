@@ -4,10 +4,16 @@ import { TRIP_TYPE, ROLE_TYPES } from 'utils/constants';
 
 App({
   onLaunch: function() {
-    const token = wx.getStorageSync('token'); // 从缓存中读取token
-    if (token) {
+    var token = '';
+    //token = wx.getStorageSync('token'); // 从缓存中读取token
+    if (token) 
+    {
+      console.log(token);
       this.__fetchUserinfo();
-    } else {
+    } 
+    else 
+    {
+      console.log("token is not exist,ready fetch from server!");
       this.__fetchToken();
     }
   },
@@ -34,6 +40,7 @@ App({
     const oToken = new Token();
     oToken.getTokenFromServer()
       .then(res => {
+        console.log("fetch token succeed"+res.token);
         wx.setStorageSync('token', res.token); // 缓存token
         this.globalData.userInfo = res.user; // 缓存用户信息
         if (this.userInfoCallback) { // 页面获取用户信息的回调

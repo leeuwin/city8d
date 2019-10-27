@@ -28,7 +28,11 @@ Page({
   },
 
   __checkAuth() {
-    const roleDesc = ROLE_TYPES[this.data.userInfo.role].name;
+    var roleDesc = 'WX_USER';
+    if (this.data.userInfo && this.data.userInfo.role)
+    {
+      roleDesc = ROLE_TYPES[this.data.userInfo.role].name;
+    }
     if (roleDesc === 'WX_USER') {
       this.setData({ showUserDialog: true })
     }
