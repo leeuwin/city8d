@@ -1,6 +1,6 @@
 <view class='page'>
   <view class='page__hd'>
-    <image class="banner-verify" src="http://39.100.243.238/image/verify_banner.jpg"></image>
+    <image class="banner-verify" src="http://39.100.243.238/image/verify_phone.jpg"></image>
   </view>
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">

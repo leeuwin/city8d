@@ -2,7 +2,7 @@
   <view class='page__bd'>
     <view class="weui-toptips weui-toptips_warn" wx:if="{{ showTopTips }}">{{ errorMsg }}</view>
     <view class="banner">
-      <image class="banner-verify" src="http://39.100.243.238/image/verify_banner.jpg"></image>
+      <image class="banner-verify" src="http://39.100.243.238/image/verify_idCard.jpg"></image>
     </view>
     <form report-submit="true" bindsubmit="formSubmit">
       <view class="weui-cells weui-cells_after-title">

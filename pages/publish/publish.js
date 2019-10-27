@@ -73,8 +73,8 @@ Page({
 
   onShow() {
     this.__getUserInfo().then(() => {
-      this.checkAuth();
-    })
+    });
+    this.checkAuth();
     var city = wx.getStorageSync('city');
     //this.setData({ ['trip.destName']: city.name })
   },
@@ -86,11 +86,15 @@ Page({
       if (userInfo) { // 当用户通过正常的跳转进入该页面(用户信息已经获取并存储在globalData中)
         this.setData({ userInfo })
         resolve();
-      } else { // 当用户直接进入该页面(通过二维码或者分享链接)
+      } else { 
+        // 当用户直接进入该页面(通过二维码或者分享链接)
+        /*原本的实现，不知道什么意思
         app.userInfoCallback = userInfo => { // 这是个异步过程
           this.setData({ userInfo })
           resolve();
-        }
+        }*/
+        //lim修改的版本，获取用户信息
+        reject();
       }
     })
     return promise;
