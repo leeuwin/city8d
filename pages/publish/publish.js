@@ -87,14 +87,12 @@ Page({
         this.setData({ userInfo })
         resolve();
       } else { 
-        // 当用户直接进入该页面(通过二维码或者分享链接)
-        /*原本的实现，不知道什么意思
+        // 
+        /*原本的实现，不知道什么意思*/
         app.userInfoCallback = userInfo => { // 这是个异步过程
           this.setData({ userInfo })
           resolve();
-        }*/
-        //lim修改的版本，获取用户信息
-        reject();
+        }
       }
     })
     return promise;
@@ -178,8 +176,8 @@ Page({
   chooseLocation(e) {
     const _this = this;
     wx.chooseLocation({
-      latitude:38,
-      longitude:106,
+      latitude: 24.5365908,
+      longitude: 117.9898558,
       success: function (res) {
         const key = `trip.${e.currentTarget.id}`,
           name = `${key}AddrName`,
