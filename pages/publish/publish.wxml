@@ -32,13 +32,14 @@
                   {{ trip.throughAddrName }}
                 </view>
               </view>
-              <view class="weui-cell" id="dest" bindtap="bindChooseLocation">
+              <view class="weui-cell" id="dest" bindtap="">
                 <view class="weui-cell__hd">
                   <image class="publish__icon" src="/images/icon/dest.png"></image>
                   <text class="required">*</text>
                 </view>
                 <view class="weui-cell__bd {{ trip.destAddrName === '要去哪里' ? 'placeholder' : '' }}">
-                  {{ trip.destAddrName }}
+                  <picker  mode="region" custom-item="不限" value="{{dstRegion}}" id="dst" bindchange="bindPickerDestChange" class="{{ srcRegion[1] === '哪里出发' ? 'placeholder' : '' }}">{{dstRegion[0] !=='不限'&&dstRegion[1]==='不限'?dstRegion[0]:''}}{{dstRegion[0] !=='不限'&&dstRegion[1]==='不限'?'':dstRegion[1]}}{{dstRegion[2] ==='不限'?'':dstRegion[2]}}</picker>
+                  <!--{{ trip.destAddrName }}-->
                 </view>
               </view>
               <view class="weui-cell">

@@ -1,3 +1,9 @@
+version:1.0.5
+date: 2019-10-29
+author: lim
+content:
+1. publish页面的终点增加region预选城市，再通过地图精确定位，提高用户体验；
+
 version:1.0.4
 date: 2019-10-27
 author: lim

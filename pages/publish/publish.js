@@ -38,6 +38,9 @@ Page({
       earliestTime: '最早出发时间',
       latestTime: '最迟出发时间'
     },
+    dstRegion: ['福建省', '哪里出发', '不限'],
+    dstLong:0,
+    dstLat:0,
     params: { type: 1},
     userInfo: null,
     SEATS,
@@ -175,9 +178,10 @@ Page({
   // 获取地址
   chooseLocation(e) {
     const _this = this;
+    console.log("chooselocation open lat="+_this.data.dstLat+" lng="+_this.data.dstLong);
     wx.chooseLocation({
-      latitude: 24.5365908,
-      longitude: 117.9898558,
+      latitude: _this.data.dstLat,
+      longitude: _this.data.dstLong,
       success: function (res) {
         const key = `trip.${e.currentTarget.id}`,
           name = `${key}AddrName`,
@@ -230,7 +234,7 @@ Page({
                   } else if (res.cancel) {
                     console.log('用户拒绝使用地理位置');
                     _this.setData({
-                      'fromAddrName': '定位失败'
+                      'trip.fromAddrName': '定位失败'
                     })
                   }
                 }
@@ -257,7 +261,7 @@ Page({
         console.log(error);
         console.log("获取失败");
         _this.setData({
-          'fromAddrName': '定位失败'
+          'trip.fromAddrName': '定位失败'
         })
       }
     });
@@ -288,11 +292,30 @@ Page({
       fail: function (res) {
         console.log(res);
         _this.setData({
-          'fromAddrName': '获取地址失败'
+          'trip.fromAddrName': '获取地址失败'
         })
       },
       complete: function (res) {
         // console.log(res);
+      }
+    });
+  },
+  // 获取当前地理位置
+  getCityLocation: function (region) {
+    let _this = this;
+    let addr=region[0]+region[1]+region[2];
+    //let addr = "福建省厦门市思明区";
+    qqmapsdk.geocoder({
+      address: addr,
+      success: function (res) {
+        console.log(JSON.stringify(res));
+        _this.setData({
+          ['dstLong']:res.result.location.lng,
+          ['dstLat']:res.result.location.lat
+        })
+      },
+      fail: function (res) {
+        console.log(res);
       }
     });
   },
@@ -314,6 +337,14 @@ Page({
       [key]: value // ID 对应 key值
     })
   }, 
+  bindPickerDestChange: function (e) {
+    let key = `${e.target.id}Region`;
+    this.setData({
+      [key]: e.detail.value
+    });
+    this.getCityLocation(this.data.dstRegion);
+    this.bindChooseLocation();
+  },
   bindDateChange: function (e) {
     let day = formatTime(e.detail.value).weekday;
     this.setData({
