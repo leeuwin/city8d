@@ -4,15 +4,16 @@ import { User } from '../../utils/user';
 import { Auth } from '../../utils/auth';
 import { Publish } from './publish-model';
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
-var qqmapsdk;
 
 const app = getApp(); //获取应用实例
 const auth = new Auth(); // 获取权限实例
+var qqmapsdk = new QQMapWX({
+  key: 'D7RBZ-L37W6-A5ASJ-EDEXZ-3JFLJ-73FAE'
+});//获取腾讯地图api
 
 Page({
   data: {
     trip: {
-      publisher: 1,
       type: 1, // 1 车辆行程 2 乘客行程 3 寄件行程
       fromAddrName: '哪里出发', // 出发地名称
       fromAddress: '', // 出发地地址
@@ -20,27 +21,26 @@ Page({
       fromLatitude: '', // 出发地纬度
       throughAddrName: '途经(选填)', // 出发地名称
       throughAddress: '', // 出发地地址
-      throughLongitude: '', // 出发地经度
-      throughLatitude: '', // 出发地纬度
+      throughLongitude: null, // 出发地经度
+      throughLatitude: null, // 出发地纬度
       destAddrName: '要去哪里', // 名称
       destAddress: '', // 地址
-      destLongitude: '', // 经度
-      destLatitude: '', // 纬度
-      price: 0,
-      startTime: '12:00',
-      endTime: '12:30',
-      seatCount: 3, // 座位/人数
-      cargoCount: 1,
-      remarks: '', // 备注
+      destLongitude: null, // 经度
+      destLatitude: null, // 纬度
+      price: 0,         //行程单价
+      startTime: '12:00', //出发最早时间
+      endTime: '12:30', //出发最迟时间（默认最早后半小时）
+      seatCount: 3, // 座位数
+      cargoCount: 1,  //行李容量
+      remarks: '', // 备注信息
       date: formatTime().date, // 日期
       weekday: formatTime().weekday,//星期
-      //earliestTime: formatTime().time1,
       earliestTime: '最早出发时间',
       latestTime: '最迟出发时间'
     },
-    dstRegion: ['福建省', '哪里出发', '不限'],
-    dstLong:0,
-    dstLat:0,
+    dstRegion: ['不限', '不限', '不限'],
+    dstLong:null,
+    dstLat:null,
     params: { type: 1},
     userInfo: null,
     SEATS,
@@ -69,17 +69,12 @@ Page({
   onLoad() {
     //wx.getUserInfo();
     //this.bindGetUserInfo();
-    qqmapsdk = new QQMapWX({
-      key: 'D7RBZ-L37W6-A5ASJ-EDEXZ-3JFLJ-73FAE'
-    });
   },
 
   onShow() {
     this.__getUserInfo().then(() => {
     });
     this.checkAuth();
-    var city = wx.getStorageSync('city');
-    //this.setData({ ['trip.destName']: city.name })
   },
 
   // 获取用户信息
@@ -90,7 +85,6 @@ Page({
         this.setData({ userInfo })
         resolve();
       } else { 
-        // 
         /*原本的实现，不知道什么意思*/
         app.userInfoCallback = userInfo => { // 这是个异步过程
           this.setData({ userInfo })
@@ -135,7 +129,8 @@ Page({
       tripTypes: tripTypes
     });
   },
-  bindChooseLocation: function (e) {
+   // 获取目的地址
+  bindChooseDstLocation: function (id) {
     let _this = this;
     wx.getSetting({
       success(res) {
@@ -144,7 +139,7 @@ Page({
           wx.authorize({
             scope: 'scope.userLocation',
             success() {
-              _this.chooseLocation(e);
+              _this.chooseLocation(id);
             },
             fail(errMsg) {
               wx.showModal({
@@ -170,20 +165,64 @@ Page({
             }
           })
         } else {
-          _this.chooseLocation(e);
+          _this.chooseLocation(id);
+        }
+      }
+    })
+  },
+   // 获取出发地址
+  bindChooseLocation: function (e) {
+    let _this = this;
+    var id = e.currentTarget.id;
+    wx.getSetting({
+      success(res) {
+        // 判断定位的授权
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              _this.chooseLocation(id);
+            },
+            fail(errMsg) {
+              wx.showModal({
+                title: '哎呀！地址定位失败！', //提示的标题,
+                content: '请开启手机和微信定位！', //提示的内容,
+                showCancel: true, //是否显示取消按钮,
+                cancelText: '取消', //取消按钮的文字，默认为取消，最多 4 个字符,
+                cancelColor: '#000000', //取消按钮的文字颜色,
+                confirmText: '开启定位', //确定按钮的文字，默认为取消，最多 4 个字符,
+                confirmColor: '#3CC51F', //确定按钮的文字颜色,
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: res => {
+                        console.log(res.authSetting);
+                      }
+                    });
+                  } else if (res.cancel) {
+                    console.log('用户拒绝使用地理位置');
+                  }
+                }
+              });
+            }
+          })
+        } else {
+          _this.chooseLocation(id);
         }
       }
     })
   },
   // 获取地址
-  chooseLocation(e) {
+  chooseLocation(id) {
     const _this = this;
-    console.log("chooselocation open lat="+_this.data.dstLat+" lng="+_this.data.dstLong);
+    var preLatitude = _this.data.trip[`${id}Latitude`];
+    var preLongitude = _this.data.trip[`${id}Longitude`];
+    console.log("chooselocation open lat=" + preLatitude + " lng=" + preLongitude);
     wx.chooseLocation({
-      latitude: _this.data.dstLat,
-      longitude: _this.data.dstLong,
+      latitude: preLatitude,
+      longitude: preLongitude,
       success: function (res) {
-        const key = `trip.${e.currentTarget.id}`,
+        const key = `trip.${id}`,
           name = `${key}AddrName`,
           address = `${key}Address`,
           longitude = `${key}Longitude`,
@@ -283,11 +322,14 @@ Page({
         let province = res.result.ad_info.province
         let city = res.result.ad_info.city
         _this.setData({
+          ['dstRegion[0]']:province
+        });
+        _this.setData({
           [name]: res.result.formatted_addresses.recommend,
           [address]: res.result.address,
           [lng]: res.result.location.lng,
           [lat]: res.result.location.lat
-        })
+        });
       },
       fail: function (res) {
         console.log(res);
@@ -300,22 +342,48 @@ Page({
       }
     });
   },
-  // 获取当前地理位置
+  // 通过当前城市名称获取坐标
   getCityLocation: function (region) {
     let _this = this;
-    let addr=region[0]+region[1]+region[2];
-    //let addr = "福建省厦门市思明区";
+    var id='dest';
+    var addr='';
+    for(let i=0; i<3; i++)
+    {
+      if(region[0]=='不限')
+      {
+        break;
+      }
+      else
+      {
+        addr = addr+region[i];
+      }
+    }
+    if(addr=='')
+    {
+      _this.setData({
+        ['trip.destLongitude']:null,
+        ['trip.destLatitude']:null
+      });
+      _this.bindChooseDstLocation(id);
+      return;
+    }
     qqmapsdk.geocoder({
       address: addr,
       success: function (res) {
         console.log(JSON.stringify(res));
         _this.setData({
-          ['dstLong']:res.result.location.lng,
-          ['dstLat']:res.result.location.lat
-        })
+          ['trip.destLongitude']:res.result.location.lng,
+          ['trip.destLatitude']:res.result.location.lat
+        });
+        _this.bindChooseDstLocation(id);
       },
       fail: function (res) {
         console.log(res);
+        _this.setData({
+          ['trip.destLongitude']: null,
+          ['trip.destLatitude']: null
+        });
+        _this.bindChooseDstLocation(id);
       }
     });
   },
@@ -343,7 +411,6 @@ Page({
       [key]: e.detail.value
     });
     this.getCityLocation(this.data.dstRegion);
-    this.bindChooseLocation();
   },
   bindDateChange: function (e) {
     let day = formatTime(e.detail.value).weekday;
@@ -383,6 +450,7 @@ Page({
       this.publish();
     }
   }, 
+  // 重置表单
   bindFormReset: function () {
     this.setData({
       ['trip.fromAddrName']: '哪里出发',

@@ -37,9 +37,11 @@
                   <image class="publish__icon" src="/images/icon/dest.png"></image>
                   <text class="required">*</text>
                 </view>
-                <view class="weui-cell__bd {{ trip.destAddrName === '要去哪里' ? 'placeholder' : '' }}">
-                  <picker  mode="region" custom-item="不限" value="{{dstRegion}}" id="dst" bindchange="bindPickerDestChange" class="{{ srcRegion[1] === '哪里出发' ? 'placeholder' : '' }}">{{dstRegion[0] !=='不限'&&dstRegion[1]==='不限'?dstRegion[0]:''}}{{dstRegion[0] !=='不限'&&dstRegion[1]==='不限'?'':dstRegion[1]}}{{dstRegion[2] ==='不限'?'':dstRegion[2]}}</picker>
-                  <!--{{ trip.destAddrName }}-->
+                <view wx:if="{{ trip.destAddrName === '要去哪里'}}" class="weui-cell__bd placeholder">
+                  <picker mode="region" custom-item="不限" value="{{dstRegion}}" id="dst" bindchange="bindPickerDestChange" class="{{ srcRegion[1] === '哪里出发' ? 'placeholder' : '' }}">{{ trip.destAddrName }}</picker>
+                </view>
+                <view wx:else class="weui-cell__bd" id="dest" bindtap="bindChooseLocation">
+                  {{ trip.destAddrName }}
                 </view>
               </view>
               <view class="weui-cell">

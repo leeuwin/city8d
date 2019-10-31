@@ -1,3 +1,10 @@
+version:1.0.6
+date: 2019-10-31
+author: lim
+content:
+1. 增加路程详情途径点的路径显示；
+2. 优化发布页面的目的地址选择；
+
 version:1.0.5
 date: 2019-10-29
 author: lim

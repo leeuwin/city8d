@@ -24,15 +24,26 @@ Page({
       iconPath: '/images/icon/from_marker.png',
       width: 48,
       height: 48
-    }, {
+    }, 
+    {
       id: 2,
       latitude: '',
       longitude: '',
       name: '',
       address: '',
-      iconPath: '/images/icon/dest_marker.png',
+      iconPath: '',
       width: 48,
       height: 48
+    }, 
+    {
+        id: 3,
+        latitude: '',
+        longitude: '',
+        name: '',
+        address: '',
+        iconPath: '/images/icon/dest_marker.png',
+        width: 48,
+        height: 48
     }],
     // 缩放视野以包含所有给定的坐标点
     includePoints: [],
@@ -65,7 +76,19 @@ Page({
         this.setData({ trip });
         this.__setDrivingMarkers(trip); // 设置起点终点图标
         this.__setIncludePoints(trip); // 设置缩放视野以包含所有给定的坐标点
-        this.getDriving(); // 获取行程路线
+        
+        if (this.data.trip.throughAddress=="")
+        {  
+          var journey = { fromLongitude : this.data.trip.fromLongitude, fromLatitude : this.data.trip.fromLatitude, destLongitude : this.data.trip.destLongitude, destLatitude : this.data.trip.destLatitude };
+          this.getDriving(journey); // 获取行程路线
+        }
+        else
+        {
+          var formerHalf = { fromLongitude : this.data.trip.fromLongitude, fromLatitude : this.data.trip.fromLatitude, destLongitude : this.data.trip.throughLongitude, destLatitude : this.data.trip.throughLatitude };
+          this.getDriving(formerHalf);
+          var latterHalf = { fromLongitude : this.data.trip.throughLongitude, fromLatitude : this.data.trip.throughLatitude, destLongitude : this.data.trip.destLongitude, destLatitude : this.data.trip.destLatitude };
+          this.getDriving(latterHalf);
+        }
       })
       .catch(() => {
         wx.showToast({ title: '数据获取失败' });
@@ -128,10 +151,14 @@ Page({
       'markers[0].longitude': trip.fromLongitude,
       'markers[0].name': trip.fromName,
       'markers[0].address': trip.fromAddress,
-      'markers[1].latitude': trip.destLatitude,
-      'markers[1].longitude': trip.destLongitude,
-      'markers[1].name': trip.destName,
-      'markers[1].address': trip.destAddress
+      'markers[1].latitude': trip.throughLatitude,
+      'markers[1].longitude': trip.throughLongitude,
+      'markers[1].name': trip.throughName,
+      'markers[1].address': trip.throughAddress,
+      'markers[2].latitude': trip.destLatitude,
+      'markers[2].longitude': trip.destLongitude,
+      'markers[2].name': trip.destName,
+      'markers[2].address': trip.destAddress
     })
   },
 
@@ -142,14 +169,28 @@ Page({
       latitude: trip.fromLatitude,
       longitude: trip.fromLongitude
     }
-    const dest = {
+    const through = {
       id: 2,
+      latitude: trip.throughLatitude,
+      longitude: trip.throughLongitude
+    }
+    const dest = {
+      id: 3,
       latitude: trip.destLatitude,
       longitude: trip.destLongitude
     }
-    this.setData({
-      includePoints: [from, dest]
-    })
+    if (trip.throughAddress=="")
+    {
+      this.setData({
+        includePoints: [from,dest]
+      });
+    }
+    else{
+
+      this.setData({
+        includePoints: [from, through, dest]
+      });
+    }
   },
 
   //  设置默认的缩放视野
@@ -176,16 +217,17 @@ Page({
   },
 
   // 获取路线导航
-  getDriving({ fromLongitude = this.data.trip.fromLongitude, fromLatitude = this.data.trip.fromLatitude, destLongitude = this.data.trip.destLongitude, destLatitude = this.data.trip.destLatitude } = {}) {
+ // getDriving({ fromLongitude = this.data.trip.fromLongitude, fromLatitude = this.data.trip.fromLatitude, destLongitude = this.data.trip.destLongitude, destLatitude = this.data.trip.destLatitude } = {}) {
+  getDriving(journey) {
     wx.request({
-      url: `https://apis.map.qq.com/ws/direction/v1/driving/?from=${fromLatitude},${fromLongitude}&to=${destLatitude},${destLongitude}&output=json&callback=cb&key=ZGKBZ-IJWCW-4CTR4-OXUFB-SUUZ2-U3BYA`,
+      url: `https://apis.map.qq.com/ws/direction/v1/driving/?from=${journey.fromLatitude},${journey.fromLongitude}&to=${journey.destLatitude},${journey.destLongitude}&output=json&callback=cb&key=ZGKBZ-IJWCW-4CTR4-OXUFB-SUUZ2-U3BYA`,
       success: res => {
         // polyline 坐标解压  @url: http://lbs.qq.com/webservice_v1/guide-road.html#link-seven
         let coors = res.data.result.routes[0].polyline;
         for (let i = 2; i < coors.length; i++) {
           coors[i] = coors[i - 2] + coors[i] / 1000000
         }
-        let points = [];
+        let points = this.data.polyline[0].points;
         for (let i = 0; i < coors.length; i++) {
           let latitude = '',
             longitude = '';
