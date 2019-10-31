@@ -18,7 +18,10 @@
 .info-item__red{
   color: #f00;
 }
-
+.info-item__button{
+  position: relative;
+  margin-right: 0;
+}
 .info-detail-special{
   justify-content: space-between;
   display: flex;
@@ -43,6 +46,8 @@
   font-weight: 700;
   color: #44455a;
   background-color: #f9f9f9;
+  display: flex;
+  justify-content: space-between;
 }
 
 .trip-media-box__ft {

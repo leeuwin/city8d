@@ -31,7 +31,7 @@ Page({
       longitude: '',
       name: '',
       address: '',
-      iconPath: '',
+      iconPath: '/images/icon/through_marker.png',
       width: 48,
       height: 48
     }, 
@@ -85,9 +85,9 @@ Page({
         else
         {
           var formerHalf = { fromLongitude : this.data.trip.fromLongitude, fromLatitude : this.data.trip.fromLatitude, destLongitude : this.data.trip.throughLongitude, destLatitude : this.data.trip.throughLatitude };
-          this.getDriving(formerHalf);
+          //this.getDriving(formerHalf);
           var latterHalf = { fromLongitude : this.data.trip.throughLongitude, fromLatitude : this.data.trip.throughLatitude, destLongitude : this.data.trip.destLongitude, destLatitude : this.data.trip.destLatitude };
-          this.getDriving(latterHalf);
+          this.getDriving(formerHalf,latterHalf);
         }
       })
       .catch(() => {
@@ -218,7 +218,7 @@ Page({
 
   // 获取路线导航
  // getDriving({ fromLongitude = this.data.trip.fromLongitude, fromLatitude = this.data.trip.fromLatitude, destLongitude = this.data.trip.destLongitude, destLatitude = this.data.trip.destLatitude } = {}) {
-  getDriving(journey) {
+  getDriving(journey,journey2) {
     wx.request({
       url: `https://apis.map.qq.com/ws/direction/v1/driving/?from=${journey.fromLatitude},${journey.fromLongitude}&to=${journey.destLatitude},${journey.destLongitude}&output=json&callback=cb&key=ZGKBZ-IJWCW-4CTR4-OXUFB-SUUZ2-U3BYA`,
       success: res => {
@@ -240,7 +240,11 @@ Page({
         }
         this.setData({
           ['polyline[0].points']: points
-        })
+        });
+        if (journey2)
+        {
+          this.getDriving(journey2);
+        }
       }
     })
   },

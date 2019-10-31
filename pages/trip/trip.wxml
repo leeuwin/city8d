@@ -3,7 +3,12 @@
   <map id="myMap" class="my-map" markers="{{markers}}" bindmarkertap="markertap" include-points="{{includePoints}}" polyline="{{polyline}}" show-location="{{ true }}" scale="{{ 11 }}" hidden="{{ showShareDialog }}"></map>
   <view class="trip-panel">
     <view class="trip-panel__hd">
-      <text>行程详情（<text class="info-item__red">地图可拖动/缩放，双击可放大</text>）</text>
+      <view class="">
+        <text class="info-item__red">系统生成此路径仅为参考</text>
+      </view>
+      <view class="info-item__button">
+        <button>切换地图</button>
+      </view>
     </view>
     <view class="trip-panel__bd">
       <view class="trip-item__hd ">
