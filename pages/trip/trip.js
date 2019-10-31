@@ -53,7 +53,24 @@ Page({
       padding: [20],
       color: "#00b589",
       width: 8
-    }]
+    }],
+    scaleType:0,//0 全程 1看起点 2起点-途径 3途径点-终点 4终点
+    setting : {
+      skew: 0,
+      rotate: 0,
+      showLocation: false,
+      showScale: false,
+      subKey: '',
+      layerStyle: -1,
+      enableZoom: true,
+      enableScroll: true,
+      enableRotate: false,
+      showCompass: false,
+      enable3D: false,
+      enableOverlooking: false,
+      enableSatellite: false,
+      enableTraffic: false,
+    }
   },
 
   // 生命周期函数--监听页面加载
@@ -88,6 +105,7 @@ Page({
           //this.getDriving(formerHalf);
           var latterHalf = { fromLongitude : this.data.trip.throughLongitude, fromLatitude : this.data.trip.throughLatitude, destLongitude : this.data.trip.destLongitude, destLatitude : this.data.trip.destLatitude };
           this.getDriving(formerHalf,latterHalf);
+          //this.getDriving(formerHalf);
         }
       })
       .catch(() => {
@@ -98,7 +116,7 @@ Page({
 
   // 生命周期函数--监听页面初次渲染完成
   onReady() {
-    // this.mapCtx = wx.createMapContext('myMap');
+     this.mapCtx = wx.createMapContext('myMap');
   },
 
   // 页面卸载时触发。如redirectTo或navigateBack到其他页面时。
@@ -193,6 +211,94 @@ Page({
     }
   },
 
+  changeIncludePoints() {
+    //check mid
+    var midPoint={
+      longitude:this.data.trip.throughLongitude,
+      latitude:this.data.trip.throughLatitude
+    };
+    if(this.data.trip.throughAddress=='')
+    {
+      midPoint=null;
+    }
+    var srcPoint={
+      longitude: this.data.trip.fromLongitude,
+      latitude: this.data.trip.fromLatitude
+    };
+    var srcPoint_neighbor_1={
+      longitude: parseFloat(srcPoint.longitude)+0.02,
+      latitude: parseFloat(srcPoint.latitude)-0.001
+    };
+    var srcPoint_neighbor_2={
+      longitude: parseFloat(srcPoint.longitude) - 0.02,
+      latitude: parseFloat(srcPoint.latitude) + 0.001
+    };
+    var dstPoint={
+      longitude: this.data.trip.destLongitude,
+      latitude: this.data.trip.destLatitude
+    };
+    var dstPoint_neighbor_1={
+      longitude: parseFloat(dstPoint.longitude) + 0.02,
+      latitude: parseFloat(dstPoint.latitude)-0.001
+    };
+    var dstPoint_neighbor_2={
+      longitude: parseFloat(dstPoint.longitude) - 0.02,
+      latitude: parseFloat(dstPoint.latitude)+0.001
+    };
+
+    var includePoints=[];
+    this.data.scaleType = (this.data.scaleType + 1) % 5;
+    switch(this.data.scaleType)
+    {
+      case 0://src-mid-dst
+        includePoints.push(srcPoint);
+        if (midPoint) { includePoints.push(midPoint);}
+        includePoints.push(dstPoint);
+        break;
+      case 1://src
+       // includePoints.push(srcPoint);
+        includePoints.push(srcPoint_neighbor_1);
+        includePoints.push(srcPoint_neighbor_2);
+        break;
+      case 2://src-mid
+        if(midPoint)
+        {
+          includePoints.push(srcPoint);
+          includePoints.push(midPoint);
+          break;
+        }
+        else
+        {
+          this.data.scaleType=4;
+        }
+      case 3://mid-dst
+      /*
+        if (midPoint) {
+          includePoints.push(midPoint);
+          includePoints.push(dstPoint);
+          break;
+        }
+        else {
+          this.data.scaleType = 4;
+        }
+        */
+        this.data.scaleType = 4;
+      case 4://dst
+       // includePoints.push(dstPoint);
+        includePoints.push(dstPoint_neighbor_1);
+        includePoints.push(dstPoint_neighbor_2);
+        break;
+      default:
+        includePoints.push(srcPoint);
+        if (midPoint) { includePoints.push(midPoint); }
+        includePoints.push(dstPoint);
+        break;
+
+    }
+    console.log(includePoints);
+    this.mapCtx.includePoints({
+      points:includePoints});
+  },
   //  设置默认的缩放视野
   __setDefaultIncludePoints() {
     this.setData({
@@ -204,7 +310,6 @@ Page({
       }]
     })
   },
-
   // 点击标记
   markertap(e) {
     const res = this.data.markers.find(ele => ele.id === e.markerId);

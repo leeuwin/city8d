@@ -21,6 +21,7 @@
 .info-item__button{
   position: relative;
   margin-right: 2rpx;
+  color: rgb(14, 126, 10);
 }
 .info-detail-special{
   justify-content: space-between;
