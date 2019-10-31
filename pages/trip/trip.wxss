@@ -20,7 +20,7 @@
 }
 .info-item__button{
   position: relative;
-  margin-right: 0;
+  margin-right: 2rpx;
 }
 .info-detail-special{
   justify-content: space-between;
