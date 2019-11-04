@@ -1,0 +1,39 @@
+<!--pages/jointrip/jointrip.wxml-->
+<text>即将加入此行程，注：您仅有一次机会行程进行此操作，请确保已经与司机电话联系，且司机同意搭乘！</text>
+
+<view class="weui-tab__panel trips-tab__panel">
+
+  <view class="weui-tab__content">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell" id="from" bindtap="bindChooseLocation">
+        <view class="weui-cell__hd">
+          <image class="publish__icon" src="/images/icon/from.png"></image>
+          <text class="required">*</text>
+        </view>
+        <view class="weui-cell__bd {{ trip.fromAddrName === '哪里出发' ? 'placeholder' : '' }}">
+          {{ trip.fromAddrName }}
+        </view>
+      </view>
+      <view class="weui-cell" id="dest" bindtap="bindChooseLocation">
+        <view class="weui-cell__hd">
+          <image class="publish__icon" src="/images/icon/dest.png"></image>
+          <text class="required">*</text>
+        </view>
+        <view wx:if="{{ trip.destAddrName === '要去哪里'}}" class="weui-cell__bd placeholder">
+          <picker mode="region" custom-item="不限" value="{{dstRegion}}" id="dst" bindchange="bindPickerDestChange" class="{{ srcRegion[1] === '哪里出发' ? 'placeholder' : '' }}">{{ trip.destAddrName }}</picker>
+        </view>
+        <view wx:else class="weui-cell__bd" id="dest" bindtap="bindChooseLocation">
+          {{ trip.destAddrName }}
+        </view>
+      </view>
+      <view class="weui-cells">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea name="message" class="weui-textarea" placeholder="备注留言" style="height: 3.3em" id="remarks" bindblur="bindPickerChange" />
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

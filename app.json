@@ -15,13 +15,15 @@
     "pages/driver/driver",
     "pages/realname/realname",
     "pages/phone/phone",
-    "pages/coupon/coupon"
+    "pages/coupon/coupon",
+    "pages/addtrip",
+    "pages/addtrip/addtrip",
+    "pages/jointrip/jointrip"
   ],
-  "permission":{
-    "scope.userLocation":{
-      "desc":"你的位置信息将用于行程选择"
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于行程选择"
     }
-
   },
   "window": {
     "backgroundColor": "#f5f5f5",

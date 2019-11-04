@@ -4,7 +4,7 @@
     <view class="weui-cells__title">信息仅用于审核，绝不外泄</view>
 
     <view class="weui-panel weui-panel_access">
-      <view class="weui-panel__hd">证件信息</view>
+      <view class="weui-panel__hd">证件信息--功能暂未实现，测试版本，无需审核即可发布；</view>
       <view class="weui-panel__bd">
         <view class="weui-media-box">
 

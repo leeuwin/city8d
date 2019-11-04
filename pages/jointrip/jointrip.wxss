@@ -1,0 +1,113 @@
+@import "../../template/publish-tips/publish-tips.wxss";
+
+.noscroll {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+} 
+
+/* .my-dialog-class {
+  position: fixed;
+  z-index: 9;
+} */
+
+.weui-cell__hd {
+  margin-right: 10px;
+}
+.publish__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.weui-cell__bd {
+  min-height: 24px;
+}
+.placeholder {
+  color: #777;
+}
+
+.radio-group {
+  display: flex;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  margin-right: 30rpx;
+}
+
+.trips-navbar {
+  left: 0;
+  top: 0;
+  width: 100%;
+  margin-top: 0;
+  background-color: #f3f4f5;
+  position: fixed;
+  z-index: 1;
+  font-size: 34rpx;
+}
+/*
+.trips-navbar {
+  left: 0;
+  top: 0;
+  background-color: #f3f4f5;
+  margin-top: 10rpx;
+
+}*/
+
+.trips-navbar .weui-navbar__item {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trips-navbar .weui-navbar__item_on .weui-navbar__title {
+  background-color: #028e6c;
+  color: #fff;
+  width: 100rpx;
+  height: 70rpx;
+  border-radius: 50rpx;
+}
+
+.trips-navbar .weui-navbar__title {
+  font-size: 34rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 50rpx;
+  color: #111;
+}
+
+.trip-list {
+  padding: 68rpx 20rpx 20rpx;
+}
+.picker-time {
+  text-align: right;
+}
+.item-red {
+  color: #f00;
+}
+.wrap {
+    width:50px;
+    margin-bottom:10px;
+    position:relative;
+}
+.img {
+    width:50px;
+    height:50px;
+    border:1px solid #000;
+}
+.required {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    color: #f00;
+    text-align: center;
+    position: absolute;
+    left: 30px;
+    top: 6px;
+
+}

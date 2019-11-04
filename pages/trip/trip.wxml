@@ -110,8 +110,8 @@
       <!--button class="share-button" bindtap="onGetSharePicture">
         <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
       <button class="share-button" wx:if="{{trip.isSelf}}">
-        <image class="share-button-icon" src="/images/icon/person.png"></image>
-        我的乘客
+        <image class="share-button-icon" src="/images/icon/add_trip.png"></image>
+        现在出发
       </button>
       <button class="share-button" bindtap="onCall" wx:else>
         <image class="share-button-icon" src="/images/icon/call.png"></image>
@@ -122,14 +122,14 @@
       <!--button class="share-button" bindtap="onGetSharePicture">
         <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
      
-       <button class="share-button" wx:if="{{trip.isSelf}}">
-        <image class="share-button-icon" src="/images/icon/add_trip.png"></image>
-        现在出发
-      </button>
-      <button class="share-button" wx:else>
+      <navigator class="share-button" wx:if="{{trip.isSelf}}" url="/pages/jointrip/jointrip">
+        <image class="share-button-icon" src="/images/icon/person.png"></image>
+        我的乘客
+      </navigator>
+      <navigator class="share-button" wx:else url="/pages/jointrip/jointrip">
         <image class="share-button-icon" src="/images/icon/add_trip.png"></image>
         加入行程
-      </button>
+      </navigator>
     </view>
   </view>
 </view>
