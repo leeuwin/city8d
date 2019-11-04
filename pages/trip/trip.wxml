@@ -81,9 +81,13 @@
     </view>
     <view class="trip-panel__ft">
       <view class="page__ft-bd">
-        <button class="share-button"  bindtap="onCall" open-type="">
+        <button class="share-button"  bindtap="onCall" open-type="" wx:if="{{!trip.isSelf}}">
           <image class="share-button-icon" src="/images/icon/follow.png"></image>
           关注本行程
+        </button>
+        <button class="share-button"  bindtap="" open-type="" wx:else>
+          <image class="share-button-icon" src="/images/icon/edit.png"></image>
+          编辑本行程
         </button>
       </view>
       <view class="page__ft-bd">
@@ -105,7 +109,11 @@
     <view class="page__ft-bd">
       <!--button class="share-button" bindtap="onGetSharePicture">
         <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
-      <button class="share-button" bindtap="onCall">
+      <button class="share-button" wx:if="{{trip.isSelf}}">
+        <image class="share-button-icon" src="/images/icon/person.png"></image>
+        我的乘客
+      </button>
+      <button class="share-button" bindtap="onCall" wx:else>
         <image class="share-button-icon" src="/images/icon/call.png"></image>
         电话联系
       </button>
@@ -113,7 +121,12 @@
     <view class="page__ft-bd">
       <!--button class="share-button" bindtap="onGetSharePicture">
         <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
-      <button class="share-button">
+     
+       <button class="share-button" wx:if="{{trip.isSelf}}">
+        <image class="share-button-icon" src="/images/icon/add_trip.png"></image>
+        现在出发
+      </button>
+      <button class="share-button" wx:else>
         <image class="share-button-icon" src="/images/icon/add_trip.png"></image>
         加入行程
       </button>
