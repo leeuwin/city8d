@@ -16,8 +16,6 @@
     "pages/realname/realname",
     "pages/phone/phone",
     "pages/coupon/coupon",
-    "pages/addtrip",
-    "pages/addtrip/addtrip",
     "pages/jointrip/jointrip"
   ],
   "permission": {
