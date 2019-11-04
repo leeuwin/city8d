@@ -218,27 +218,52 @@ Page({
     var preLatitude = _this.data.trip[`${id}Latitude`];
     var preLongitude = _this.data.trip[`${id}Longitude`];
     console.log("chooselocation open lat=" + preLatitude + " lng=" + preLongitude);
-    wx.chooseLocation({
-      latitude: preLatitude,
-      longitude: preLongitude,
-      success: function (res) {
-        const key = `trip.${id}`,
-          name = `${key}AddrName`,
-          address = `${key}Address`,
-          longitude = `${key}Longitude`,
-          latitude = `${key}Latitude`;
-        _this.setData({
-          [name]: res.name,
-          [address]: res.address,
-          [longitude]: res.longitude,
-          [latitude]: res.latitude
-        });
-      },
-      fail: function (error) {
-        console.log(error);
-        console.log("获取失败");
-      }
-    });
+    if (!preLatitude && !preLongitude)
+    {//避免安卓打开0，0坐标的位置；
+      wx.chooseLocation({
+        success: function (res) {
+          const key = `trip.${id}`,
+            name = `${key}AddrName`,
+            address = `${key}Address`,
+            longitude = `${key}Longitude`,
+            latitude = `${key}Latitude`;
+          _this.setData({
+            [name]: res.name,
+            [address]: res.address,
+            [longitude]: res.longitude,
+            [latitude]: res.latitude
+          });
+        },
+        fail: function (error) {
+          console.log(error);
+          console.log("获取失败");
+        }
+      });
+    }
+    else
+    {
+      wx.chooseLocation({
+        latitude: preLatitude,
+        longitude: preLongitude,
+        success: function (res) {
+          const key = `trip.${id}`,
+            name = `${key}AddrName`,
+            address = `${key}Address`,
+            longitude = `${key}Longitude`,
+            latitude = `${key}Latitude`;
+          _this.setData({
+            [name]: res.name,
+            [address]: res.address,
+            [longitude]: res.longitude,
+            [latitude]: res.latitude
+          });
+        },
+        fail: function (error) {
+          console.log(error);
+          console.log("获取失败");
+        }
+      });
+    }
   },
   bindGetLocation: function (e) {
     let _this = this;

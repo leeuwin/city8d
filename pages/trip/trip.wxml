@@ -76,17 +76,14 @@
               <view>备注{{ trip.remarks }}</view>
             </view>
           </view>
-
         </view>
-
-
       </view>
     </view>
     <view class="trip-panel__ft">
       <view class="page__ft-bd">
         <button class="share-button"  bindtap="onCall" open-type="">
           <image class="share-button-icon" src="/images/icon/follow.png"></image>
-          关注公众号
+          关注本行程
         </button>
       </view>
       <view class="page__ft-bd">

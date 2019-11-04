@@ -51,7 +51,7 @@ Page({
     polyline: [{
       points: [],
       padding: [20],
-      color: "#00b551d7",
+      color: "#00b589",
       width: 8
     }],
     scaleType:0,//0 全程 1看起点 2起点-途径 3途径点-终点 4终点
