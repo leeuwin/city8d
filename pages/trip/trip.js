@@ -51,7 +51,7 @@ Page({
     polyline: [{
       points: [],
       padding: [20],
-      color: "#00b589",
+      color: "#00b551d7",
       width: 8
     }]
   },

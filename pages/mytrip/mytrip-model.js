@@ -7,7 +7,7 @@ class Mytrip extends Base {
 
   query(data) {
     const params = {
-      url: '/trip/list/get/my',
+      url: '/trip/get_my.php',
       data
     }
     return this.ajax(params);

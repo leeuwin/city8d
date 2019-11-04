@@ -12,21 +12,26 @@
       </view>
       <view class="weui-tab__panel trips-tab__panel">
         <view class="weui-tab__content" hidden="{{params.type !== 1}}">
-          <view class="trip-list">
-            <block wx:for="{{ passengerTrips }}" wx:for-item="trip" wx:key="tripCode">
-              <trip-item bind:call="onCall" trip="{{ trip }}" isMy="{{ true }}"></trip-item>
+            <view class="trip-list">
+              <block wx:for="{{ driverTrips }}" wx:for-item="trip" wx:key="tripCode">
+                <trip-item bind:call="onCall" trip="{{ trip }}" isMy="{{ true }}"></trip-item>
             </block>
           </view>
         </view>
         <view class="weui-tab__content" hidden="{{params.type !== 2}}">
           <view class="trip-list">
-            <block wx:for="{{ driverTrips }}" wx:for-item="trip" wx:key="tripCode">
-              <trip-item bind:call="onCall" trip="{{ trip }}" isMy="{{ true }}"></trip-item>
-            </block>
+            <view class="trip-list">
+            <text>当您发布一个汽车行程后，我们将在此展示与您顺路的快件订单</text>
+          </view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{params.type !== 3}}">
+          <view class="trip-list">
+            <text>会员服务,请联系管理员开通！</text>
           </view>
         </view>
       </view>
     </view>
-    <template is="publishTips" wx:if="{{ params.type == 1 && !passengerTrips.length || params.type === 2 && !driverTrips.length }}" />
+    <template is="publishTips" wx:if="{{ params.type == 1 && !driverTrips.length }}" />
   </view>
 </view>

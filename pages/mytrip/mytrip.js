@@ -8,14 +8,30 @@ const app = getApp();
 Page({
   data: {
     params: {
-      type: 1, // 1. 人找车 2. 车找人
+      type: 1, //1 我的行程 2 寄货订单 3 乘客行程
       pageSize: PAGESIZE, // 每页数量
       currentPage: 1, // 当前页
       orderReg: 'start_time ASC', //排序规则,非必填
     },
     driverTrips: [], // 车找人行程列表
     passengerTrips: [], // 人找车行程列表
-    tripTypes: Object.values(TRIP_TYPES), // 类型
+    tripTypes: {
+      1: {
+        value: 1,
+        label: '我的行程',
+        checked: true
+      },
+      2: {
+        value: 2,
+        label: '寄货订单',
+        checked: false
+      },
+      3: {
+        value: 3,
+        label: '乘客行程',
+        checked: false
+      }
+    }, // 类型
     totalCount: 0, // 总条数
     totalPage: 1, // 总页数
     userInfo: null // 当前用户信息
@@ -36,7 +52,7 @@ Page({
       mask: true
     });
     const type = this.data.params.type;
-    const tripType = type === 1 ? 'passengerTrips' : 'driverTrips';
+    const tripType = type === 1 ? 'driverTrips' : 'driverTrips';
     const mytrip = new Mytrip();
     mytrip.query(params)
       .then(res => {

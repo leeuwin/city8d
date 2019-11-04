@@ -14,11 +14,13 @@ Page({
     userInfo: null,
     showDialogUserInfo: false,
     params: {
-      destCityCode: '', // 目的地城市代码,非必填
+      srcRegion:'',
+      destRegion: '', 
+      departureDate:'',
       type: 1, // 1. 人找车 2. 车找人
       pageSize: PAGESIZE, // 每页数量
       currentPage: 1, // 当前页
-      orderReg: 'start_time ASC', //排序规则,非必填
+      orderReg: 'depart_time_first ASC', //排序规则,非必填
     },
     srcRegion: ['福建省','哪里出发','不限'],
     dstRegion: ['福建省','想去哪里', '不限'],
@@ -173,6 +175,7 @@ console.log(res);
     let day = formatTime(e.detail.value).weekday;
     this.setData({
       date: e.detail.value,
+      ['params.departureDate']: e.detail.value,
       weekday:day
     })
   },
@@ -301,7 +304,7 @@ console.log(res);
     //wx.setNavigationBarTitle({ title })
     // 按目的地查询
     this.setData({
-      ['params.destCityCode']: code,
+      ['params.destRegion']: code,
     })
     this.getTripsFromServer();
   },
