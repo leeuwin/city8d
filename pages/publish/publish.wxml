@@ -150,7 +150,7 @@
       </checkbox-group>
       <view class="weui-btn-area">
         <button class="weui-btn" type="primary" disabled="{{ !isAgree }}" form-type="submit">马上发布</button>
-        <button class="weui-btn" type="primary" formType="reset">重新填写</button>
+        <button class="weui-btn" type="default" plain="true" formType="reset">重新填写</button>
       </view>
     </form>
   </view>

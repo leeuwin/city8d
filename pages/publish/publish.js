@@ -490,7 +490,11 @@ Page({
       ['trip.price']: 0,
       ['trip.remarks']: '',
       ['isAgree']:false
-    })
+    });
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    });
   },
   // 校验字段合法性
   valid() {
