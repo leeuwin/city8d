@@ -11,6 +11,10 @@ var qqmapsdk = new QQMapWX({
   key: 'D7RBZ-L37W6-A5ASJ-EDEXZ-3JFLJ-73FAE'
 });//获取腾讯地图api
 
+function random(lower, upper) {
+  return Math.floor(Math.random() * (upper - lower + 1)) + lower;
+}
+
 Page({
   data: {
     trip: {
@@ -36,7 +40,8 @@ Page({
       date: formatTime().date, // 日期
       weekday: formatTime().weekday,//星期
       earliestTime: '最早出发时间',
-      latestTime: '最迟出发时间'
+      latestTime: '最迟出发时间',
+      passwd: random(10,99)
     },
     dstRegion: ['不限', '不限', '不限'],
     dstLong:null,
@@ -76,7 +81,6 @@ Page({
     });
     this.checkAuth();
   },
-
   // 获取用户信息
   __getUserInfo() {
     const promise = new Promise((resolve, reject) => {
@@ -94,7 +98,6 @@ Page({
     })
     return promise;
   },
-
   // 校验权限
   checkAuth() {
     const result = auth.checkAuth('publish', 'publish', this.data.trip.type);
@@ -102,6 +105,11 @@ Page({
   bindKeyInput: function (e) {
     this.setData({
       ['trip.price']: e.detail.value
+    })
+  },
+  bindPwdInput: function (e) {
+    this.setData({
+      ['trip.passwd']: e.detail.value
     })
   },
   // 行程类型

@@ -110,6 +110,16 @@
                   <input class="item-red" type="number" bindinput="bindKeyInput" placeholder="单个座位价格" />
                 </view>
               </view>
+              <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <image class="publish__icon" src="/images/icon/key.png"></image>
+                  <text class="required">*</text>
+                </view>
+                <view class="weui-cell__bd">
+                  <input type="number" value="{{trip.passwd}}" bindinput="bindPwdInput" maxlength="2" placeholder="请输入2位数邀请码" />
+                  <view>邀请码，避免无关人员消耗您发布的座位；只有乘客电话联系您，您同意上车才告知邀请码</view>
+                </view>
+              </view>
 
               <view class="weui-cell">
                 <view class="weui-cell__bd">

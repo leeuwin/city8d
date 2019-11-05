@@ -34,6 +34,10 @@
               </view>
             </picker>
           </view>
+          <view class="weui-cell__bd">
+             <button type="default" size="mini">重置</button>
+             <button type="primary" size="mini">查询</button>
+          </view>
         </view>
       </view>
 

@@ -1,5 +1,5 @@
 <!--pages/jointrip/jointrip.wxml-->
-<text>即将加入此行程，注：您仅有一次机会行程进行此操作，请确保已经与司机电话联系，且司机同意搭乘！</text>
+<text>欢迎加入行程！接下来您可以完善信息，方便司机安排行程更快地与您对接</text>
 
 <view class="weui-tab__panel trips-tab__panel">
 
@@ -34,6 +34,9 @@
         </view>
       </view>
     </view>
-
+    <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="openConfirm">发送通知</button>
+            <button class="weui-btn" type="default" bindtap="tapOneDialogButton">返回行程</button>
+        </view>
   </view>
 </view>

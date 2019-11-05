@@ -122,18 +122,20 @@
       <!--button class="share-button" bindtap="onGetSharePicture">
         <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
      
-      <navigator class="share-button" wx:if="{{trip.isSelf}}" url="/pages/jointrip/jointrip">
+      <navigator class="share-button" wx:if="{{trip.isSelf}}" url="/pages/order/order">
         <image class="share-button-icon" src="/images/icon/person.png"></image>
         我的乘客
       </navigator>
-      <navigator class="share-button" wx:else url="/pages/jointrip/jointrip">
+      <button class="share-button" wx:else bindtap="bindOrder">
         <image class="share-button-icon" src="/images/icon/add_trip.png"></image>
-        加入行程
-      </navigator>
+        我要下单
+      </button>
     </view>
   </view>
 </view>
-
+<mp-dialog title="通过电话联系司机沟通获得邀请码" show="{{showPasswdDialog}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}" mask-closable="false">
+  <input  class="" type="number" maxlength="2" bindinput="bindKeyInput" placeholder="请输2位邀请码(测试中请随意输入)"></input>
+</mp-dialog>
 <view class="share-dialog-mask" hidden="{{ !showShareDialog }}">
   <view class="share-dialog">
     <canvas canvas-id="shareCanvas" class="share-canvas" bindlongpress="saveSharePictrue"></canvas>

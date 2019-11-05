@@ -12,7 +12,9 @@ const wxGetImageInfo = wxPromisify(wx.getImageInfo),
 
 Page({
   data: {
+    buttons: [{ text: '拨打电话' }, { text: '马上加入' }],
     showShareDialog: false,
+    showPasswdDialog:false,
     trip: {},
     // 标记点
     markers: [{
@@ -72,7 +74,32 @@ Page({
       enableTraffic: false,
     }
   },
-
+  bindOrder(){
+    this.setData({
+      showPasswdDialog:true
+    });
+  },
+  tapDialogButton(e) {
+    console.log(e);
+    this.setData({
+      showPasswdDialog: false
+    });
+    if(e.detail.index==1)
+    {
+      wx.navigateTo({
+        url: '/pages/jointrip/jointrip',
+      });
+    }
+    else
+    {
+      this.onCall();
+    }
+  },
+  tapDialogClose(e) {
+    this.setData({
+      showPasswdDialog: false
+    })
+  },
   // 生命周期函数--监听页面加载
   onLoad(options) {
     console.log('options', options);

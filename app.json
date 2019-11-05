@@ -16,7 +16,8 @@
     "pages/realname/realname",
     "pages/phone/phone",
     "pages/coupon/coupon",
-    "pages/jointrip/jointrip"
+    "pages/jointrip/jointrip",
+    "pages/order/order"
   ],
   "permission": {
     "scope.userLocation": {
