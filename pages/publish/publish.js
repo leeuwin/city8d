@@ -536,12 +536,13 @@ Page({
       .then(res => {
         wx.showToast({
           title: '发布成功'
-        })
+        });
+        this.bindFormReset();
         setTimeout(() => {
           wx.switchTab({
             url: '/pages/trips/trips'
           })
-        }, 1500)
+        }, 1000)
       })
       .catch(error => {
         wx.hideLoading();
