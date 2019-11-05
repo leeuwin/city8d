@@ -23,7 +23,7 @@
         </view>
       </view>
       <view class="publish-button">
-        <button type="primary" bindtap="toPublish">开始发布行程</button>
+      <navigator class="button" url="/pages/publish/publish" open-type="switchTab">开始发布行程</navigator>
       </view>
     </view>
   </view>
