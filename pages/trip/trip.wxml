@@ -4,7 +4,7 @@
   <view class="trip-panel">
     <view class="trip-panel__hd">
       <view class="">
-        <text class="info-item__red">系统自动生成路径仅供参考</text>
+        <text class="info-item__red">路径仅供参考 地图可平移/缩小/双击放大</text>
       </view>
       <view class="info-item__button" bindtap="changeIncludePoints">
         <view>切换视角</view>
@@ -133,7 +133,7 @@
     </view>
   </view>
 </view>
-<mp-dialog title="通过电话联系司机沟通获得邀请码" show="{{showPasswdDialog}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}" mask-closable="false">
+<mp-dialog title="电话联系司机获得【邀请码】" show="{{showPasswdDialog}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}" mask-closable="false">
   <input  class="" type="number" maxlength="2" bindinput="bindKeyInput" placeholder="请输2位邀请码(测试中请随意输入)"></input>
 </mp-dialog>
 <view class="share-dialog-mask" hidden="{{ !showShareDialog }}">
