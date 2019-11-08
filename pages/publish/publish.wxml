@@ -117,10 +117,9 @@
                 </view>
                 <view class="weui-cell__bd">
                   <input type="number" value="{{trip.passwd}}" bindinput="bindPwdInput" maxlength="2" placeholder="请输入2位数邀请码" />
-                  <view>邀请码，避免无关人员消耗您发布的座位；只有乘客电话联系您，您同意上车才告知邀请码</view>
+                  <text>邀请码当乘客电话联系同意上车提供</text>
                 </view>
               </view>
-
               <view class="weui-cell">
                 <view class="weui-cell__bd">
                   <checkbox>愿意为老乡携带快件？</checkbox>
