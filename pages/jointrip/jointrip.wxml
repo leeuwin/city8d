@@ -1,42 +1,49 @@
 <!--pages/jointrip/jointrip.wxml-->
-<text>欢迎加入行程！接下来您可以完善信息，方便司机安排行程更快地与您对接</text>
-
-<view class="weui-tab__panel trips-tab__panel">
-
-  <view class="weui-tab__content">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell" id="from" bindtap="bindChooseLocation">
-        <view class="weui-cell__hd">
-          <image class="publish__icon" src="/images/icon/from.png"></image>
-          <text class="required">*</text>
-        </view>
-        <view class="weui-cell__bd {{ trip.fromAddrName === '哪里出发' ? 'placeholder' : '' }}">
-          {{ trip.fromAddrName }}
-        </view>
-      </view>
-      <view class="weui-cell" id="dest" bindtap="bindChooseLocation">
-        <view class="weui-cell__hd">
-          <image class="publish__icon" src="/images/icon/dest.png"></image>
-          <text class="required">*</text>
-        </view>
-        <view wx:if="{{ trip.destAddrName === '要去哪里'}}" class="weui-cell__bd placeholder">
-          <picker mode="region" custom-item="不限" value="{{dstRegion}}" id="dst" bindchange="bindPickerDestChange" class="{{ srcRegion[1] === '哪里出发' ? 'placeholder' : '' }}">{{ trip.destAddrName }}</picker>
-        </view>
-        <view wx:else class="weui-cell__bd" id="dest" bindtap="bindChooseLocation">
-          {{ trip.destAddrName }}
-        </view>
-      </view>
-      <view class="weui-cells">
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+<view class="page">
+  <view class="page__bd">
+    <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+      <mp-cells title="完善信息方便司机与您对接" footer="司机可能根据行程调整您的上车位置">
+        <mp-cell show-error prop="seat">
+          <image slot="icon" src="/images/icon/person.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <picker class="weui-input" mode="selector" range="{{seatItems}}" bindchange="bindSeatChange" value="{{seatItems[seatItemsIndex]-1}}">预定 [ {{seatItems[seatItemsIndex]}} ] 个座位</picker>
+        </mp-cell>
+        <mp-cell show-error prop="from">
+          <image slot="icon" src="/images/icon/from.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <view class="weui-input" id="from" bindtap="bindChooseLocation">
+            {{ trip.fromAddrName }}
+          </view>
+        </mp-cell>
+        <mp-cell show-error prop="dest">
+          <image slot="icon" src="/images/icon/dest.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <view class="weui-input" id="dest" bindtap="bindChooseLocation">
+            {{ trip.destAddrName }}
+          </view>
+        </mp-cell>
+      </mp-cells>
+      <view class="weui-cells__title">给司机留言</view>
+      <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea name="message" class="weui-textarea" placeholder="备注留言" style="height: 3.3em" id="remarks" bindblur="bindPickerChange" />
+            <textarea class="weui-textarea" placeholder="请输入文字" style="height: 3.3em" />
           </view>
         </view>
       </view>
-    </view>
+    </mp-form>
+    <!--checkbox-group bindchange="bindAgreeChange">
+            <label class="weui-agree" for="weuiAgree">
+                <view class="weui-agree__text">
+                    <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+                    <view class="weui-agree__checkbox-icon">
+                        <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
+                    </view>
+                    同意司机获取您的电话号码
+             </view>
+          </label>
+      </checkbox-group-->
     <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" bindtap="openConfirm">发送通知</button>
-            <button class="weui-btn" type="default" bindtap="tapOneDialogButton">返回行程</button>
-        </view>
+      <button class="weui-btn" type="primary" bindtap="submitForm">确定上车</button>
+      <button class="weui-btn" type="default" bindtap="cancelForm">取消行程</button>
+    </view>
   </view>
 </view>

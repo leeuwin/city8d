@@ -37,7 +37,7 @@ image {
   display: block;
   width: 100%;
 }
-
+/*
 button[type=primary] {
   background-color: #00b589;
 }
@@ -49,7 +49,7 @@ button[disabled][type=primary] {
 .button-hover[type=primary] {
   background-color: #029c77;
 }
-
+*/
 /* 转发按钮 */
 .share-button {
   display: flex;

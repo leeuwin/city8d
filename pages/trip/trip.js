@@ -3,6 +3,7 @@ import { Auth } from '../../utils/auth';
 import { TRIP_TYPES } from '../../utils/constants';
 import { Qrcode } from '../../utils/qrcode';
 import { wxPromisify } from '../../utils/wxPromisify';
+import { ROLE_TYPES } from '../../utils/constants';
 
 const wxGetImageInfo = wxPromisify(wx.getImageInfo),
   shareBgUrl = 'https://image.ngsfc.cn/ttsfc_share_bg.jpg',
@@ -12,9 +13,16 @@ const wxGetImageInfo = wxPromisify(wx.getImageInfo),
 
 Page({
   data: {
-    buttons: [{ text: '拨打电话' }, { text: '马上加入' }],
+    tripPasswd:88,
+    inputPasswd:null,
+    userInfo:{},
+    userRole:0,
+    showUserDialog:false,
+    buttons: [{ text: '联系司机' }, { text: '立即下单' }],
+    auth_phone_buttons: [{ text: '暂不绑定' }, { text: '立即绑定' }],
     showShareDialog: false,
     showPasswdDialog:false,
+    showBindPhoneDialog: false,
     trip: {},
     // 标记点
     markers: [{
@@ -79,16 +87,33 @@ Page({
       showPasswdDialog:true
     });
   },
+  bindKeyInput: function (e) {
+    this.setData({
+      [`${e.target.id}`]: e.detail.value
+    })
+  },
   tapDialogButton(e) {
     console.log(e);
-    this.setData({
-      showPasswdDialog: false
-    });
+    
     if(e.detail.index==1)
     {
-      wx.navigateTo({
-        url: '/pages/jointrip/jointrip',
-      });
+      if (this.data.tripPasswd==this.data.inputPasswd)
+      {
+        wx.navigateTo({
+          url: '/pages/jointrip/jointrip',
+        });
+        this.setData({
+          showPasswdDialog: false
+        });
+      }
+      else
+      {
+        wx.showModal({
+          title: '验证码错误',
+          showCancel: false,
+          content: '请联系司机获取验证码（测试验证码为'+this.data.tripPasswd+')',
+        });
+      }
     }
     else
     {
@@ -99,6 +124,19 @@ Page({
     this.setData({
       showPasswdDialog: false
     })
+  },
+  tapBindPhoneDailog(e)
+  {
+    if (e.detail.index == 1) {
+      wx.navigateTo({
+        url: '/pages/phone/phone',
+      });
+    }
+    else {
+      this.setData({
+        showPasswdDialog: false
+      })
+    }
   },
   // 生命周期函数--监听页面加载
   onLoad(options) {
@@ -141,6 +179,9 @@ Page({
       })
   },
 
+  onShow() {
+    this.__getRole();
+  },
   // 生命周期函数--监听页面初次渲染完成
   onReady() {
      this.mapCtx = wx.createMapContext('myMap');
@@ -150,7 +191,43 @@ Page({
   onUnload() {
     wx.removeStorageSync('trip');
   },
+  // 用户更新
+  onUserUpdate(e) {
+    const userInfo = e.detail.user;
+    const app = getApp();
+    app.globalData.userInfo = userInfo; // 更新app用户信息
+    this.setData({ userInfo, showUserDialog: false });  // 更新本上下文用户信息
+    this.__checkAuth();
+    this.__getRole();
+  },
+  __getRole()
+  {
+    const auth = new Auth();
+    var userRole = auth.getAuthLevel();
+    this.setData({
+      userRole: userRole
+    });
+    if (userRole < 1) {
+      this.setData({
+        showUserDialog: true
+      });
+    }
+  },
+  __checkAuth() {
+    var roleDesc = 'WX_USER';
+    if (this.data.userInfo && this.data.userInfo.role) {
+      roleDesc = ROLE_TYPES[this.data.userInfo.role].name;
+    }
+    if (roleDesc === 'WX_USER') {
+      this.setData({ showUserDialog: true })
+    }
 
+    if (roleDesc === 'USER_ROLE_WITH_NICKNAME') {
+      this.setData({
+        isBindPhone: false
+      });
+    }
+  },
   // 获取详情数据
   getDetail(tripType, type) {
     const promise = new Promise((resolve, reject) => {

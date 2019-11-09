@@ -1,2 +1,9 @@
 <!--pages/order/order.wxml-->
 <text>这里将展示加入行程的乘客的信息，方便司机发布通知消息，管理乘客；</text>
+<view class="page">
+  <map id="myMap" class="my-map" markers="{{markers}}" bindmarkertap="markertap" include-points="{{includePoints}}" polyline="{{polyline}}" show-location="{{ true }}" scale="{{ 11 }}" hidden="{{ showShareDialog }}"></map>
+<text>将在地图上标记乘客的地点</text>
+
+<view>乘客1的位置，留言</view>
+<text>可以编辑修改乘客的上车位置</text>
+</view>

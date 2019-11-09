@@ -1,7 +1,7 @@
 <view class="page">
   <view class="page__hd">
     <image wx:if="{{ userInfo.avatarUrl }}" class="avatar" src="{{ userInfo.avatarUrl }}"></image>
-    <button wx:else="{{ !userInfo.avatarUrl }}" class="avatar-button" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+    <button wx:else class="avatar-button" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
       <image class="avatar" src="/images/icon/da.png"></image>
     </button>
     <view class='level'>
@@ -14,7 +14,7 @@
     <view class="weui-panel">
       <view class="weui-panel__bd">
         <view class="weui-flex weui-flex__console">
-           <navigator url="/pages/publish/publish" open-type="switchTab" class="weui-flex__item weui-flex__console-item" >
+          <navigator url="/pages/publish/publish" open-type="switchTab" class="weui-flex__item weui-flex__console-item">
             <image src="/images/icon/publish.png" style="width: 20px; height: 20px;"></image>
             <view>
               <view>
@@ -42,6 +42,19 @@
       <view class="weui-panel__bd">
         <view class="weui-media-box weui-media-box_small-appmsg">
           <view class="weui-cells weui-cells_in-small-appmsg">
+
+          <view class="weui-cell weui-cell_access" hover-class="{{ !isBindPhone ? 'weui-cell_active' : '' }}" bindtap="navigateToPhone">
+              <view class="weui-cell__hd">
+                <image src="/images/icon/phone.png" style="width: 20px;height: 20px;margin-right: 5px" />
+              </view>
+              <view class="weui-cell__bd weui-cell_primary">
+                <view style="display: inline-block; vertical-align: middle">手机绑定</view>
+                <view wx:if="{{ isBindPhone }}" class="weui-badge weui-badge_primary">已绑定</view>
+                <view wx:else class="weui-badge">未绑定</view>
+              </view>
+              <view wx:if="{{ !isBindPhone }}" class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+
             <view class="weui-cell weui-cell_access" hover-class="{{ !isRealname ? 'weui-cell_active' : '' }}" bindtap="navigateToRealname">
               <view class="weui-cell__hd">
                 <image src="/images/icon/realname.png" style="width: 20px;height: 20px;margin-right: 5px" />
@@ -74,7 +87,7 @@
       <view class="weui-panel__bd">
         <view class="weui-media-box weui-media-box_small-appmsg">
           <view class="weui-cells weui-cells_in-small-appmsg">
-            
+
             <navigator url="/pages/setting/setting" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
               <view class="weui-cell__hd">
                 <image src="/images/icon/setting.png" style="width: 20px;height: 20px;margin-right: 5px" />
@@ -117,3 +130,5 @@
     </view>
   </view>
 </view>
+
+<user-dialog wx:if="{{!isGetBaseInfo}}" bind:update="onUserUpdate"></user-dialog>

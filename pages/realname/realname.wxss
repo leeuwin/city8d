@@ -10,3 +10,27 @@
 .banner-verify {
   height: 338rpx;
 }
+
+
+.holder-image {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto;
+}
+.choose-image-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 656rpx;
+  height: 372rpx;
+  background-color: #f8f8f8;
+  border: 1px dotted #cccccc;
+  border-radius: 4rpx;
+  font-size: 40rpx;
+  color: #888;
+  margin: 60rpx auto;
+}
+.choose-image-placeholder-box {
+  text-align: center;
+}

@@ -7,47 +7,87 @@ const app = getApp();
 Page({
   data: {
     from: '',
-    phone:'' 
+    phone: '',
+    formData: {},
+    rules: [{
+      name: 'phone',
+      rules: [{
+        required: true,
+        message: '请输入手机号'
+      }, {
+          mobile: true,
+          message: '手机号格式不对'
+        }]
+    }, {
+      name: 'vcode',
+      rules: {
+        required: true,
+        message: '请输入验证码'
+      },
+    }],
   },
   onLoad: function(options) {
     const from = options.from
     if (from) {
-      this.setData({ from });
+      this.setData({
+        from
+      });
     }
-  }, 
-  bindKeyInput: function (e) {
+  },
+  bindKeyInput: function(e) {
+    console.log(e);
     this.setData({
-      ['phone']: e.detail.value
+      [`${e.target.id}`]: e.detail.value,
+      [`formData.${e.target.id}`]: e.detail.value
     })
   },
-  bindGetPhoneNumber(e) {
-    let phone = new Phone();
-      phone.binding({phone:this.data.phone})
-        .then(res => {
-          app.globalData.userInfo = res.data.user;
-          if (this.data.from === 'publish') {
-            wx.showModal({
-              title: '提示',
-              content: '绑定成功, 通过实名认证之后才能发布行程哦！',
-              confirmText: '实名认证',
-              success: res => {
-                if (res.confirm) {
-                  wx.redirectTo({
-                    url: `/pages/realname/realname?from=${this.data.from}`
-                  })
-                } else {
-                  wx.navigateBack({
-                    delta: 1
-                  })
+  cancelForm(e) {
+    wx.navigateBack({
+    });
+  },
+  submitForm(e) {
+    this.selectComponent('#form').validate((valid, errors) => {
+      if (!valid) {
+        const firstError = Object.keys(errors)
+        if (firstError.length) {
+          this.setData({
+            error: errors[firstError[0]].message
+          })
+
+        }
+      } else {
+        let phone = new Phone();
+        phone.binding({
+            phone: this.data.phone
+          })
+          .then(res => {
+            app.globalData.userInfo = res.data.user;
+            wx.showToast({
+              title: '手机绑定成功!',
+              duration: 1000
+            });
+            setTimeout(() => {
+              wx.navigateBack({
+              });
+            }, 1500);
+             /* wx.showModal({
+                title: '提示',
+                content: '绑定成功, 通过实名认证之后才能发布行程哦！',
+                confirmText: '实名认证',
+                success: res => {
+                    wx.navigateBack({
+                    });
                 }
-              }
-            })
-          } else {
-            wx.navigateBack({
-              delta: 1
-            })
-          }
-        })
-        .catch(error => {});
+              })*/
+            
+          })
+          .catch(error => {
+            wx.showToast({
+              title: '手机绑定失败!',
+              duration: 1500
+            });
+          });
+      }
+    });
   }
 })

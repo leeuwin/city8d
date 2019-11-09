@@ -7,8 +7,8 @@
     </view>
     <view class="mbk-dialog-content">
       <view>
-        <view>您的公开信息 (昵称和头像等)</view>
-        <view>让别人更加快速的找到你哦</view>
+        <view>获取您的公开信息(昵称/头像等)</view>
+        <view>让别人更快找到你哦！</view>
       </view>
     </view>
     <view class="mbk-dialog-btns">
@@ -18,7 +18,7 @@
       <form wx:if="{{confirmText}}" report-submit="true" bindsubmit="confirmAction">
         <button form-type="submit">{{confirmText}}</button>
       </form> -->
-      <button type="primary" open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo">
+      <button type="primary" open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
         <image class="button-icon" src="/images/icon/weixin.png"></image>
         <text class="button-text">确定授权</text>
       </button>

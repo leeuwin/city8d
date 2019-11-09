@@ -50,15 +50,8 @@ const IdentityCodeValid = code => {
   } else if (!city[code.substr(0, 2)]) {
     tip = "地址编码错误";
     pass = false;
-  }/* else if (code.substr(0, 2) != 34) {
-    tip = '不在安徽地区';
-    wx.showModal({
-      title: '提示',
-      showCancel: false,
-      content: '抱歉~ \n安徽地区外的城市暂未开通'
-    })
-    pass = false;
-  }*/ else {
+  }
+  else {
     //18位身份证需要验证最后一位校验位
     if (code.length == 18) {
       code = code.split('');

@@ -81,7 +81,7 @@
     </view>
     <view class="trip-panel__ft">
       <view class="page__ft-bd">
-        <button class="share-button"  bindtap="onCall" open-type="" wx:if="{{!trip.isSelf}}">
+        <button class="share-button"  bindtap="" open-type="" wx:if="{{!trip.isSelf}}">
           <image class="share-button-icon" src="/images/icon/follow.png"></image>
           关注本行程
         </button>
@@ -106,7 +106,7 @@
         所有行程
       </navigator>
     </view>
-    <view class="page__ft-bd">
+    <view class="page__ft-bd" hidden="true">
       <!--button class="share-button" bindtap="onGetSharePicture">
         <image class="share-button-icon" src="/images/icon/friends_circle.png"></image>分享到朋友圈</button-->
       <button class="share-button" wx:if="{{trip.isSelf}}">
@@ -127,15 +127,20 @@
         我的乘客
       </navigator>
       <button class="share-button" wx:else bindtap="bindOrder">
-        <image class="share-button-icon" src="/images/icon/add_trip.png"></image>
+        <image class="share-button-icon" src="/images/icon/call.png"></image>
         我要下单
       </button>
     </view>
   </view>
 </view>
-<mp-dialog title="电话联系司机获得【邀请码】" show="{{showPasswdDialog}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}" mask-closable="false">
-  <input  class="" type="number" maxlength="2" bindinput="bindKeyInput" placeholder="请输2位邀请码(测试中请随意输入)"></input>
+<mp-dialog title="验证码" show="{{userRole>1 && showPasswdDialog}}" bindbuttontap="tapDialogButton" bindclose="tapDialogClose" buttons="{{buttons}}">
+  <view style="color:#f00;font-size:38rpx;margin-bottom:10rpx;">提示:通过电话联系司机获得</view>
+  <input  class="weui-input" auto-focus type="number" maxlength="2" id="inputPasswd" bindinput="bindKeyInput" placeholder="在此输入2位验证码" style="color:#444;font-size:48rpx;" ></input>
 </mp-dialog>
+<mp-dialog title="温馨提示" show="{{userRole<2 && showPasswdDialog}}" bindbuttontap="tapBindPhoneDailog" buttons="{{auth_phone_buttons}}">
+  <view>您需要先绑定手机才能联系司机</view>
+</mp-dialog>
+<user-dialog wx:if="{{ showUserDialog }}" bind:update="onUserUpdate"></user-dialog>
 <view class="share-dialog-mask" hidden="{{ !showShareDialog }}">
   <view class="share-dialog">
     <canvas canvas-id="shareCanvas" class="share-canvas" bindlongpress="saveSharePictrue"></canvas>

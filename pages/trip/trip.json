@@ -3,6 +3,7 @@
   "usingComponents":
   {
     "share-dialog": "/components/share-dialog/share-dialog",
-    "mp-dialog": "../../components/dialog/dialog"
+    "mp-dialog": "../../components/dialog/dialog",
+    "user-dialog": "/components/user-dialog/user-dialog"
   }
 }

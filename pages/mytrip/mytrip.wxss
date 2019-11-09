@@ -18,7 +18,6 @@
 .trips-navbar .weui-navbar__item_on .weui-navbar__title {
   background-color: #028e6c;
   color: #fff;
-  width: 100rpx;
   height: 70rpx;
   border-radius: 50rpx;
 }

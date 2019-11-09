@@ -55,6 +55,8 @@ Page({
     maxday: formatTime(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).date,
     currentTime: formatTime().time1,
     isAgree: false,
+    isBindPhone: true,
+    buttons: [{ text: '暂不认证' }, { text: '立即认证' }],
     showTopTips: false,
     errorMsg: ''
   },
@@ -79,7 +81,27 @@ Page({
   onShow() {
     this.__getUserInfo().then(() => {
     });
-    this.checkAuth();
+   // this.checkAuth();
+  },
+
+  tapDialogButton(e) {
+    console.log(e);
+
+    if (e.detail.index == 1) {
+      wx.navigateTo({
+        url: '/pages/realname/realname',
+      }); 
+    }
+    else {
+      wx.switchTab({
+        url: '/pages/home/home',
+      });
+    }
+  },
+  tapDialogClose(e) {
+    wx.switchTab({
+      url: '/pages/home/home',
+    });
   },
   // 获取用户信息
   __getUserInfo() {

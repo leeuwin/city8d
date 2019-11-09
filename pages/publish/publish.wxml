@@ -6,7 +6,6 @@
         <view class="weui-navbar trips-navbar">
           <block wx:for="{{ tripTypes }}" wx:key="value">
             <view data-type="{{ item.value }}" class="weui-navbar__item {{item.value === params.type ? 'weui-navbar__item_on' : ''}}" bindtap="tabClick">
-              {{ item.value === params.type }}
               <view class="weui-navbar__title">{{ item.label }}</view>
             </view>
           </block>
@@ -139,7 +138,6 @@
               <text> 若乘客暂时找不到合适行程，可以在此登记，系统会监测行程，若有匹配的行程将执行推送，第一时间通知乘客找到回家的行程</text>
             </view>
           </view>
-
           <view class="weui-tab__content" hidden="{{params.type !== 3}}">
             <view class="trip-list">
               <text> 提供寄件信息服务，司机力所能及尽量帮捎带，寄件者尽量送到司机顺路的地方取件收件，包装妥当，避免异味；平台建议：跨城顺路送10元，城里送达10元，其他加急件请自行商议！互帮互助，让城市更有温度！</text>
@@ -164,3 +162,7 @@
     </form>
   </view>
 </view>
+
+<mp-dialog title="温馨提示" show="{{userInfo.role<3}}" bindbuttontap="tapDialogButton" bindclose="tapDialogClose" buttons="{{buttons}}">
+  <view>您需要实名认证才能发布</view>
+</mp-dialog>

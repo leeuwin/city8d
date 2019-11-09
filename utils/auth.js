@@ -5,6 +5,15 @@ const app = getApp();
 class Auth {
   constructor() {}
 
+  getAuthLevel(){
+    const currentUser = app.globalData.userInfo;
+    var role = 0;
+    if (currentUser && currentUser.role) {
+      role = currentUser.role;
+    }
+    return role;
+  }
+
   /*
    *  判断权限
    *  page 来自哪个页面 String
@@ -21,6 +30,13 @@ class Auth {
     // 微信用户 - 不管执行任何询问的操作，都返回false
     // 已获取头像和昵称的用户 - 不管执行任何询问的操作，都返回false
     // 已绑定手机号的用户 - 不管执行任何询问的操作，都返回false
+    /*
+      0: {name: 'WX_USER', desc: '微信登录用户'},
+      1: {name: 'USER_ROLE_WITH_NICKNAME',desc: '微信授权基础信息用户'},
+      2: {name: 'USER_ROLE_WITH_PHONE',desc: '绑定手机号'},
+      3: {name: 'USER_ROLE_WITH_REALNAME',desc: '实名'},
+      4: {name: 'USER_ROLE_DRIVER',desc: '车主'}
+    */
 
     if (roleName === 'WX_USER' ||
       roleName === 'USER_ROLE_WITH_NICKNAME' ||
@@ -53,7 +69,7 @@ class Auth {
       title: '提示',
       content: '您未实名认证',
       cancelText: '暂不认证',
-      confirmText: '去认证',
+      confirmText: '立即认证',
       success: res => {
         if (res.confirm) {
           wx.navigateTo({
@@ -71,7 +87,7 @@ class Auth {
       title: '提示',
       content: '需要您进行车主认证',
       cancelText: '暂不认证',
-      confirmText: '去认证',
+      confirmText: '立即认证',
       success: res => {
         if (res.confirm) {
           wx.navigateTo({ url: '/pages/driver/driver' })

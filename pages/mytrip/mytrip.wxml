@@ -5,7 +5,6 @@
       <view class="weui-navbar trips-navbar">
         <block wx:for="{{ tripTypes }}" wx:key="value">
           <view data-type="{{ item.value }}" class="weui-navbar__item {{item.value === params.type ? 'weui-navbar__item_on' : ''}}" bindtap="tabClick">
-            {{ item.value === params.type }}
             <view class="weui-navbar__title">{{ item.label }}</view>
           </view>
         </block>

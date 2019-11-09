@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/trips/trips",
     "pages/home/home",
+    "pages/phone/phone",
+    "pages/trips/trips",
+    "pages/jointrip/jointrip",
     "pages/integral/integral",
     "pages/mytrip/mytrip",
     "pages/trip/trip",
@@ -14,9 +16,8 @@
     "pages/setting/setting",
     "pages/driver/driver",
     "pages/realname/realname",
-    "pages/phone/phone",
     "pages/coupon/coupon",
-    "pages/jointrip/jointrip",
+    "pages/authentic/authentic",
     "pages/order/order"
   ],
   "permission": {

@@ -1,3 +1,11 @@
+version:1.0.9
+date: 2019-11-10
+author: lim
+content:
+1. 修改身份认证样式，用component表单控件控制样式and校验；
+2. 实现行程验证码流程；
+3.其他细节的优化；
+
 version:1.0.8
 date: 2019-11-5
 author: lim

@@ -111,3 +111,7 @@
     top: 6px;
 
 }
+.trips-tab__panel{
+
+  margin-top: 250rpx;
+}
