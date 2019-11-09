@@ -212,6 +212,11 @@ Page({
         showUserDialog: true
       });
     }
+    else{
+      this.setData({
+        showUserDialog: false
+      });
+    }
   },
   __checkAuth() {
     var roleDesc = 'WX_USER';

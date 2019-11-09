@@ -163,6 +163,6 @@
   </view>
 </view>
 
-<mp-dialog title="温馨提示" show="{{userInfo.role<3}}" bindbuttontap="tapDialogButton" bindclose="tapDialogClose" buttons="{{buttons}}">
+<mp-dialog title="温馨提示" show="{{!userInfo || userInfo.role<3}}" bindbuttontap="tapDialogButton" bindclose="tapDialogClose" buttons="{{buttons}}">
   <view>您需要实名认证才能发布</view>
 </mp-dialog>

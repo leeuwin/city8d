@@ -17,7 +17,6 @@
     "pages/driver/driver",
     "pages/realname/realname",
     "pages/coupon/coupon",
-    "pages/authentic/authentic",
     "pages/order/order"
   ],
   "permission": {
