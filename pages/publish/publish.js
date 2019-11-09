@@ -81,7 +81,7 @@ Page({
   onShow() {
     this.__getUserInfo().then(() => {
     });
-   // this.checkAuth();
+    this.checkAuth();
   },
 
   tapDialogButton(e) {

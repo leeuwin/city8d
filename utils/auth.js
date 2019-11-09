@@ -66,7 +66,7 @@ class Auth {
   // 显示实名认证弹窗
   __showModalRealname(page, action) {
     wx.showModal({
-      title: '提示',
+      title: '温馨提示',
       content: '您未实名认证',
       cancelText: '暂不认证',
       confirmText: '立即认证',
@@ -84,7 +84,7 @@ class Auth {
 
   __showModalDriver() {
     wx.showModal({
-      title: '提示',
+      title: '温馨提示',
       content: '需要您进行车主认证',
       cancelText: '暂不认证',
       confirmText: '立即认证',

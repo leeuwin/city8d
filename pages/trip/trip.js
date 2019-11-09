@@ -193,7 +193,7 @@ Page({
   },
   // 用户更新
   onUserUpdate(e) {
-    const userInfo = e.detail.user;
+    const userInfo = e.detail.userInfo;
     const app = getApp();
     app.globalData.userInfo = userInfo; // 更新app用户信息
     this.setData({ userInfo, showUserDialog: false });  // 更新本上下文用户信息
