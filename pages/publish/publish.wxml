@@ -59,7 +59,7 @@
         </mp-cell>
         <mp-cell show-error prop="phone" ext-class="">
           <image slot="icon" src="/images/icon/price.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
-          <input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="单个座位价格" type="text" value="{{trip.price}}" />
+          <input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="单个座位价格" type="digit" value="{{trip.price}}" />
         </mp-cell>
         <mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
           <image slot="icon" src="/images/icon/key.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
