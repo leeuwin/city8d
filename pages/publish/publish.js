@@ -17,30 +17,35 @@ function random(lower, upper) {
 
 Page({
   data: {
+    tips: {
+      fromAddrName:'从哪出发',
+      throughAddrName:'途经(选城市端出入口地标)',
+      destAddrName:'要到哪去',
+    },
     trip: {
       type: 1, // 1 车辆行程 2 乘客行程 3 寄件行程
-      fromAddrName: '哪里出发', // 出发地名称
+      fromAddrName: '', // 出发地名称
       fromAddress: '', // 出发地地址
       fromLongitude: '', // 出发地经度
       fromLatitude: '', // 出发地纬度
-      throughAddrName: '途经(选填)', // 出发地名称
+      throughAddrName: '', // 出发地名称
       throughAddress: '', // 出发地地址
       throughLongitude: null, // 出发地经度
       throughLatitude: null, // 出发地纬度
-      destAddrName: '要去哪里', // 名称
+      destAddrName: '', // 名称
       destAddress: '', // 地址
       destLongitude: null, // 经度
       destLatitude: null, // 纬度
       price: 0,         //行程单价
       startTime: '12:00', //出发最早时间
       endTime: '12:30', //出发最迟时间（默认最早后半小时）
-      seatCount: 3, // 座位数
+      seatCount: 2, // 座位数
       cargoCount: 1,  //行李容量
       remarks: '', // 备注信息
       date: formatTime().date, // 日期
       weekday: formatTime().weekday,//星期
-      earliestTime: '最早出发时间',
-      latestTime: '最迟出发时间',
+      earliestTime: '最早时间',
+      latestTime: '最迟时间',
       passwd: random(10,99)
     },
     dstRegion: ['不限', '不限', '不限'],

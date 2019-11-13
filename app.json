@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/publish/publish",
     "pages/phone/phone",
     "pages/trips/trips",
     "pages/jointrip/jointrip",
@@ -8,7 +9,6 @@
     "pages/mytrip/mytrip",
     "pages/trip/trip",
     "pages/list/list",
-    "pages/publish/publish",
     "pages/my/my",
     "pages/disclaimer/disclaimer",
     "pages/car/car",
