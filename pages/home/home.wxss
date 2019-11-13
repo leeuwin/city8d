@@ -44,6 +44,7 @@
 
 .city-name {
   color: #fff;
+  margin-bottom:20rpx;
   font-size: 40rpx;
   z-index: 1;
   position: relative;
