@@ -7,21 +7,24 @@
         <mp-cell show-error prop="phone" ext-class="">
           <image slot="icon" src="/images/icon/from.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
           <view id="from" class="weui-input {{ trip.fromAddrName === '' ? 'placeholder' : '' }} " bindtap="{{ trip.fromAddrName === '' ? 'bindGetLocation' : 'bindChooseLocation' }}">{{ trip.fromAddrName === '' ? tips.fromAddrName : trip.fromAddrName }}</view>
-          <!--input id="phone" bindinput="bindKeyInput" data-field="mobile" class="weui-input" placeholder="从哪出发" type="text" /-->
         </mp-cell>
         <mp-cell show-error prop="vcode" ext-class="">
           <image slot="icon" src="/images/icon/through.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
           <view id="through" class="weui-input {{ trip.throughAddrName === '' ? 'placeholder' : '' }} " bindtap="bindChooseLocation">{{ trip.throughAddrName === '' ? tips.throughAddrName : trip.throughAddrName }}</view>
-          <!--input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="途经(选城市端出入口地标)" type="text" /-->
         </mp-cell>
         <mp-cell show-error prop="phone" ext-class="">
           <image slot="icon" src="/images/icon/dest.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
-          <view id="dest" class="weui-input {{ trip.destAddrName === '' ? 'placeholder' : '' }} " bindtap="bindChooseLocation">{{ trip.destAddrName === '' ? tips.destAddrName : trip.destAddrName }}</view>
-          <!--input id="p" bindinput="bindKeyInput" data-field="mobile" class="weui-input" placeholder="要到哪去 " type="text" /-->
+          <!--view id="dest" class="weui-input {{ trip.destAddrName === '' ? 'placeholder' : '' }} " bindtap="bindChooseLocation">{{ trip.destAddrName === '' ? tips.destAddrName : trip.destAddrName }}</view-->
+          <view wx:if="{{ trip.destAddrName === ''}}" class="weui-cell__bd placeholder">
+            <picker mode="region" custom-item="不限" value="{{dstRegion}}" id="dst" bindchange="bindPickerDestChange" class="{{ trip.destAddrName === '' ? 'placeholder' : '' }}">{{ trip.destAddrName === '' ? tips.destAddrName : trip.destAddrName }}</picker>
+          </view>
+          <view wx:else class="weui-cell__bd" id="dest" bindtap="bindChooseLocation">
+            {{ trip.destAddrName }}
+          </view>
         </mp-cell>
       </mp-cells>
 
-      <mp-cells title="其他信息" footer="牢记【确认码】，且只提供给您同意上车的乘客，您也可以重新设置">
+      <mp-cells title="其他信息" footer="牢记【确认码】，且只提供给您【同意】上车的乘客，您也可以删除修改重新设置">
         <mp-cell show-error prop="phone" ext-class="">
           <image slot="icon" src="/images/icon/date.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
           <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindDateChange">
@@ -29,7 +32,6 @@
               {{ trip.date }} {{trip.weekday}}
             </view>
           </picker>
-          <!--input id="phone" bindinput="bindKeyInput" data-field="mobile" class="weui-input" placeholder="出行日期" type="text" /-->
         </mp-cell>
         <mp-cell show-error prop="phone" ext-class="">
           <image slot="icon" src="/images/icon/time.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
@@ -39,14 +41,12 @@
                 {{ trip.earliestTime }}
               </view>
             </picker>
-            <!--input id="phone" bindinput="bindKeyInput" data-field="mobile" class="weui-input" placeholder="最早时间" type="text" /-->
             <image src="/images/icon/to-right.png" style="margin-right:16px;vertical-align: middle;width:40px; height: 20px;"></image>
             <picker name="latestTime" mode="time" value="{{ trip.latestTime }}" start="{{ trip.earliestTime }}" end="22:30" id="latestTime" bindchange="bindPickerChange">
               <view class="picker-time {{ trip.latestTime === '最迟时间' ? 'placeholder' : '' }}">
                 {{ trip.latestTime }}
               </view>
             </picker>
-            <!--input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="最迟时间" type="text" /-->
           </view>
         </mp-cell>
         <mp-cell show-error prop="phone" ext-class="">
@@ -59,24 +59,23 @@
         </mp-cell>
         <mp-cell show-error prop="phone" ext-class="">
           <image slot="icon" src="/images/icon/price.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
-          <input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="单个座位价格" type="text" />
+          <input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="单个座位价格" type="text" value="{{trip.price}}" />
         </mp-cell>
-         <mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
+        <mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
           <image slot="icon" src="/images/icon/key.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
           <input id="phone" value="{{trip.passwd}}" bindinput="bindPwdInput" maxlength="2" data-field="mobile" class="weui-input" placeholder="确认码" type="number" />
           <view slot="footer" class="weui-vcode-btn">什么是确认码?</view>
           <!--footer="说明：验证码【保护您】发布的信息不被恶意消耗下架，只有电话咨询您并【得到您许可才告知其验证码】，乘客拿到验证码后加入你的行程，他将补充【位置信息】和【真实电话】，系统将会统一展示，方便您安排、通知行程"-->
         </mp-cell>
       </mp-cells>
-      <mp-cells title="留言">
-       <mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
-         <textarea name="message" class="weui-textarea" placeholder="" style="height: 4em" id="remarks" bindblur="bindPickerChange" />
+      <mp-cells title="我要留言">
+        <mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
+          <textarea name="message" class="weui-textarea" placeholder="" style="height: 200rpx" id="remarks" bindblur="bindPickerChange" />
         </mp-cell>
       </mp-cells>
 
     </mp-form>
-    
-    <view class="weui-btn-area"><checkbox-group bindchange="bindAgreeChange">
+    <checkbox-group bindchange="bindAgreeChange">
       <label class="weui-agree" for="weuiAgree">
         <view class="weui-agree__text">
           <checkbox class="" id="weuiAgree" value="agree" checked="{{isAgree}}" /> 阅读并同意
@@ -84,6 +83,7 @@
         </view>
       </label>
     </checkbox-group>
+    <view class="weui-btn-area">
       <button class="weui-btn" type="primary" bindtap="bindFormSubmit" disabled="{{ !isAgree }}">马上发布</button>
       <button class="weui-btn" type="default" bindtap="bindFormReset">重新填写</button>
     </view>

@@ -36,11 +36,11 @@ Page({
       destAddress: '', // 地址
       destLongitude: null, // 经度
       destLatitude: null, // 纬度
-      price: 0,         //行程单价
-      startTime: '12:00', //出发最早时间
-      endTime: '12:30', //出发最迟时间（默认最早后半小时）
-      seatCount: 2, // 座位数
-      cargoCount: 1,  //行李容量
+      price: '',         //行程单价
+      startTime: '6:00', //出发最早时间
+      endTime: '7:00', //出发最迟时间（默认最早后半小时）
+      seatCount: 1, // 座位数
+      cargoCount: 0,  //行李容量
       remarks: '', // 备注信息
       date: formatTime().date, // 日期
       weekday: formatTime().weekday,//星期
@@ -513,18 +513,19 @@ Page({
   // 重置表单
   bindFormReset: function () {
     this.setData({
-      ['trip.fromAddrName']: '哪里出发',
-      ['trip.throughAddrName']: '途经(选填)',
-      ['trip.destAddrName']: '要去哪里',
+      ['trip.fromAddrName']: '',
+      ['trip.throughAddrName']: '',
+      ['trip.destAddrName']: '',
       ['trip.date']: formatTime().date,
       ['trip.weekday']: formatTime().weekday,
-      ['trip.earliestTime']: '最早出发时间',
-      ['trip.latestTime']: '最迟出发时间',
-      ['trip.seatCount']: 3,
-      ['trip.cargoCount']: 1,
-      ['trip.price']: 0,
+      ['trip.earliestTime']: '最早时间',
+      ['trip.latestTime']: '最迟时间',
+      ['trip.seatCount']: 1,
+      ['trip.cargoCount']: 0,
+      ['trip.price']: '',
       ['trip.remarks']: '',
-      ['isAgree']:false
+      ['isAgree']:false,
+      ['trip.passwd']: random(10, 99)
     });
     wx.pageScrollTo({
       scrollTop: 0,
