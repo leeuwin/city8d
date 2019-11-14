@@ -462,7 +462,12 @@ Page({
       }
     })
   },
-
+  onEditTrip()
+  {
+      wx.navigateTo({
+        url: '/pages/edittrip/edittrip',
+      });
+  },
   // 校验权限
   checkAuth(action) {
     const auth = new Auth();

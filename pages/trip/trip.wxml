@@ -85,7 +85,7 @@
           <image class="share-button-icon" src="/images/icon/follow.png"></image>
           关注本行程
         </button>
-        <button class="share-button"  bindtap="" open-type="" wx:else>
+        <button class="share-button"  bindtap="onEditTrip" open-type="" wx:else>
           <image class="share-button-icon" src="/images/icon/edit.png"></image>
           编辑本行程
         </button>

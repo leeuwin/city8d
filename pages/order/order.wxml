@@ -1,9 +1,58 @@
 <!--pages/order/order.wxml-->
-<text>这里将展示加入行程的乘客的信息，方便司机发布通知消息，管理乘客；</text>
 <view class="page">
   <map id="myMap" class="my-map" markers="{{markers}}" bindmarkertap="markertap" include-points="{{includePoints}}" polyline="{{polyline}}" show-location="{{ true }}" scale="{{ 11 }}" hidden="{{ showShareDialog }}"></map>
-<text>将在地图上标记乘客的地点</text>
+  <view style="color:#f00;margin:20rpx;">
+    <text>您可编辑用户位置修改指定候车点</text>
+  </view>
+  <block wx:for="{{ passengers }}" wx:for-item="passenger">
+    <view class="trip-item">
+      <view class="trip-item__hd ">
+        <view class="userinfo">
+          <image class="avatar" src="{{ trip.user.avatarUrl ? trip.user.avatarUrl : '/images/icon/da.png' }}" />
+          <view class="credit">
+            <view class="nickname">{{ trip.user.nickName }}</view>
+            <view class="value">信用：{{ trip.user.credit ? trip.user.credit : 0 }}</view>
+            <view style="color:#f00;">{{passenger}}人</view>
+          </view>
+        </view>
+        <view class="info-item__img-button">
+          <image class="info-item__seat-icon" src="/images/icon/call1.png"></image>
+          电话
+        </view>
+      </view>
+      <view class="trip-item__bd">
+        <view class="trip-info">
+          <view class="info-item info-detail-item" bindtap="bindFromMap">
+            <image class="info-item__icon" src="/images/icon/from.png"></image>
+            <view>{{ trip.fromAddrName }}</view>
+          </view>
+          <view class="info-item info-detail-item info-detail-location" bindtap="bindDestMap">
+            <image class="info-item__icon" src="/images/icon/dest.png"></image>
+            <view>{{ trip.destAddrName }}</view>
+          </view>
+          <view class="info-item info-detail-item" bindtap="bindDestMap">
 
-<view>乘客1的位置，留言</view>
-<text>可以编辑修改乘客的上车位置</text>
+            <view class="info-item info-detail-item">
+              <image class="info-item__icon" src="/images/icon/type.png"></image>
+              <view>备注{{ trip.remarks }}</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="info-item__img-button">
+          <view>
+            <image class="info-item__seat-icon" src="/images/icon/edit.png"></image>
+            编辑
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </block>
+
+
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="submit">广播发车</button>
+    <button class="weui-btn" type="default" bindtap="cancel">返回行程</button>
+  </view>
 </view>

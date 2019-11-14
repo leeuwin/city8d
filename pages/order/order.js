@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    passengers:[1,1,2],
   },
 
   /**
@@ -61,6 +61,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+
+  },
+  cancel:function(){
+    wx.navigateBack({
+    });
 
   }
 })
