@@ -40,10 +40,8 @@
         </view>
 
         <view class="info-item__img-button">
-          <view>
             <image class="info-item__seat-icon" src="/images/icon/edit.png"></image>
             编辑
-          </view>
         </view>
       </view>
     </view>

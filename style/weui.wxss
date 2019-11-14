@@ -978,6 +978,7 @@ button.weui-vcode-btn {
 
 .weui-btn-area {
   margin: 48px 16px 8px;
+  padding-bottom: 30px;/*按钮下方增加间距避免误操作*/
 }
 
 .weui-btn-area_inline {
