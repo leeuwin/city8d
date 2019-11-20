@@ -24,7 +24,7 @@
         </mp-cell>
       </mp-cells>
 
-      <mp-cells title="其他信息" footer="牢记【确认码】，且只提供给您【同意】上车的乘客，您也可以删除修改重新设置">
+      <mp-cells title="其他信息">
         <mp-cell show-error prop="phone" ext-class="">
           <image slot="icon" src="/images/icon/date.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
           <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindDateChange">
@@ -61,12 +61,12 @@
           <image slot="icon" src="/images/icon/price.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
           <input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="单个座位价格" type="digit" value="{{trip.price}}" />
         </mp-cell>
-        <mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
+        <!--mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
           <image slot="icon" src="/images/icon/key.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
           <input id="phone" value="{{trip.passwd}}" bindinput="bindPwdInput" maxlength="2" data-field="mobile" class="weui-input" placeholder="确认码" type="number" />
           <view slot="footer" class="weui-vcode-btn">什么是确认码?</view>
-          <!--footer="说明：验证码【保护您】发布的信息不被恶意消耗下架，只有电话咨询您并【得到您许可才告知其验证码】，乘客拿到验证码后加入你的行程，他将补充【位置信息】和【真实电话】，系统将会统一展示，方便您安排、通知行程"-->
-        </mp-cell>
+          <footer="说明：验证码【保护您】发布的信息不被恶意消耗下架，只有电话咨询您并【得到您许可才告知其验证码】，乘客拿到验证码后加入你的行程，他将补充【位置信息】和【真实电话】，系统将会统一展示，方便您安排、通知行程">
+        </mp-cell-->
       </mp-cells>
       <mp-cells title="我要留言">
         <mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
@@ -89,3 +89,9 @@
     </view>
   </view>
 </view>
+
+<mp-dialog title="发布成功" show="{{publish_success}}" bindbuttontap="tapDialogButton1" bindclose="tapDialogClose1" buttons="{{publish_buttons}}">
+  <view  style="color:#444;font-size:48rpx;" >确认码：{{trip.passwd}}</view>
+  <view style="color:#f00;font-size:38rpx;margin-bottom:10rpx;">请牢记[确认码]，当乘客电话咨询时，如果同意上车则告知[确认码]</view>
+  <view style="color:#555;font-size:32rpx;margin-bottom:10rpx;">如果忘记确认码，可以在[我的行程]明细中找到</view>
+</mp-dialog>

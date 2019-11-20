@@ -17,6 +17,7 @@ function random(lower, upper) {
 
 Page({
   data: {
+    publish_success:false,
     tips: {
       fromAddrName:'从哪出发',
       throughAddrName:'途经(选城市端出入口地标)',
@@ -62,6 +63,7 @@ Page({
     isAgree: false,
     isBindPhone: true,
     buttons: [{ text: '暂不认证' }, { text: '立即认证' }],
+    publish_buttons:[{text:'我记住了'}],
     showTopTips: false,
     errorMsg: ''
   },
@@ -108,6 +110,26 @@ Page({
       url: '/pages/home/home',
     });
   },
+
+  tapDialogButton1(e) {
+    console.log(e);
+
+    if (e.detail.index == 0) {
+      this.setData({
+        publish_success: false
+      });
+      wx.switchTab({
+        url: '/pages/mytrip/mytrip',
+      });
+    }
+  },
+  tapDialogClose1(e) {
+    wx.switchTab({
+      url: '/pages/mytrip/mytrip',
+    });
+  },
+
+
   // 获取用户信息
   __getUserInfo() {
     const promise = new Promise((resolve, reject) => {
@@ -570,15 +592,21 @@ Page({
     const publish = new Publish();
     publish.createTrip(this.data.trip)
       .then(res => {
+        wx.hideLoading();
+        this.bindFormReset();
+        this.setData({
+          publish_success:true
+        });
+        /*
         wx.showToast({
           title: '发布成功'
         });
-        this.bindFormReset();
         setTimeout(() => {
           wx.switchTab({
             url: '/pages/trips/trips'
           })
-        }, 1000)
+        }, 1000);
+        */
       })
       .catch(error => {
         wx.hideLoading();

@@ -44,3 +44,12 @@
 .picker{
   text-align: right;
 }
+
+.my-btn-area{
+  display: flex;
+}
+.my-btn{
+  margin-left: 10rpx;
+  display: flex;
+  flex-direction: row;
+}
