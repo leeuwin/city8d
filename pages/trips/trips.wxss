@@ -13,7 +13,9 @@
   z-index: 1;
   font-size: 34rpx;
 }
-
+.trips-tab__panel{
+  margin-top: 250rpx;
+}
 .trips-navbar .weui-navbar__item {
   padding: 38rpx;
   display: flex;
