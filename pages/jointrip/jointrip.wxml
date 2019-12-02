@@ -6,7 +6,17 @@
       <mp-cells title="完善信息方便司机与您对接" footer="司机可能根据行程调整您的上车位置">
         <mp-cell show-error prop="seat">
           <image slot="icon" src="/images/icon/person.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
-          <picker class="weui-input" mode="selector" range="{{seatItems}}" bindchange="bindSeatChange" value="{{seatItems[seatItemsIndex]-1}}">预定 [ {{seatItems[seatItemsIndex]}} ] 个座位</picker>
+          <!--picker class="weui-input" mode="selector" range="{{seatItems}}" bindchange="bindSeatChange" value="{{seatItems[seatItemsIndex]-1}}">预定 [ {{seatItems[seatItemsIndex]}} ] 个座位</picker-->
+          <view style="display:flex;">
+            <text style="margin:auto 0;">预定</text>
+            <view class='stepper sum'>
+              <text class='{{minusStatus}}' type='number' bindtap='bindMinus'>-</text>
+              <!--text>{{num}}</text-->
+              <input bindinput='bindManual' value='{{num}}'></input>
+              <text bindtap='bindPlus'>+</text>
+            </view>
+            <text style="margin:auto 0;">个座位</text>
+          </view>
         </mp-cell>
         <mp-cell show-error prop="from">
           <image slot="icon" src="/images/icon/from.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>

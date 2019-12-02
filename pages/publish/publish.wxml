@@ -68,11 +68,22 @@
             </mp-cell>
             <mp-cell show-error prop="phone" ext-class="">
               <image slot="icon" src="/images/icon/person.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
-              <picker name="passageCount" value="{{ trip.seatCount-1 }}" range="{{ SEATS }}" bindchange="bindSeatChange">
+              <view style="display:flex;">
+                <text style="margin:auto 0;">发布</text>
+                <view class='stepper sum'>
+                  <text class='{{minusStatus}}' type='number' bindtap='bindMinus'>-</text>
+                  <!--text>{{num}}</text-->
+                  <input bindinput='bindManual' value='{{num}}'></input>
+                  <text bindtap='bindPlus'>+</text>
+                </view>
+                <text style="margin:auto 0;">个座位</text>
+              </view>
+
+              <!--picker name="passageCount" value="{{ trip.seatCount-1 }}" range="{{ SEATS }}" bindchange="bindSeatChange">
                 <view class="{{ trip.seatCount =='几'?'placeholder':'weui-input'}}">
                   {{ trip.seatCount }} 个座位
                 </view>
-              </picker>
+              </picker-->
             </mp-cell>
             <mp-cell show-error prop="phone" ext-class="">
               <image slot="icon" src="/images/icon/price.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>

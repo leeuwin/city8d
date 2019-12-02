@@ -1,3 +1,10 @@
+version:1.0.12
+date: 2019-12-03
+author: lim
+content:
+1. 将座位数量由selector改为+-按钮
+2. publish页面增加tab头；
+
 version:1.0.11
 date: 2019-11-14
 author: lim

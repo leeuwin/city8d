@@ -1,5 +1,7 @@
 Page({
   data: {
+    num: 1,
+    minusStatus: 'disable',
     showTopTips: false,
     seatItems: [1, 2, 3, 4, 5, 6],
     seatItemsIndex: 0,
@@ -10,13 +12,22 @@ Page({
     },
     rules: [{
       name: 'seat',
-      rules: { required: true, message: '请选择[座位数量]' },
+      rules: {
+        required: true,
+        message: '请选择[座位数量]'
+      },
     }, {
       name: 'from',
-      rules: { required: true, message: '请用地图标记[上车点]' },
+      rules: {
+        required: true,
+        message: '请用地图标记[上车点]'
+      },
     }, {
       name: 'dest',
-      rules: { required: true, message: '请用地图标记[下车点]' },
+      rules: {
+        required: true,
+        message: '请用地图标记[下车点]'
+      },
     }],
     trip: {
       fromAddrName: '在哪里上车', // 出发地名称
@@ -36,7 +47,7 @@ Page({
       [`formData.seat`]: e.detail.value
     })
   },
-  bindAgreeChange: function (e) {
+  bindAgreeChange: function(e) {
     this.setData({
       isAgree: !!e.detail.value.length
     });
@@ -63,12 +74,11 @@ Page({
       }
     })
   },
-  cancelForm()
-  {
+  cancelForm() {
     wx.navigateBack();
   },
   // 获取出发地址
-  bindChooseLocation: function (e) {
+  bindChooseLocation: function(e) {
     let _this = this;
     var id = e.currentTarget.id;
     wx.getSetting({
@@ -115,9 +125,9 @@ Page({
     var preLatitude = _this.data.trip[`${id}Latitude`];
     var preLongitude = _this.data.trip[`${id}Longitude`];
     console.log("chooselocation open lat=" + preLatitude + " lng=" + preLongitude);
-    if (!preLatitude && !preLongitude) {//避免安卓打开0，0坐标的位置；
+    if (!preLatitude && !preLongitude) { //避免安卓打开0，0坐标的位置；
       wx.chooseLocation({
-        success: function (res) {
+        success: function(res) {
           const key = `trip.${id}`,
             name = `${key}AddrName`,
             address = `${key}Address`,
@@ -131,17 +141,16 @@ Page({
             [`formData.${id}`]: 1
           });
         },
-        fail: function (error) {
+        fail: function(error) {
           console.log(error);
           console.log("获取失败");
         }
       });
-    }
-    else {
+    } else {
       wx.chooseLocation({
         latitude: preLatitude,
         longitude: preLongitude,
-        success: function (res) {
+        success: function(res) {
           const key = `trip.${id}`,
             name = `${key}AddrName`,
             address = `${key}Address`,
@@ -155,11 +164,43 @@ Page({
             [`formData.${id}`]: 1
           });
         },
-        fail: function (error) {
+        fail: function(error) {
           console.log(error);
           console.log("获取失败");
         }
       });
     }
   },
+
+  bindMinus: function() {
+    var num = this.data.num;
+    if (num > 1) {
+      num--;
+    }
+    var minusStatus = num > 1 ? 'normal' : 'disable';
+    this.setData({
+      num: num,
+      minusStatus: minusStatus
+    })
+  },
+  /*点击加号*/
+  bindPlus: function() {
+    var num = this.data.num;
+    num++;
+    var minusStatus = num > 1 ? 'normal' : 'disable';
+    this.setData({
+      num: num,
+      minusStatus: minusStatus
+    })
+  },
+  /*输入框事件*/
+  bindManual: function(e) {
+    var num = e.detail.value;
+    var minusStatus = num > 1 ? 'normal' : 'disable';
+    this.setData({
+      num: num,
+      minusStatus: minusStatus
+    })
+  }
+
 });

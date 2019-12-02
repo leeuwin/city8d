@@ -63,13 +63,7 @@
             </view>
             <view class="info-item info-detail-item" bindtap="bindDestMap">
               <image class="info-item__icon" src="/images/icon/lugage.png"></image>
-              <view>可带行李量：[
-                <text class="info-item__red">0</text> ]登机箱，[
-                <text class="info-item__red">0</text> ]书包</view>
-            </view>
-            <view class="info-item info-detail-item">
-              <image class="info-item__icon" src="/images/icon/type.png"></image>
-              <view>其他一系列条件。。。</view>
+              <view>确认码[<text class="info-item__red">88</text>]</view>
             </view>
             <view class="info-item info-detail-item">
               <image class="info-item__icon" src="/images/icon/type.png"></image>

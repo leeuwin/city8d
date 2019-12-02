@@ -1,4 +1,5 @@
 @import "../../template/publish-tips/publish-tips.wxss";
+@import "../jointrip/jointrip.wxss";
 
 .noscroll {
   position: fixed;
