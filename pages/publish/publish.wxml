@@ -13,10 +13,145 @@
 
     <view class="weui-tab__panel trips-tab__panel">
       <view class="weui-tab__content" hidden="{{params.type !== 2}}">
-        <text>-------敬请期待------将提供乘客的出行发布</text>
+        <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+          <mp-cells title="请您选择起始点" footer="">
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/from.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <view id="from" class="weui-input {{ trip.fromAddrName === '' ? 'placeholder' : '' }} " bindtap="{{ trip.fromAddrName === '' ? 'bindGetLocation' : 'bindChooseLocation' }}">{{ trip.fromAddrName === '' ? tips.fromAddrName : trip.fromAddrName }}</view>
+            </mp-cell>
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/dest.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <!--view id="dest" class="weui-input {{ trip.destAddrName === '' ? 'placeholder' : '' }} " bindtap="bindChooseLocation">{{ trip.destAddrName === '' ? tips.destAddrName : trip.destAddrName }}</view-->
+              <view wx:if="{{ trip.destAddrName === ''}}" class="weui-cell__bd placeholder">
+                <picker mode="region" custom-item="不限" value="{{dstRegion}}" id="dst" bindchange="bindPickerDestChange" class="{{ trip.destAddrName === '' ? 'placeholder' : '' }}">{{ trip.destAddrName === '' ? tips.destAddrName : trip.destAddrName }}</picker>
+              </view>
+              <view wx:else class="weui-cell__bd" id="dest" bindtap="bindChooseLocation">
+                {{ trip.destAddrName }}
+              </view>
+            </mp-cell>
+          </mp-cells>
+
+          <mp-cells title="其他信息">
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/date.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindDateChange">
+                <view class="picker">
+                  {{ trip.date }} {{trip.weekday}}
+                </view>
+              </picker>
+            </mp-cell>
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/time.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <view style="display:flex;justify-content:space-between;">
+                <picker name="earliestTime" mode="time" value="{{ trip.startTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerTimeChange">
+                  <view class="{{ trip.earliestTime === '最早时间' ? 'placeholder' : '' }}">
+                    {{ trip.earliestTime }}
+                  </view>
+                </picker>
+                <image src="/images/icon/to-right.png" style="margin-right:16px;vertical-align: middle;width:40px; height: 20px;"></image>
+                <picker name="latestTime" mode="time" value="{{ trip.latestTime }}" start="{{ trip.earliestTime }}" end="22:30" id="latestTime" bindchange="bindPickerChange">
+                  <view class="picker-time {{ trip.latestTime === '最迟时间' ? 'placeholder' : '' }}">
+                    {{ trip.latestTime }}
+                  </view>
+                </picker>
+              </view>
+            </mp-cell>
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/person.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <view style="display:flex;">
+                <text style="margin:auto 0;">预定</text>
+                <view class='stepper sum'>
+                  <text class='{{minusStatus}}' type='number' bindtap='bindMinus'>-</text>
+                  <!--text>{{num}}</text-->
+                  <input bindinput='bindManual' value='{{num}}'></input>
+                  <text bindtap='bindPlus'>+</text>
+                </view>
+                <text style="margin:auto 0;">个座位</text>
+              </view>
+            </mp-cell>
+          </mp-cells>
+          <mp-cells title="我要留言">
+            <mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
+              <textarea name="message" class="weui-textarea" placeholder="" style="height: 200rpx" id="remarks" bindblur="bindPickerChange" />
+            </mp-cell>
+          </mp-cells>
+
+        </mp-form>
       </view>
       <view class="weui-tab__content" hidden="{{params.type !== 3}}">
-        <text>-------敬请期待------将提供寄件订单的发布</text>
+        <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+          <mp-cells title="请您填写收寄信息" footer="">
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/from.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <view id="from" class="weui-input {{ trip.fromAddrName === '' ? 'placeholder' : '' }} " bindtap="{{ trip.fromAddrName === '' ? 'bindGetLocation' : 'bindChooseLocation' }}">{{ trip.fromAddrName === '' ? tips.fromAddrName : trip.fromAddrName }}</view>
+            </mp-cell>
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/dest.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+             
+              <view wx:if="{{ trip.destAddrName === ''}}" class="weui-cell__bd placeholder">
+                <picker mode="region" custom-item="不限" value="{{dstRegion}}" id="dst" bindchange="bindPickerDestChange" class="{{ trip.destAddrName === '' ? 'placeholder' : '' }}">{{ trip.destAddrName === '' ? tips.destAddrName : trip.destAddrName }}</picker>
+              </view>
+              <view wx:else class="weui-cell__bd" id="dest" bindtap="bindChooseLocation">
+                {{ trip.destAddrName }}
+              </view>
+            </mp-cell>
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/person.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <view id="from" class="placeholder" bindtap="">请输入收件人名字</view>
+            </mp-cell>
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/phone.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <view id="from" class="placeholder" bindtap="">请输入收件人电话</view>
+            </mp-cell>
+          </mp-cells>
+
+          <mp-cells title="其他信息">
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/date.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <picker mode="date" value="{{ trip.date }}" start="{{ today }}" end="{{ maxday }}" id="date" bindchange="bindDateChange">
+                <view class="picker">
+                  {{ trip.date }} {{trip.weekday}}
+                </view>
+              </picker>
+            </mp-cell>
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/time.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <view style="display:flex;justify-content:space-between;">
+                <picker name="earliestTime" mode="time" value="{{ trip.startTime }}" start="06:00" end="22:00" id="earliestTime" bindchange="bindPickerTimeChange">
+                  <view class="{{ trip.earliestTime === '最早时间' ? 'placeholder' : '' }}">
+                    {{ trip.earliestTime }}
+                  </view>
+                </picker>
+                <image src="/images/icon/to-right.png" style="margin-right:16px;vertical-align: middle;width:40px; height: 20px;"></image>
+                <picker name="latestTime" mode="time" value="{{ trip.latestTime }}" start="{{ trip.earliestTime }}" end="22:30" id="latestTime" bindchange="bindPickerChange">
+                  <view class="picker-time {{ trip.latestTime === '最迟时间' ? 'placeholder' : '' }}">
+                    {{ trip.latestTime }}
+                  </view>
+                </picker>
+              </view>
+            </mp-cell>
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/lugage.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="请输入物品名称" type="digit" value="{{trip.price}}" />
+            </mp-cell>
+            <mp-cell show-error prop="vcode"  ext-class="weui-cell_vcode">
+            <image slot="icon" src="/images/icon/height.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="请输入物品重量" type="number" maxlength="6"/>
+          <view slot="footer" class="weui-vcode-btn">kg</view>
+        </mp-cell>
+            <mp-cell show-error prop="phone" ext-class="">
+              <image slot="icon" src="/images/icon/price.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+              <input id="vcode" bindinput="bindKeyInput" data-field="vcode" class="weui-input" placeholder="寄件价格" type="digit" value="{{trip.price}}" />
+            </mp-cell>
+            
+          </mp-cells>
+          <mp-cells title="我要留言">
+            <mp-cell show-error prop="phone" ext-class="weui-cell_vcode">
+              <textarea name="message" class="weui-textarea" placeholder="" style="height: 200rpx" id="remarks" bindblur="bindPickerChange" />
+            </mp-cell>
+          </mp-cells>
+
+        </mp-form>
       </view>
       <view class="weui-tab__content" hidden="{{params.type !== 1}}">
         <mp-form id="form" rules="{{rules}}" models="{{formData}}">

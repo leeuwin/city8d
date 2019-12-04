@@ -44,7 +44,6 @@
   margin-top: 0;
   background-color: #f3f4f5;
   position: fixed;
-  z-index: 1;
   font-size: 34rpx;
 }
 /*

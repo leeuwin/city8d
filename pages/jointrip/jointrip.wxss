@@ -1,6 +1,6 @@
 /*全局样式*/
 page {
-padding: 20px 0;
+padding: 0;
 }
 /*主容器*/
 .stepper {

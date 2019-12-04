@@ -1,3 +1,10 @@
+version:1.0.13
+date: 2019-12-05
+author: lim
+content:
+1. 新增publish页面的乘客和寄件
+2.待完善（publish页面tab选项根据用户类型生成展示）
+
 version:1.0.12
 date: 2019-12-03
 author: lim
