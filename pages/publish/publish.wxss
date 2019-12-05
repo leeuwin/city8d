@@ -13,7 +13,7 @@
 } */
 
 .weui-cell__hd {
-  margin-right: 10px;
+  margin: 0 2px;
 }
 .publish__icon {
   width: 24px;

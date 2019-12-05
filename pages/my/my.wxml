@@ -15,7 +15,7 @@
       <view class="weui-panel__bd">
         <view class="weui-flex weui-flex__console">
           <navigator url="/pages/mytrip/mytrip" open-type="switchTab" class="weui-flex__item weui-flex__console-item">
-            <image src="/images/icon/add_trip1.png" style="width: 20px; height: 20px;"></image>
+            <image src="/images/icon/historyorder.png" style="width: 20px; height: 20px;"></image>
             <view>
               <view>
                 历史订单

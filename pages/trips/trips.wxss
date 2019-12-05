@@ -51,7 +51,7 @@
   display: flex;
 }
 .my-btn{
-  margin-left: 10rpx;
+  margin-left: 20rpx;
   display: flex;
   flex-direction: row;
 }
