@@ -17,8 +17,7 @@
     "pages/driver/driver",
     "pages/realname/realname",
     "pages/coupon/coupon",
-    "pages/order/order",
-    "pages/edittrip/edittrip"
+    "pages/order/order"
   ],
   "permission": {
     "scope.userLocation": {
