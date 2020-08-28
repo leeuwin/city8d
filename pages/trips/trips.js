@@ -14,8 +14,8 @@ Page({
     userInfo: null,
     showDialogUserInfo: false,
     params: {
-      srcRegion:'',
-      destRegion: '', 
+      srcRegion:[],
+      dstRegion: [], 
       departureDate:'',
       type: 1, // 1. 人找车 2. 车找人
       pageSize: PAGESIZE, // 每页数量
@@ -217,6 +217,8 @@ console.log(res);
     const type = this.data.params.type;
     const tripType = 'driverTrips';
     const trips = new Trips();
+    this.data.params.srcRegion = this.data.srcRegion;
+    this.data.params.dstRegion = this.data.dstRegion;
     const params = this.data.params;
     trips.query(params).then(res => {
       const data = res.data;
@@ -319,6 +321,7 @@ console.log(res);
   onCall(e) {
     const phoneNumber = e.detail.phoneNumber,
       type = e.detail.type;
+    //这里可以绑定云呼叫，显示隐私号码，且限制请求频率
     const pass = this.checkAuth('trips', 'call', type);
     if (pass) {
       wx.makePhoneCall({ phoneNumber })
