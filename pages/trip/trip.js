@@ -180,6 +180,7 @@ Page({
   },
 
   onShow() {
+    this.setData({ showShareDialog: false });
     this.__getRole();
   },
   // 生命周期函数--监听页面初次渲染完成
@@ -492,13 +493,22 @@ Page({
 
   // 用户点击右上角分享
   onShareAppMessage: function(options) {
+    this.setData({ showShareDialog: true });
     const tripCode = this.data.trip.tripID;
     return {
-      title: `您收到一条顺风车行程`,
-      path: `/pages/trip/trip?scene=forward&tripCode=${tripCode}`
+      title: `点击查看行程`,
+      path: `/pages/trip/trip?scene=forward&tripCode=${tripCode}`,
+      //desc:'顺风车行程'
+      //imageUrl:'http://39.100.243.238/image/city/fuzhou2.jpg'
+
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
     }
   },
-
   // 获取分享到朋友圈图片
   onGetSharePicture() {
     wx.showLoading({

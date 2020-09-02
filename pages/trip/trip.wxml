@@ -1,7 +1,9 @@
 <wxs src="../../filter/computedDate.wxs" module="tools" />
 <view class="page">
-  <map id="myMap" class="my-map" markers="{{markers}}" bindmarkertap="markertap" include-points="{{includePoints}}" polyline="{{polyline}}" show-location="{{ true }}" scale="{{ 11 }}" hidden="{{ showShareDialog }}"></map>
+  
   <view class="trip-panel">
+
+    <map id="myMap" class="my-map" markers="{{markers}}" bindmarkertap="markertap" include-points="{{includePoints}}" polyline="{{polyline}}" show-location="{{ true }}" scale="{{ 11 }}" hidden="{{ showShareDialog }}"></map>
     <view class="trip-panel__hd">
       <view class="">
         <text class="info-item__red">路径仅供参考 地图可平移/缩小/双击放大</text>
@@ -10,6 +12,8 @@
         <view>切换视角</view>
       </view>
     </view>
+  
+
     <view class="trip-panel__bd">
       <view class="trip-item__hd ">
         <view class="userinfo">
@@ -72,8 +76,7 @@
           </view>
         </view>
       </view>
-    </view>
-    <view class="trip-panel__ft">
+      <view class="trip-panel__ft">
       <view class="page__ft-bd">
         <button class="share-button"  bindtap="" open-type="" wx:if="{{!trip.isSelf}}">
           <image class="share-button-icon" src="/images/icon/follow.png"></image>
@@ -91,7 +94,11 @@
         </button>
       </view>
     </view>
+    </view>
+    
   </view>
+  
+  
   <view class="page__ft">
     <view class="page__ft-bd">
       <!--navigator class="publish-button" open-type="switchTab" url="/pages/publish/publish">我也发一条</navigator-->
@@ -135,9 +142,9 @@
   <view>您需要先绑定手机才能联系司机</view>
 </mp-dialog>
 <user-dialog wx:if="{{ showUserDialog }}" bind:update="onUserUpdate"></user-dialog>
-<view class="share-dialog-mask" hidden="{{ !showShareDialog }}">
+<!-- <view class="share-dialog-mask" hidden="{{ !showShareDialog }}">
   <view class="share-dialog">
     <canvas canvas-id="shareCanvas" class="share-canvas" bindlongpress="saveSharePictrue"></canvas>
     <image class="close-icon" src="/images/icon/close.png" bindtap="closeShareDialog"></image>
   </view>
-</view>
+</view> -->
