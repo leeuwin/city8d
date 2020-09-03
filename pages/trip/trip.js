@@ -496,7 +496,7 @@ Page({
     this.setData({ showShareDialog: true });
     const tripCode = this.data.trip.tripID;
     return {
-      title: `点击查看行程`,
+      title: `发现顺风车行程`,
       path: `/pages/trip/trip?scene=forward&tripCode=${tripCode}`,
       //desc:'顺风车行程'
       //imageUrl:'http://39.100.243.238/image/city/fuzhou2.jpg'

@@ -4,7 +4,7 @@
   <view class="trip-panel">
 
     <map id="myMap" class="my-map" markers="{{markers}}" bindmarkertap="markertap" include-points="{{includePoints}}" polyline="{{polyline}}" show-location="{{ true }}" scale="{{ 11 }}" hidden="{{ showShareDialog }}"></map>
-    <view class="trip-panel__hd">
+    <view class="trip-panel__hd" hidden="{{ showShareDialog }}">
       <view class="">
         <text class="info-item__red">路径仅供参考 地图可平移/缩小/双击放大</text>
       </view>
@@ -84,7 +84,7 @@
         </button>
         <button class="share-button"  bindtap="onEditTrip" open-type="" wx:else>
           <image class="share-button-icon" src="/images/icon/edit.png"></image>
-          编辑本行程
+          顺路客源
         </button>
       </view>
       <view class="page__ft-bd">

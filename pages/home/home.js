@@ -1,5 +1,9 @@
 import { Home } from './home-model.js';
 import { HOT_CITY } from '../../utils/constants.js';
+import { PASSENGER_AREA } from '../../utils/constants.js';
+import { DRIVER_AREA } from '../../utils/constants.js';
+import { CONSIGNOR_AREA } from '../../utils/constants.js';
+
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 var qqmapsdk;
 const home = new Home();
@@ -7,6 +11,9 @@ const home = new Home();
 Page({
   data: {
     hotcitys: HOT_CITY,
+    passenger_area: PASSENGER_AREA,
+    driver_area: DRIVER_AREA,
+    consignor_area: CONSIGNOR_AREA,
     srcRegion: ['不限', '不限', '不限'],
     dstRegion: ['不限', '不限', '不限'],
   },

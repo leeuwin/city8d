@@ -92,7 +92,27 @@ const LOCATION = {
   latitude: '维度',
   longitude: '经度'
 }
-
+const PASSENGER_AREA = [
+  {
+    name:'人找车'
+  },
+  {
+    name:'车找我'
+  }
+]
+const DRIVER_AREA = [
+  {
+    name: '发布行程'
+  }
+]
+const CONSIGNOR_AREA = [
+  {
+    name: '货找车'
+  },
+  {
+    name: '车找我'
+  }
+]
 const HOT_CITY = [{
     code: '',
     province: '福建省',
@@ -210,5 +230,8 @@ export {
   CORE_CITY,
   PAGESIZE,
   ROLE_TYPES,
-  DRIVER_AUDIT_STATUS
+  DRIVER_AUDIT_STATUS,
+  PASSENGER_AREA,
+  DRIVER_AREA,
+  CONSIGNOR_AREA
 }

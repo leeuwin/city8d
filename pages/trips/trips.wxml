@@ -36,7 +36,7 @@
           </view>
             <view class="my-btn-area">
              <button class="my-btn" type="default" size="mini">重置</button>
-             <button class="my-btn" type="primary" size="mini">查询</button>
+             <button class="my-btn" type="primary" size="mini" style="background-color:#00b589">查询</button>
             </view>
         </view>
       </view>

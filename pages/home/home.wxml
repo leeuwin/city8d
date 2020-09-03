@@ -12,14 +12,54 @@
       </swiper-item>
     </swiper>
     <view class="page__section">
-      <view class="section__title">我的常用目的地</view>
+      <view class="section__title">开始我的行程</view>
       <view class="section__bd">
-        <block wx:for="{{ hotcitys }}" wx:key="code" wx:for-item="city">
+        <!-- 乘客 -->
+         <view class="city-area-box">
+          <view class="area-box">
+            <text class="area-name">我是乘客</text>
+          </view>
+            
+            <block wx:for="{{ passenger_area }}" wx:key="code" wx:for-item="city">
+              <view class="city-box" bindtap="toTrips" data-city="{{ city }}">
+                <text class="city-name">{{ city.name }}</text>
+              </view>
+            </block>
+          </view>
+        
+        <!-- 司机 -->
+        <view class="city-area-box">
+            <view class="area-box">
+            <text class="area-name">我是司机</text>
+          </view>
+            <block wx:for="{{ driver_area }}" wx:key="code" wx:for-item="city">
+          <view class="city-box" bindtap="toTrips" data-city="{{ city }}">
+            <!-- <image class="city-image" src="http://39.100.243.238/image/city/{{ city.ename }}.jpg"></image> -->
+            <text class="city-name">{{ city.name }}</text>
+          </view>
+        </block>
+          </view>
+        
+        <!-- 寄件 -->
+        <view class="city-area-box">
+            <view class="area-box">
+            <text class="area-name">我要寄货</text>
+          </view>
+            <block wx:for="{{ consignor_area }}" wx:key="code" wx:for-item="city">
+          <view class="city-box" bindtap="toTrips" data-city="{{ city }}">
+            <!-- <image class="city-image" src="http://39.100.243.238/image/city/{{ city.ename }}.jpg"></image> -->
+            <text class="city-name">{{ city.name }}</text>
+          </view>
+        </block>
+          </view>
+        
+
+        <!-- <block wx:for="{{ hotcitys }}" wx:key="code" wx:for-item="city">
           <view class="city-box" bindtap="toTrips" data-city="{{ city }}">
             <image class="city-image" src="http://39.100.243.238/image/city/{{ city.ename }}.jpg"></image>
             <text class="city-name">{{ city.name }}</text>
           </view>
-        </block>
+        </block> -->
       </view>
     </view>
   </view>
